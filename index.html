@@ -59,3 +59,78 @@
 
 </body>
 </html>
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我的美食私人收藏</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { scroll-behavior: smooth; }
+        .food-hero { background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=1000&q=80'); background-size: cover; background-position: center; }
+    </style>
+</head>
+<body class="bg-orange-50 text-gray-800">
+
+    <nav class="fixed w-full bg-white/90 backdrop-blur-md shadow-sm z-50">
+        <div class="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
+            <span class="text-2xl font-bold text-orange-600">🍴 美食大赏</span>
+            <div class="space-x-6 text-gray-600 font-medium">
+                <a href="#collection" class="hover:text-orange-500 transition">我的收藏</a>
+                <a href="#about" class="hover:text-orange-500 transition">关于</a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="food-hero h-[50vh] flex items-center justify-center text-white">
+        <div class="text-center">
+            <h1 class="text-4xl md:text-6xl font-black mb-4 tracking-tight">人间烟火气，最抚凡人心</h1>
+            <p class="text-lg md:text-xl opacity-90 font-light">记录我遇见的每一份美味</p>
+        </div>
+    </section>
+
+    <section id="collection" class="py-16 max-w-6xl mx-auto px-4">
+        <h2 class="text-3xl font-bold text-center mb-12 flex items-center justify-center gap-2">
+            <span class="bg-orange-500 w-8 h-1"></span>
+            今日推荐
+            <span class="bg-orange-500 w-8 h-1"></span>
+        </h2>
+        
+        <div class="grid md:grid-cols-3 gap-8">
+            <div class="bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-shadow border border-orange-100">
+                <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?auto=format&fit=crop&w=500&q=80" alt="Pizza" class="w-full h-48 object-cover">
+                <div class="p-5">
+                    <span class="text-xs font-bold text-orange-500 uppercase tracking-wider">西餐系列</span>
+                    <h3 class="text-xl font-bold mt-1 mb-2">经典玛格丽特披萨</h3>
+                    <p class="text-gray-500 text-sm">浓郁的芝士配合新鲜的罗勒叶，是意大利最纯正的味道。</p>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-shadow border border-orange-100">
+                <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=500&q=80" alt="Salad" class="w-full h-48 object-cover">
+                <div class="p-5">
+                    <span class="text-xs font-bold text-green-500 uppercase tracking-wider">健康轻食</span>
+                    <h3 class="text-xl font-bold mt-1 mb-2">牛油果烟熏三文鱼沙拉</h3>
+                    <p class="text-gray-500 text-sm">低脂又饱腹，是运动健身后的最佳搭档。</p>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-shadow border border-orange-100">
+                <img src="https://images.unsplash.com/photo-1551024601-bec78aea704b?auto=format&fit=crop&w=500&q=80" alt="Dessert" class="w-full h-48 object-cover">
+                <div class="p-5">
+                    <span class="text-xs font-bold text-pink-500 uppercase tracking-wider">甜品时光</span>
+                    <h3 class="text-xl font-bold mt-1 mb-2">爆浆巧克力甜甜圈</h3>
+                    <p class="text-gray-500 text-sm">心情不好时的终极治愈神器，一口下去全是幸福感。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer id="about" class="bg-white border-t border-orange-100 py-12 text-center mt-10">
+        <p class="text-gray-400 text-sm">此网站用于收集我喜爱的美食</p>
+        <p class="text-gray-500 font-medium mt-2">© 2026 美食家仓库</p>
+    </footer>
+
+</body>
+</html>
