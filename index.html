@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>我的美食私人收藏 · 5.0收藏版</title>
+    <title>YHC 美食私人收藏</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         body { scroll-behavior: smooth; }
@@ -12,6 +12,27 @@
             url('https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=1600&q=80'); 
             background-size: cover; background-position: center; background-attachment: fixed;
         }
+        
+        /* 这里的 Logo 样式经过特别设计 */
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+        }
+        .logo-container:hover { transform: scale(1.05); }
+        
+        .logo-chili { font-size: 28px; filter: drop-shadow(0 2px 4px rgba(239, 68, 68, 0.4)); }
+        
+        .logo-text {
+            font-family: 'Arial Black', sans-serif;
+            background: linear-gradient(to right, #ef4444, #f97316);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 900;
+            letter-spacing: -1px;
+        }
+
         @keyframes fadeInUp {
             from { opacity: 0; transform: translateY(30px); }
             to { opacity: 1; transform: translateY(0); }
@@ -19,40 +40,41 @@
         .food-item { animation: fadeInUp 0.6s ease backwards; transition: all 0.3s ease; cursor: pointer; position: relative; }
         .food-item:hover { transform: translateY(-10px); }
         
-        .fav-btn { position: absolute; top: 1rem; right: 1rem; z-index: 10; background: white; width: 40px; height: 40px; border-radius: 50%; display: flex; items-center; justify-center; box-shadow: 0 4px 6px rgba(0,0,0,0.1); transition: all 0.2s; }
-        .fav-btn.active { color: #ef4444; transform: scale(1.1); }
-        .fav-btn:hover { background: #fef2f2; }
+        .fav-btn { position: absolute; top: 1rem; right: 1rem; z-index: 10; background: white/90; width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 6px rgba(0,0,0,0.1); border: none; }
+        .fav-btn.active { color: #ef4444; }
 
         #modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 100; backdrop-filter: blur(8px); }
-        .star-rating { color: #fbbf24; }
-        .lucky-btn { background: linear-gradient(45deg, #f59e0b, #ef4444); }
+        .lucky-btn { background: linear-gradient(45deg, #ef4444, #f59e0b); }
     </style>
 </head>
 <body class="bg-stone-50 text-gray-800 font-sans">
 
     <nav class="fixed w-full bg-white/90 backdrop-blur-md shadow-sm z-50">
         <div class="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
-            <span class="text-2xl font-bold text-orange-600">🍴 美食大赏</span>
+            
+            <div class="logo-container cursor-pointer" onclick="window.location.href='#'">
+                <span class="logo-chili">🌶️</span>
+                <span class="logo-text text-2xl md:text-3xl">YHC GOURMET</span>
+            </div>
+            
             <div class="flex space-x-3 md:space-x-6 text-gray-600 font-medium text-sm">
                 <button onclick="filterFood('all')" class="hover:text-orange-500">全部</button>
-                <button onclick="filterFood('cn')" class="hover:text-orange-500">中餐</button>
-                <button onclick="filterFood('kr')" class="hover:text-orange-500">韩餐</button>
-                <button onclick="filterFood('west')" class="hover:text-orange-500">西餐</button>
-                <button onclick="showFavorites()" class="text-red-500 border border-red-200 px-2 py-1 rounded-lg hover:bg-red-50">❤️ 收藏</button>
+                <button onclick="showFavorites()" class="text-red-500 flex items-center gap-1 bg-red-50 px-3 py-1 rounded-full border border-red-100">❤️ 收藏</button>
             </div>
         </div>
     </nav>
 
     <section class="food-hero h-[50vh] flex items-center justify-center text-white mt-14">
         <div class="text-center px-4">
-            <h1 class="text-4xl md:text-6xl font-black mb-4 tracking-tight">人间烟火气</h1>
-            <button onclick="pickRandomFood()" class="lucky-btn mt-6 px-8 py-3 rounded-full font-bold shadow-xl hover:scale-110 transition-all active:scale-95">🎲 随机选菜</button>
+            <h1 class="text-4xl md:text-6xl font-black mb-4 tracking-tight shadow-sm">烟火气里的 YHC</h1>
+            <p class="text-lg opacity-90 font-light mb-8">用味觉标记每一个值得纪念的时刻</p>
+            <button onclick="pickRandomFood()" class="lucky-btn px-8 py-3 rounded-full font-bold shadow-xl hover:scale-110 transition-all active:scale-95">🎲 随机选一道菜</button>
         </div>
     </section>
 
     <section id="search-area" class="pt-12 pb-6 px-4 max-w-6xl mx-auto">
-        <input type="text" id="searchInput" onkeyup="searchFood()" placeholder="🔍 寻找你心里的那道菜..." 
-            class="w-full p-4 rounded-2xl border-2 border-orange-100 focus:border-orange-500 focus:outline-none shadow-md text-lg">
+        <input type="text" id="searchInput" onkeyup="searchFood()" placeholder="🔍 搜搜你想吃的..." 
+            class="w-full p-4 rounded-2xl border-2 border-orange-50 focus:border-orange-500 focus:outline-none shadow-sm text-lg">
     </section>
 
     <section class="pb-20 max-w-6xl mx-auto px-4">
@@ -60,84 +82,28 @@
             
             <div class="food-item cn bg-white rounded-3xl overflow-hidden shadow-md" data-id="1">
                 <button class="fav-btn" onclick="toggleFav(event, '1')">❤</button>
-                <div onclick="showDetail('麻婆豆腐', 'https://assets.tmecosys.com/image/upload/t_web_rdp_recipe_584x480_1_5x/img/recipe/ras/Assets/0B16D5E2-C19B-4BEE-AD1B-75C63D23BE3C/Derivates/B8A0692E-CA25-439F-8F24-F1C5E74B42E1.jpg', '1. 豆腐切方块...<br>2. 炒香豆瓣酱...<br>3. 勾芡撒花椒。', '💡 秘诀：花椒粉一定要最后撒！')">
+                <div onclick="showDetail('麻婆豆腐', 'https://assets.tmecosys.com/image/upload/t_web_rdp_recipe_584x480_1_5x/img/recipe/ras/Assets/0B16D5E2-C19B-4BEE-AD1B-75C63D23BE3C/Derivates/B8A0692E-CA25-439F-8F24-F1C5E74B42E1.jpg', '1. 豆腐切方块，牛肉切末。<br>2. 炒香豆瓣酱、姜蒜末、豆豉。<br>3. 加入高汤和豆腐烧开，小火焖煮。<br>4. 勾三次薄芡，撒上花椒粉。', '💡 秘诀：花椒粉一定要最后撒！')">
                     <img src="https://assets.tmecosys.com/image/upload/t_web_rdp_recipe_584x480_1_5x/img/recipe/ras/Assets/0B16D5E2-C19B-4BEE-AD1B-75C63D23BE3C/Derivates/B8A0692E-CA25-439F-8F24-F1C5E74B42E1.jpg" class="w-full h-56 object-cover">
                     <div class="p-5">
                         <div class="flex justify-between items-center mb-2">
                             <span class="text-red-600 text-xs font-bold px-2 py-1 bg-red-50 rounded">中餐</span>
-                            <div class="star-rating">⭐⭐⭐⭐⭐</div>
+                            <div class="text-yellow-400">⭐⭐⭐⭐⭐</div>
                         </div>
                         <h3 class="food-name text-xl font-bold">麻婆豆腐</h3>
                     </div>
                 </div>
             </div>
 
-            <div class="food-item cn bg-white rounded-3xl overflow-hidden shadow-md" data-id="2">
-                <button class="fav-btn" onclick="toggleFav(event, '2')">❤</button>
-                <div onclick="showDetail('北京烤鸭', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT6d8NcqTQaDr-jUCPvx4dIjrOqWsl17BZywg&s', '1. 涂抹脆皮水...<br>2. 烤箱烤制。', '💡 秘诀：皮一定要晾干！')">
-                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT6d8NcqTQaDr-jUCPvx4dIjrOqWsl17BZywg&s" class="w-full h-56 object-cover">
-                    <div class="p-5">
-                        <div class="flex justify-between items-center mb-2">
-                            <span class="text-red-600 text-xs font-bold px-2 py-1 bg-red-50 rounded">中餐</span>
-                            <div class="star-rating">⭐⭐⭐⭐⭐</div>
-                        </div>
-                        <h3 class="food-name text-xl font-bold">北京烤鸭</h3>
-                    </div>
-                </div>
-            </div>
-
-            <div class="food-item kr bg-white rounded-3xl overflow-hidden shadow-md" data-id="3">
-                <button class="fav-btn" onclick="toggleFav(event, '3')">❤</button>
-                <div onclick="showDetail('韩式炸鸡', 'https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?auto=format&fit=crop&w=800&q=80', '1. 炸两次...<br>2. 拌入甜辣酱。', '💡 秘诀：复炸是关键！')">
-                    <img src="https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?auto=format&fit=crop&w=800&q=80" class="w-full h-56 object-cover">
-                    <div class="p-5">
-                        <div class="flex justify-between items-center mb-2">
-                            <span class="text-blue-600 text-xs font-bold px-2 py-1 bg-blue-50 rounded">韩餐</span>
-                            <div class="star-rating">⭐⭐⭐⭐⭐</div>
-                        </div>
-                        <h3 class="food-name text-xl font-bold">韩式炸鸡</h3>
-                    </div>
-                </div>
-            </div>
-
-            <div class="food-item kr bg-white rounded-3xl overflow-hidden shadow-md" data-id="4">
+            <div class="food-item west bg-white rounded-3xl overflow-hidden shadow-md" data-id="4">
                 <button class="fav-btn" onclick="toggleFav(event, '4')">❤</button>
-                <div onclick="showDetail('石锅拌饭', '...', '...', '💡 秘诀：锅底抹香油！')">
-                    <img src="https://images.unsplash.com/photo-1590301157890-4810ed352733?auto=format&fit=crop&w=800&q=80" class="w-full h-56 object-cover">
-                    <div class="p-5">
-                        <div class="flex justify-between items-center mb-2">
-                            <span class="text-blue-600 text-xs font-bold px-2 py-1 bg-blue-50 rounded">韩餐</span>
-                            <div class="star-rating">⭐⭐⭐⭐</div>
-                        </div>
-                        <h3 class="food-name text-xl font-bold">石锅拌饭</h3>
-                    </div>
-                </div>
-            </div>
-
-            <div class="food-item west bg-white rounded-3xl overflow-hidden shadow-md" data-id="5">
-                <button class="fav-btn" onclick="toggleFav(event, '5')">❤</button>
-                <div onclick="showDetail('战斧牛排', '...', '...', '💡 秘诀：静置5分钟！')">
+                <div onclick="showDetail('战斧牛排', 'https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=500&q=80', '1. 撒盐和黑胡椒。<br>2. 高温煎封。<br>3. 黄油淋洗。', '💡 秘诀：静置5分钟锁住肉汁！')">
                     <img src="https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=500&q=80" class="w-full h-56 object-cover">
                     <div class="p-5">
                         <div class="flex justify-between items-center mb-2">
                             <span class="text-amber-600 text-xs font-bold px-2 py-1 bg-amber-50 rounded">西餐</span>
-                            <div class="star-rating">⭐⭐⭐⭐⭐</div>
+                            <div class="text-yellow-400">⭐⭐⭐⭐⭐</div>
                         </div>
                         <h3 class="food-name text-xl font-bold">战斧牛排</h3>
-                    </div>
-                </div>
-            </div>
-
-            <div class="food-item west bg-white rounded-3xl overflow-hidden shadow-md" data-id="6">
-                <button class="fav-btn" onclick="toggleFav(event, '6')">❤</button>
-                <div onclick="showDetail('提拉米苏', '...', '...', '💡 秘诀：饼干蘸液要快！')">
-                    <img src="https://images.unsplash.com/photo-1571877227200-a0d98ea607e9?auto=format&fit=crop&w=800&q=80" class="w-full h-56 object-cover">
-                    <div class="p-5">
-                        <div class="flex justify-between items-center mb-2">
-                            <span class="text-amber-600 text-xs font-bold px-2 py-1 bg-amber-50 rounded">西餐</span>
-                            <div class="star-rating">⭐⭐⭐⭐⭐</div>
-                        </div>
-                        <h3 class="food-name text-xl font-bold">提拉米苏</h3>
                     </div>
                 </div>
             </div>
@@ -145,20 +111,24 @@
         </div>
     </section>
 
+    <footer class="bg-stone-900 text-stone-500 py-12 text-center text-xs">
+        <p class="text-stone-300 font-bold mb-2">🌶️ YHC GOURMET</p>
+        <p>© 2026 用心记录美味 · 享受烟火生活</p>
+    </footer>
+
     <div id="modal-overlay" onclick="closeModal()">
         <div class="max-w-2xl mx-auto mt-20 bg-white rounded-[2rem] overflow-hidden shadow-2xl relative" onclick="event.stopPropagation()">
-            <button class="absolute top-4 right-4 bg-black/10 hover:bg-black/30 w-10 h-10 rounded-full flex items-center justify-center text-white" onclick="closeModal()">✕</button>
-            <img id="modal-img" class="w-full h-72 object-cover">
+            <button class="absolute top-4 right-4 bg-black/10 text-white w-8 h-8 rounded-full" onclick="closeModal()">✕</button>
+            <img id="modal-img" class="w-full h-64 object-cover">
             <div class="p-8">
-                <h2 id="modal-title" class="text-3xl font-bold text-orange-600 mb-4"></h2>
-                <p id="modal-content" class="text-gray-600 mb-6"></p>
-                <div id="modal-tip" class="p-4 bg-orange-50 border-l-4 border-orange-500 text-orange-800 rounded text-sm"></div>
+                <h2 id="modal-title" class="text-3xl font-bold text-orange-600 mb-2"></h2>
+                <div id="modal-content" class="text-gray-600 mb-6 text-sm leading-relaxed"></div>
+                <div id="modal-tip" class="p-4 bg-orange-50 border-l-4 border-orange-500 text-orange-800 rounded"></div>
             </div>
         </div>
     </div>
 
     <script>
-        // 收藏夹逻辑
         let favorites = JSON.parse(localStorage.getItem('myFavs')) || [];
 
         function updateFavUI() {
@@ -177,11 +147,7 @@
 
         function toggleFav(event, id) {
             event.stopPropagation();
-            if(favorites.includes(id)) {
-                favorites = favorites.filter(favId => favId !== id);
-            } else {
-                favorites.push(id);
-            }
+            favorites = favorites.includes(id) ? favorites.filter(f => f !== id) : [...favorites, id];
             localStorage.setItem('myFavs', JSON.stringify(favorites));
             updateFavUI();
         }
@@ -193,9 +159,9 @@
             });
         }
 
-        function filterFood(category) {
+        function filterFood(cat) {
             document.querySelectorAll('.food-item').forEach(item => {
-                item.style.display = (category === 'all' || item.classList.contains(category)) ? "block" : "none";
+                item.style.display = (cat === 'all' || item.classList.contains(cat)) ? 'block' : 'none';
             });
         }
 
@@ -210,7 +176,7 @@
         function showDetail(title, imgSrc, steps, tip) {
             document.getElementById('modal-title').innerText = title;
             document.getElementById('modal-img').src = imgSrc;
-            document.getElementById('modal-content').innerHTML = `<strong>👨‍🍳 做法：</strong><br>${steps}`;
+            document.getElementById('modal-content').innerHTML = steps;
             document.getElementById('modal-tip').innerText = tip;
             document.getElementById('modal-overlay').style.display = 'block';
         }
@@ -219,11 +185,11 @@
 
         function pickRandomFood() {
             const items = document.querySelectorAll('.food-item');
-            const randomItem = items[Math.floor(Math.random() * items.length)];
-            randomItem.querySelector('div').click();
+            if (items.length > 0) {
+                items[Math.floor(Math.random() * items.length)].querySelector('div').click();
+            }
         }
 
-        // 初始化收藏状态
         updateFavUI();
     </script>
 </body>
