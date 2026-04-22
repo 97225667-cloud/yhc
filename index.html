@@ -8,18 +8,13 @@
     <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
     <style>
         @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
-        .food-card { animation: fadeInUp 0.6s ease forwards; opacity: 0; }
+        .food-card { animation: fadeInUp 0.6s ease forwards; opacity: 0; border-radius: 2.5rem !important; }
         .logo-font { font-family: 'Permanent Marker', cursive; }
-        /* 封面艺术字 */
         .shanshui-font { font-family: 'Ma Shan Zheng', cursive; }
-        #modal-overlay { position: fixed; inset: 0; background: rgba(0, 0, 0, 0.8); backdrop-filter: blur(10px); display: none; z-index: 100; }
+        #modal-overlay { position: fixed; inset: 0; background: rgba(0, 0, 0, 0.85); backdrop-filter: blur(12px); display: none; z-index: 100; }
         .no-scrollbar::-webkit-scrollbar { display: none; }
         html { scroll-behavior: smooth; }
-        
-        /* 封面背景蒙版 */
-        .hero-gradient {
-            background: linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.7) 100%);
-        }
+        .hero-gradient { background: linear-gradient(to bottom, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.8) 100%); }
     </style>
 </head>
 <body class="bg-stone-50 text-stone-800 flex flex-col min-h-screen">
@@ -36,48 +31,42 @@
             <div class="flex-grow max-w-md">
                 <div class="flex items-center bg-white/10 rounded-full px-4 py-2 border border-white/20">
                     <span class="text-white/60 mr-2">🔍</span>
-                    <input type="text" id="searchInput" onkeyup="searchFood()" placeholder="搜寻你的渴望..." 
+                    <input type="text" id="searchInput" onkeyup="searchFood()" placeholder="搜寻你想吃的..." 
                            class="bg-transparent border-none outline-none w-full text-sm text-white placeholder-white/50">
                 </div>
             </div>
             
-            <button class="bg-white text-red-500 px-5 py-2 rounded-full font-bold text-sm flex items-center gap-2 shadow-xl">
-                ❤️ 收藏
+            <button class="bg-white text-red-500 px-5 py-2 rounded-full font-bold text-sm flex items-center gap-2 shadow-xl hover:bg-red-50 transition">
+                ❤️ <span class="hidden sm:inline">收藏</span>
             </button>
         </div>
     </nav>
 
     <section class="relative h-screen w-full overflow-hidden flex items-center justify-center text-center">
-        <img src="https://images.unsplash.com/photo-1512058564366-18510be2db19?auto=format&fit=crop&q=80&w=2000" 
-             class="absolute inset-0 w-full h-full object-cover">
+        <img src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?q=80&w=2000" class="absolute inset-0 w-full h-full object-cover">
         <div class="absolute inset-0 hero-gradient"></div>
-        
-        <div class="relative z-10 px-6 max-w-4xl">
-            <div class="inline-block w-24 h-24 bg-orange-500/90 rounded-full mb-8 animate-pulse flex items-center justify-center">
-                <span class="text-white text-5xl">🔥</span>
+        <div class="relative z-10 px-6">
+            <div class="w-20 h-20 bg-orange-500/90 rounded-full mx-auto mb-6 flex items-center justify-center shadow-2xl animate-bounce">
+                <span class="text-white text-4xl">🔥</span>
             </div>
-            <h2 class="shanshui-font text-6xl md:text-8xl text-white mb-6 drop-shadow-2xl">
-                人间烟火气，最抚凡人心
-            </h2>
-            <p class="text-white/80 text-xl md:text-2xl mb-10 font-light tracking-widest">
-                为您呈现 私人定制的美食清单
-            </p>
-            <a href="#menu-start" class="inline-block px-10 py-4 bg-orange-500 hover:bg-orange-600 text-white rounded-full text-xl font-bold shadow-2xl transition-all hover:scale-105 active:scale-95">
+            <h2 class="shanshui-font text-6xl md:text-8xl text-white mb-6 drop-shadow-2xl">人间烟火气，最抚凡人心</h2>
+            <p class="text-white/80 text-xl md:text-2xl mb-10 font-light tracking-widest italic">为您呈现 私人定制的美食清单</p>
+            <a href="#menu-start" class="inline-block px-10 py-4 bg-orange-500 text-white rounded-full text-xl font-bold shadow-2xl hover:bg-orange-600 transition-transform hover:scale-105 active:scale-95">
                 开启味觉之旅
             </a>
         </div>
     </section>
 
-    <main id="menu-start" class="max-w-7xl mx-auto px-6 pt-20 pb-20 flex-grow">
+    <main id="menu-start" class="max-w-7xl mx-auto px-6 pt-24 pb-20 flex-grow">
         <header class="mb-12 flex flex-col md:flex-row md:items-end justify-between gap-6">
             <div>
-                <h3 class="text-4xl font-black italic mb-4">今日<span class="text-orange-500">清单</span></h3>
+                <h3 class="text-4xl font-black italic mb-6">今日<span class="text-orange-500 underline decoration-stone-200 ml-2">清单</span></h3>
                 <div class="flex flex-wrap gap-2">
-                    <button onclick="filterFood('all')" class="px-5 py-2 bg-stone-900 text-white rounded-full text-sm font-bold">全部</button>
-                    <button onclick="filterFood('Sichuan')" class="px-5 py-2 bg-white border rounded-full text-sm font-bold hover:bg-stone-50">川味</button>
-                    <button onclick="filterFood('Cantonese')" class="px-5 py-2 bg-white border rounded-full text-sm font-bold hover:bg-stone-50">粤式</button>
-                    <button onclick="filterFood('Home')" class="px-5 py-2 bg-white border rounded-full text-sm font-bold hover:bg-stone-50">家常</button>
-                    <button onclick="filterFood('Global')" class="px-5 py-2 bg-white border rounded-full text-sm font-bold hover:bg-stone-50">异国</button>
+                    <button onclick="filterFood('all')" class="px-6 py-2 bg-stone-900 text-white rounded-full text-sm font-bold shadow-md">全部</button>
+                    <button onclick="filterFood('Sichuan')" class="px-6 py-2 bg-white border border-stone-200 rounded-full text-sm font-bold hover:bg-stone-100 transition">川味</button>
+                    <button onclick="filterFood('Cantonese')" class="px-6 py-2 bg-white border border-stone-200 rounded-full text-sm font-bold hover:bg-stone-100 transition">粤式</button>
+                    <button onclick="filterFood('Home')" class="px-6 py-2 bg-white border border-stone-200 rounded-full text-sm font-bold hover:bg-stone-100 transition">家常</button>
+                    <button onclick="filterFood('Global')" class="px-6 py-2 bg-white border border-stone-200 rounded-full text-sm font-bold hover:bg-stone-100 transition">异国风味</button>
                 </div>
             </div>
             <button onclick="pickRandomFood()" class="px-6 py-3 bg-orange-100 text-orange-600 rounded-2xl font-black flex items-center gap-2 hover:bg-orange-200 transition">
@@ -85,7 +74,8 @@
             </button>
         </header>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8" id="foodGrid"></div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10" id="foodGrid">
+            </div>
     </main>
 
     <footer class="bg-[#1a1a1a] text-white py-16">
@@ -94,67 +84,91 @@
                 <span class="text-orange-500 text-3xl font-bold">Y</span>
                 <span class="text-2xl font-bold tracking-[0.2em]">HC GOURMET</span>
             </div>
-            <p class="text-stone-500 text-sm tracking-widest">© 2026 YHC 私人美食收藏馆 · 热烈而自由</p>
+            <p class="text-stone-500 text-sm tracking-widest font-light">© 2026 YHC 私人美食收藏馆 · 热烈而自由</p>
         </div>
     </footer>
 
     <div id="modal-overlay" onclick="closeModal()" class="flex items-center justify-center p-4">
-        <div id="modal-content" class="bg-white rounded-[3rem] max-w-md w-full max-h-[85vh] overflow-hidden flex flex-col shadow-2xl transition-all scale-95" onclick="event.stopPropagation()">
-            <div class="h-56 shrink-0 relative">
+        <div id="modal-content" class="bg-white rounded-[3.5rem] max-w-md w-full max-h-[85vh] overflow-hidden flex flex-col shadow-2xl transition-all scale-95" onclick="event.stopPropagation()">
+            <div class="h-60 shrink-0 relative">
                 <img id="modal-img" src="" class="w-full h-full object-cover">
-                <button onclick="closeModal()" class="absolute top-6 right-6 bg-black/20 backdrop-blur-md text-white w-10 h-10 rounded-full flex items-center justify-center">✕</button>
+                <button onclick="closeModal()" class="absolute top-6 right-6 bg-black/20 backdrop-blur-md text-white w-10 h-10 rounded-full flex items-center justify-center hover:bg-black/40 transition">✕</button>
             </div>
             <div class="p-10 overflow-y-auto no-scrollbar">
                 <h2 id="modal-title" class="text-3xl font-black mb-6"></h2>
                 <div class="space-y-6">
-                    <p class="text-orange-600 font-bold tracking-widest text-sm">/ 烹饪步骤 /</p>
+                    <p class="text-orange-600 font-bold tracking-widest text-sm uppercase">/ 烹饪秘籍 /</p>
                     <p id="modal-steps" class="text-stone-600 leading-loose text-base"></p>
-                    <div class="p-6 bg-orange-50 border-l-8 border-orange-500 rounded-r-2xl">
+                    <div class="p-6 bg-orange-50 border-l-8 border-orange-500 rounded-r-3xl">
                         <p id="modal-tip" class="text-orange-900 italic font-medium"></p>
                     </div>
                 </div>
-                <button onclick="closeModal()" class="w-full mt-10 py-4 bg-stone-900 text-white rounded-2xl font-bold hover:bg-orange-600 transition shadow-lg">标记已学会</button>
+                <button onclick="closeModal()" class="w-full mt-10 py-4 bg-stone-900 text-white rounded-2xl font-bold hover:bg-orange-500 transition shadow-lg">标记已学会</button>
             </div>
         </div>
     </div>
 
     <script>
-        // 复用之前的20道菜谱数据
         const recipes = [
-            { name: "麻婆豆腐", cat: "Sichuan", desc: "麻辣鲜香，川菜之魂", steps: "1.豆腐切块焯水；2.爆香肉末豆瓣；3.入豆腐焖煮勾芡。", tip: "最后的花椒粉是点睛之笔。", img: "https://images.unsplash.com/photo-1591814447921-7fa7a2f6d55d?w=400" },
-            { name: "广式蒸鱼", cat: "Cantonese", desc: "极致鲜美，原汁原味", steps: "1.葱姜垫底大火蒸；2.倒掉腥水；3.淋豉油泼热油。", tip: "蒸鱼时间千万别超过8分钟。", img: "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?w=400" },
-            { name: "法式牛排", cat: "Global", desc: "外焦内嫩，优雅晚餐", steps: "1.牛排吸干水份；2.猛火双面煎出焦色；3.加黄油迷迭香静置。", tip: "醒肉是保持肉汁的关键。", img: "https://images.unsplash.com/photo-1546241072-48010ad28c2c?w=400" },
-            { name: "红烧肉", cat: "Home", desc: "入口即化，肥而不腻", steps: "1.五花肉炒糖色；2.入香料文火慢炖一小时；3.大火收汁。", tip: "不要过早放盐，肉会柴。", img: "https://images.unsplash.com/photo-1627308595229-7830a5c91f9f?w=400" },
-            // ... (其他菜谱保持逻辑一致，可自行补足至20道)
+            // 川味 (Sichuan)
+            { name: "麻婆豆腐", cat: "Sichuan", desc: "麻、辣、鲜、烫", steps: "1.豆腐切块焯水；2.炒香肉末与郫县豆瓣酱；3.下豆腐焖煮，分三次勾芡收汁。", tip: "起锅前那一撒花椒面是整道菜的灵魂。", img: "https://images.unsplash.com/photo-1591814447921-7fa7a2f6d55d?q=80&w=600" },
+            { name: "宫保鸡丁", cat: "Sichuan", desc: "荔枝味型，经典川菜", steps: "1.鸡丁浆好备用；2.干辣椒花椒爆锅出香；3.入鸡丁花生大火快炒，加入特调味汁。", tip: "花生米必须在出锅前最后一刻加入，保持酥脆。", img: "https://images.unsplash.com/photo-1525755662778-989d0524087e?q=80&w=600" },
+            { name: "回锅肉", cat: "Sichuan", desc: "川味之首，肥而不腻", steps: "1.五花肉煮至八成熟切片；2.煸炒出猪油呈‘灯盏窝’状；3.下豆瓣及蒜苗快炒。", tip: "蒜苗断生即出锅，余温会将其焖熟。", img: "https://images.unsplash.com/photo-1623341214825-9f4f963727da?q=80&w=600" },
+            { name: "水煮牛肉", cat: "Sichuan", desc: "椒香浓烈，鲜烫滑嫩", steps: "1.牛肉切薄片腌制；2.蔬菜烫熟垫底；3.牛肉煮熟捞出，撒干辣椒花椒泼热油。", tip: "油一定要烧到冒青烟时泼下去，瞬间激发椒香。", img: "https://images.unsplash.com/photo-1541518763669-27fef04b14ea?q=80&w=600" },
+            
+            // 粤式 (Cantonese)
+            { name: "广式蒸鱼", cat: "Cantonese", desc: "极致鲜美，原汁原味", steps: "1.鱼垫葱姜大火蒸8分钟；2.倒掉盘中腥水；3.淋上蒸鱼豉油，泼热油激发香气。", tip: "火一定要足够猛，鱼肉才足够嫩滑。", img: "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?q=80&w=600" },
+            { name: "干炒牛河", cat: "Cantonese", desc: "镬气十足，盘底无油", steps: "1.炒嫩牛肉盛出；2.快速抖散河粉入锅；3.大火翻炒至色泽均匀，入牛肉回锅。", tip: "油量控制是关键，讲究的是手速和火候。", img: "https://images.unsplash.com/photo-1512058564366-18510be2db19?q=80&w=600" },
+            { name: "白斩鸡", cat: "Cantonese", desc: "皮爽肉滑，骨髓带红", steps: "1.三提三放浸入微沸水中；2.浸熟后立即投入冰水；3.配上姜葱蓉蘸料。", tip: "冰水浸泡这一步决定了鸡皮是否Q弹。", img: "https://images.unsplash.com/photo-1598515214211-89d3c73ae83b?q=80&w=600" },
+            { name: "咕噜肉", cat: "Cantonese", desc: "酸甜脆口，色泽红亮", steps: "1.肉块裹粉炸至外酥内嫩；2.调制浓郁糖醋汁；3.入肉块与菠萝快速挂汁。", tip: "裹粉要均匀，炸火候要足，口感才脆。", img: "https://images.unsplash.com/photo-1525755662778-989d0524087e?q=80&w=600" },
+
+            // 家常 (Home)
+            { name: "红烧肉", cat: "Home", desc: "入口即化，经典本味", steps: "1.五花肉炒糖色；2.入香料小火慢炖一小时；3.最后大火收汁至粘稠红亮。", tip: "不要过早放盐，否则肉质容易变柴。", img: "https://images.unsplash.com/photo-1627308595229-7830a5c91f9f?q=80&w=600" },
+            { name: "番茄炒蛋", cat: "Home", desc: "国民神菜，拌饭神器", steps: "1.炒散蛋液盛出；2.番茄炒出浓郁汁水；3.混合调味，撒一把小葱。", tip: "加少许白糖和番茄酱，汤汁更浓厚鲜甜。", img: "https://images.unsplash.com/photo-1582450871972-ab5ca641643d?q=80&w=600" },
+            { name: "地三鲜", cat: "Home", desc: "素中荤口感，鲜咸适口", steps: "1.土豆茄子切块过油炸熟；2.入青椒合炒；3.勾入浓郁芡汁包裹食材。", tip: "茄子要炸到金黄绵软才最入味。", img: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?q=80&w=600" },
+            { name: "糖醋排骨", cat: "Home", desc: "排骨软糯，酸甜比例恰当", steps: "1.排骨煎香；2.按1:2:3:4比例调汁焖煮；3.撒上熟芝麻出锅。", tip: "最后淋入一勺香醋，醋香味更上一层楼。", img: "https://images.unsplash.com/photo-1544148103-0773bf10d330?q=80&w=600" },
+            { name: "酸辣土豆丝", cat: "Home", desc: "爽脆可口，最简美味", steps: "1.土豆切细丝洗去淀粉；2.干辣椒爆香；3.大火快炒，临出锅沿锅边淋醋。", tip: "土豆丝不泡水炒出来会粘锅，口感不脆。", img: "https://images.unsplash.com/photo-1585109649139-366815a0d713?q=80&w=600" },
+
+            // 异国风味 (Global)
+            { name: "法式牛排", cat: "Global", desc: "原力觉醒，优雅晚宴", steps: "1.牛排吸干水份；2.猛火两面各煎2-3分钟；3.入黄油迷迭香，静置5分钟。", tip: "‘醒肉’时间一定要够，肉汁才会锁在里面。", img: "https://images.unsplash.com/photo-1546241072-48010ad28c2c?q=80&w=600" },
+            { name: "冬阴功汤", cat: "Global", desc: "泰式火辣，极致醒目", steps: "1.煮制香草底汤；2.入大虾、草菇；3.挤入青柠汁，加入椰奶调匀。", tip: "香茅和南姜一定要用新鲜的，风味才正。", img: "https://images.unsplash.com/photo-1548943487-a2e4143eb544?q=80&w=600" },
+            { name: "意大利肉酱面", cat: "Global", desc: "经典欧陆，回味悠长", steps: "1.慢熬浓郁番茄肉酱；2.意面煮至带白芯状态；3.合炒拌匀，撒大量帕玛森奶酪。", tip: "煮面水加盐是让面条入味的第一步。", img: "https://images.unsplash.com/photo-1551183053-bf91a1d81141?q=80&w=600" },
+            { name: "石锅拌饭", cat: "Global", desc: "五彩斑斓，韩式经典", steps: "1.石锅刷油烧热；2.铺上饭和各式炒好的蔬菜；3.挖入韩式辣酱拌匀。", tip: "石锅底部烧出焦香的锅巴才是这道菜的灵魂。", img: "https://images.unsplash.com/photo-1590301157890-4810ed352733?q=80&w=600" },
+            { name: "墨西哥塔可", cat: "Global", desc: "街头风情，口感丰富", steps: "1.热好玉米饼；2.填入特制肉酱、莎莎酱；3.挤上青柠，配牛油果酱。", tip: "大量的洋葱碎和香菜碎能瞬间提升层次感。", img: "https://images.unsplash.com/photo-1565299585323-38d6b0865b47?q=80&w=600" },
+            { name: "日式拉面", cat: "Global", desc: "暖心暖胃，汤头灵魂", steps: "1.熬制24小时猪骨浓汤；2.煮制筋道拉面；3.配上叉烧、笋干和溏心蛋。", tip: "面条煮的时间要精确到秒，拒绝软烂。", img: "https://images.unsplash.com/photo-1526318896980-cf78c088247c?q=80&w=600" },
+            { name: "海鲜天妇罗", cat: "Global", desc: "轻盈酥脆，空气感炸物", steps: "1.调制冰水面糊；2.食材裹薄糊；3.入180度油温快炸至淡黄色。", tip: "面糊不要过度搅拌，留有小面疙瘩炸出来更酥。", img: "https://images.unsplash.com/photo-1615361413105-8825f7712a61?q=80&w=600" }
         ];
 
-        // 逻辑保持一致
         const grid = document.getElementById('foodGrid');
+
         function render(data) {
-            grid.innerHTML = data.map((r, i) => `
-                <div class="food-item ${r.cat} food-card bg-white rounded-[2.5rem] overflow-hidden shadow-sm border border-stone-100" style="animation-delay:${i*0.05}s">
-                    <div class="h-52 cursor-pointer relative group" onclick="showDetail('${r.name}', '${r.img}', '${r.steps}', '${r.tip}')">
-                        <img src="${r.img}" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+            grid.innerHTML = data.length > 0 ? data.map((r, i) => `
+                <div class="food-card bg-white overflow-hidden shadow-sm border border-stone-100 hover:shadow-2xl transition-all" style="animation-delay:${i*0.05}s">
+                    <div class="h-56 cursor-pointer relative group" onclick="showDetail('${r.name}', '${r.img}', '${r.steps.replace(/'/g, "\\'")}', '${r.tip.replace(/'/g, "\\')}')">
+                        <img src="${r.img}" class="w-full h-full object-cover group-hover:scale-105 transition duration-700">
                         <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                            <span class="text-white font-bold border-2 border-white px-4 py-2 rounded-full">查看食谱</span>
+                            <span class="text-white font-bold border-2 border-white px-5 py-2 rounded-full backdrop-blur-sm">查看食谱</span>
                         </div>
+                        <div class="absolute top-4 left-4 bg-white/90 backdrop-blur-md px-3 py-1 rounded-lg text-[10px] font-black uppercase tracking-tighter text-orange-600">${r.cat}</div>
                     </div>
-                    <div class="p-7">
-                        <h3 class="font-black text-xl mb-1">${r.name}</h3>
-                        <p class="text-stone-400 text-xs mb-5 tracking-wide">${r.desc}</p>
-                        <button onclick="toggleFav(event)" class="w-full py-3 bg-stone-50 rounded-2xl text-stone-400 text-xs font-bold hover:text-red-500 hover:bg-red-50 transition-all">❤ 收藏此味</button>
+                    <div class="p-8">
+                        <h3 class="font-black text-2xl mb-2">${r.name}</h3>
+                        <p class="text-stone-400 text-sm mb-6 tracking-wide line-clamp-1">${r.desc}</p>
+                        <button onclick="toggleFav(event)" class="w-full py-4 bg-stone-50 rounded-2xl text-stone-500 text-xs font-bold hover:text-red-500 hover:bg-red-50 transition-all flex items-center justify-center gap-2">❤ 收藏此味</button>
                     </div>
                 </div>
-            `).join('');
+            `).join('') : '<div class="col-span-full py-20 text-center text-stone-400 font-bold">没有搜到这款美食噢...</div>';
         }
 
         function searchFood() {
             const val = document.getElementById('searchInput').value.toLowerCase();
-            render(recipes.filter(r => r.name.includes(val)));
+            const filtered = recipes.filter(r => r.name.toLowerCase().includes(val) || r.desc.toLowerCase().includes(val));
+            render(filtered);
         }
 
         function filterFood(cat) {
-            render(cat === 'all' ? recipes : recipes.filter(r => r.cat === cat));
+            const filtered = cat === 'all' ? recipes : recipes.filter(r => r.cat === cat);
+            render(filtered);
         }
 
         function showDetail(n, i, s, t) {
@@ -175,7 +189,8 @@
             e.stopPropagation();
             const b = e.currentTarget;
             b.classList.toggle('text-red-500');
-            b.innerText = b.classList.contains('text-red-500') ? '❤️ 已收藏' : '❤ 收藏此味';
+            b.classList.toggle('bg-red-50');
+            b.innerHTML = b.classList.contains('text-red-500') ? '❤️ 已收藏' : '❤ 收藏此味';
         }
 
         function pickRandomFood() {
@@ -183,6 +198,7 @@
             showDetail(r.name, r.img, r.steps, r.tip);
         }
 
+        // 初次加载
         render(recipes);
     </script>
 </body>
