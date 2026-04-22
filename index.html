@@ -13,7 +13,6 @@
             background-size: cover; background-position: center; 
         }
         .food-item { transition: all 0.3s ease; cursor: pointer; }
-        /* 弹窗背景遮罩 */
         #modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 100; backdrop-filter: blur(8px); }
         .star-rating { color: #fbbf24; }
     </style>
@@ -23,19 +22,19 @@
     <nav class="fixed w-full bg-white/90 backdrop-blur-md shadow-sm z-50">
         <div class="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
             <span class="text-2xl font-bold text-orange-600">🍴 美食大赏</span>
-            <div class="flex space-x-4 text-gray-600 font-medium text-sm md:text-base">
-                <button onclick="filterFood('all')" class="hover:text-orange-500 transition">全部</button>
-                <button onclick="filterFood('cn')" class="hover:text-orange-500 transition">中餐</button>
-                <button onclick="filterFood('kr')" class="hover:text-orange-500 transition">韩餐</button>
-                <button onclick="filterFood('west')" class="hover:text-orange-500 transition">西餐</button>
+            <div class="flex space-x-4 text-gray-600 font-medium">
+                <button onclick="filterFood('all')" class="hover:text-orange-500">全部</button>
+                <button onclick="filterFood('cn')" class="hover:text-orange-500">中餐</button>
+                <button onclick="filterFood('kr')" class="hover:text-orange-500">韩餐</button>
+                <button onclick="filterFood('west')" class="hover:text-orange-500">西餐</button>
             </div>
         </div>
     </nav>
 
     <section class="pt-24 pb-6 px-4 max-w-6xl mx-auto">
         <div class="relative">
-            <input type="text" id="searchInput" onkeyup="searchFood()" placeholder="🔍 搜索美食名称..." 
-                class="w-full p-4 rounded-2xl border-2 border-orange-100 focus:border-orange-500 focus:outline-none shadow-sm text-lg">
+            <input type="text" id="searchInput" onkeyup="searchFood()" placeholder="🔍 搜索你想吃的菜（如：豆腐、烤鸭、牛排...）" 
+                class="w-full p-4 rounded-2xl border-2 border-orange-100 focus:border-orange-500 focus:outline-none shadow-md text-lg transition-all">
         </div>
     </section>
 
@@ -43,93 +42,80 @@
         <div id="food-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
             
             <div class="food-item cn bg-white rounded-3xl overflow-hidden shadow-md hover:scale-105" 
-                 onclick="showDetail('麻婆豆腐', 'https://assets.tmecosys.com/image/upload/t_web_rdp_recipe_584x480_1_5x/img/recipe/ras/Assets/0B16D5E2-C19B-4BEE-AD1B-75C63D23BE3C/Derivates/B8A0692E-CA25-439F-8F24-F1C5E74B42E1.jpg', '1. 豆腐切方块，牛肉切末。<br>2. 锅中下油，炒香豆瓣酱、姜蒜末、豆豉。<br>3. 加入高汤和豆腐烧开，小火焖煮。<br>4. 勾三次薄芡，最后撒上大量的花椒粉。')">
+                 onclick="showDetail('麻婆豆腐', 'https://assets.tmecosys.com/image/upload/t_web_rdp_recipe_584x480_1_5x/img/recipe/ras/Assets/0B16D5E2-C19B-4BEE-AD1B-75C63D23BE3C/Derivates/B8A0692E-CA25-439F-8F24-F1C5E74B42E1.jpg', '1. 豆腐切方块，牛肉切末。<br>2. 锅中下油，炒香豆瓣酱、姜蒜末、豆豉。<br>3. 加入高汤和豆腐烧开，小火焖煮。<br>4. 勾三次薄芡，撒上花椒粉。')">
                 <img src="https://assets.tmecosys.com/image/upload/t_web_rdp_recipe_584x480_1_5x/img/recipe/ras/Assets/0B16D5E2-C19B-4BEE-AD1B-75C63D23BE3C/Derivates/B8A0692E-CA25-439F-8F24-F1C5E74B42E1.jpg" class="w-full h-56 object-cover">
                 <div class="p-5">
                     <div class="flex justify-between items-center mb-2">
-                        <span class="text-red-600 text-xs font-bold uppercase px-2 py-1 bg-red-50 rounded">中餐</span>
-                        <div class="star-rating text-sm">⭐⭐⭐⭐⭐</div>
+                        <span class="text-red-600 text-xs font-bold px-2 py-1 bg-red-50 rounded">中餐</span>
+                        <div class="star-rating">⭐⭐⭐⭐⭐</div>
                     </div>
                     <h3 class="food-name text-xl font-bold">麻婆豆腐</h3>
-                    <p class="text-gray-400 text-xs mt-2">点击查看详细做法</p>
+                    <p class="text-gray-400 text-xs mt-2">点击查看做法</p>
                 </div>
             </div>
 
             <div class="food-item cn bg-white rounded-3xl overflow-hidden shadow-md hover:scale-105" 
-                 onclick="showDetail('北京烤鸭', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT6d8NcqTQaDr-jUCPvx4dIjrOqWsl17BZywg&s', '1. 鸭子洗净烫皮，全身涂抹糖脆皮水，风干8小时。<br>2. 烤箱180°C烤制45-60分钟。<br>3. 片皮，搭配荷叶饼、甜面酱、葱丝和黄瓜条。')">
+                 onclick="showDetail('北京烤鸭', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT6d8NcqTQaDr-jUCPvx4dIjrOqWsl17BZywg&s', '1. 鸭子洗净烫皮，全身涂抹脆皮水。<br>2. 烤箱180°C烤制1小时。<br>3. 搭配荷叶饼、甜面酱、葱丝食用。')">
                 <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT6d8NcqTQaDr-jUCPvx4dIjrOqWsl17BZywg&s" class="w-full h-56 object-cover">
                 <div class="p-5">
                     <div class="flex justify-between items-center mb-2">
-                        <span class="text-red-600 text-xs font-bold uppercase px-2 py-1 bg-red-50 rounded">中餐</span>
-                        <div class="star-rating text-sm">⭐⭐⭐⭐⭐</div>
+                        <span class="text-red-600 text-xs font-bold px-2 py-1 bg-red-50 rounded">中餐</span>
+                        <div class="star-rating">⭐⭐⭐⭐⭐</div>
                     </div>
                     <h3 class="food-name text-xl font-bold">北京烤鸭</h3>
-                    <p class="text-gray-400 text-xs mt-2">点击查看详细做法</p>
+                    <p class="text-gray-400 text-xs mt-2">点击查看做法</p>
                 </div>
             </div>
 
             <div class="food-item kr bg-white rounded-3xl overflow-hidden shadow-md hover:scale-105" 
-                 onclick="showDetail('石锅拌饭', 'https://images.unsplash.com/photo-1590301157890-4810ed352733?auto=format&fit=crop&w=800&q=80', '1. 各种蔬菜分别焯水炒熟。<br>2. 石锅刷层香油，铺上米饭，将蔬菜摆在上面。<br>3. 加热至锅底有锅巴声，淋上辣酱。')">
-                <img src="https://images.unsplash.com/photo-1590301157890-4810ed352733?auto=format&fit=crop&w=800&q=80" class="w-full h-56 object-cover">
-                <div class="p-5">
-                    <div class="flex justify-between items-center mb-2">
-                        <span class="text-blue-600 text-xs font-bold uppercase px-2 py-1 bg-blue-50 rounded">韩餐</span>
-                        <div class="star-rating text-sm">⭐⭐⭐⭐</div>
-                    </div>
-                    <h3 class="food-name text-xl font-bold">石锅拌饭</h3>
-                    <p class="text-gray-400 text-xs mt-2">点击查看详细做法</p>
-                </div>
-            </div>
-
-            <div class="food-item kr bg-white rounded-3xl overflow-hidden shadow-md hover:scale-105" 
-                 onclick="showDetail('韩式炸鸡', 'https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?auto=format&fit=crop&w=800&q=80', '1. 鸡块腌制半小时。<br>2. 裹粉下油锅复炸两次保证酥脆。<br>3. 快速翻拌酱汁，撒上白芝麻。')">
+                 onclick="showDetail('韩式炸鸡', 'https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?auto=format&fit=crop&w=800&q=80', '1. 鸡块腌制，裹粉炸两次。<br>2. 拌入韩式甜辣酱。')">
                 <img src="https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?auto=format&fit=crop&w=800&q=80" class="w-full h-56 object-cover">
                 <div class="p-5">
                     <div class="flex justify-between items-center mb-2">
-                        <span class="text-blue-600 text-xs font-bold uppercase px-2 py-1 bg-blue-50 rounded">韩餐</span>
-                        <div class="star-rating text-sm">⭐⭐⭐⭐⭐</div>
+                        <span class="text-blue-600 text-xs font-bold px-2 py-1 bg-blue-50 rounded">韩餐</span>
+                        <div class="star-rating">⭐⭐⭐⭐⭐</div>
                     </div>
                     <h3 class="food-name text-xl font-bold">韩式炸鸡</h3>
-                    <p class="text-gray-400 text-xs mt-2">点击查看详细做法</p>
+                    <p class="text-gray-400 text-xs mt-2">点击查看做法</p>
                 </div>
             </div>
 
             <div class="food-item kr bg-white rounded-3xl overflow-hidden shadow-md hover:scale-105" 
-                 onclick="showDetail('韩式泡菜锅', 'https://life.anyongfresh.com/wp-content/uploads/2020/10/%E9%8D%8B%E5%BA%95%E7%B3%BB%E5%88%97-%E9%9F%93%E5%BC%8F%E6%B3%A1%E8%8F%9C%E9%8D%8B-600.jpg', '1. 五花肉煸炒，放入泡菜、辣酱翻炒。<br>2. 加入淘米水、豆腐、午餐肉和金针菇。')">
-                <img src="https://life.anyongfresh.com/wp-content/uploads/2020/10/%E9%8D%8B%E5%BA%95%E7%B3%BB%E5%88%97-%E9%9F%93%E5%BC%8F%E6%B3%A1%E8%8F%9C%E9%8D%8B-600.jpg" class="w-full h-56 object-cover">
+                 onclick="showDetail('石锅拌饭', 'https://images.unsplash.com/photo-1590301157890-4810ed352733?auto=format&fit=crop&w=800&q=80', '1. 蔬菜炒熟铺在米饭上。<br>2. 石锅加热出锅巴。<br>3. 淋入辣酱拌匀。')">
+                <img src="https://images.unsplash.com/photo-1590301157890-4810ed352733?auto=format&fit=crop&w=800&q=80" class="w-full h-56 object-cover">
                 <div class="p-5">
                     <div class="flex justify-between items-center mb-2">
-                        <span class="text-blue-600 text-xs font-bold uppercase px-2 py-1 bg-blue-50 rounded">韩餐</span>
-                        <div class="star-rating text-sm">⭐⭐⭐⭐</div>
+                        <span class="text-blue-600 text-xs font-bold px-2 py-1 bg-blue-50 rounded">韩餐</span>
+                        <div class="star-rating">⭐⭐⭐⭐</div>
                     </div>
-                    <h3 class="food-name text-xl font-bold">韩式泡菜锅</h3>
-                    <p class="text-gray-400 text-xs mt-2">点击查看详细做法</p>
+                    <h3 class="food-name text-xl font-bold">石锅拌饭</h3>
+                    <p class="text-gray-400 text-xs mt-2">点击查看做法</p>
                 </div>
             </div>
 
             <div class="food-item west bg-white rounded-3xl overflow-hidden shadow-md hover:scale-105" 
-                 onclick="showDetail('提拉米苏', 'https://images.unsplash.com/photo-1571877227200-a0d98ea607e9?auto=format&fit=crop&w=800&q=80', '1. 混合马斯卡彭干酪。<br>2. 饼干浸入咖啡液，冷藏4小时以上。')">
-                <img src="https://images.unsplash.com/photo-1571877227200-a0d98ea607e9?auto=format&fit=crop&w=800&q=80" class="w-full h-56 object-cover">
-                <div class="p-5">
-                    <div class="flex justify-between items-center mb-2">
-                        <span class="text-amber-600 text-xs font-bold uppercase px-2 py-1 bg-amber-50 rounded">西餐</span>
-                        <div class="star-rating text-sm">⭐⭐⭐⭐⭐</div>
-                    </div>
-                    <h3 class="food-name text-xl font-bold">提拉米苏</h3>
-                    <p class="text-gray-400 text-xs mt-2">点击查看详细做法</p>
-                </div>
-            </div>
-
-            <div class="food-item west bg-white rounded-3xl overflow-hidden shadow-md hover:scale-105" 
-                 onclick="showDetail('战斧牛排', 'https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=500&q=80', '1. 撒厚厚的黑胡椒和海盐。<br>2. 锅烧到冒烟，放入黄油、迷迭香和大蒜淋洗。')">
+                 onclick="showDetail('战斧牛排', 'https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=500&q=80', '1. 煎锅烧热，封死肉汁。<br>2. 放入黄油大蒜淋洗。')">
                 <img src="https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=500&q=80" class="w-full h-56 object-cover">
                 <div class="p-5">
                     <div class="flex justify-between items-center mb-2">
-                        <span class="text-amber-600 text-xs font-bold uppercase px-2 py-1 bg-amber-50 rounded">西餐</span>
-                        <div class="star-rating text-sm">⭐⭐⭐⭐⭐</div>
+                        <span class="text-amber-600 text-xs font-bold px-2 py-1 bg-amber-50 rounded">西餐</span>
+                        <div class="star-rating">⭐⭐⭐⭐⭐</div>
                     </div>
                     <h3 class="food-name text-xl font-bold">战斧牛排</h3>
-                    <p class="text-gray-400 text-xs mt-2">点击查看详细做法</p>
+                    <p class="text-gray-400 text-xs mt-2">点击查看做法</p>
+                </div>
+            </div>
+
+            <div class="food-item west bg-white rounded-3xl overflow-hidden shadow-md hover:scale-105" 
+                 onclick="showDetail('提拉米苏', 'https://images.unsplash.com/photo-1571877227200-a0d98ea607e9?auto=format&fit=crop&w=800&q=80', '1. 马斯卡彭芝士糊制作。<br>2. 浸泡饼干冷藏。')">
+                <img src="https://images.unsplash.com/photo-1571877227200-a0d98ea607e9?auto=format&fit=crop&w=800&q=80" class="w-full h-56 object-cover">
+                <div class="p-5">
+                    <div class="flex justify-between items-center mb-2">
+                        <span class="text-amber-600 text-xs font-bold px-2 py-1 bg-amber-50 rounded">西餐</span>
+                        <div class="star-rating">⭐⭐⭐⭐⭐</div>
+                    </div>
+                    <h3 class="food-name text-xl font-bold">提拉米苏</h3>
+                    <p class="text-gray-400 text-xs mt-2">点击查看做法</p>
                 </div>
             </div>
 
@@ -143,14 +129,13 @@
             <div class="p-8">
                 <h2 id="modal-title" class="text-3xl font-bold text-orange-600 mb-2"></h2>
                 <div class="h-1 w-20 bg-orange-500 rounded mb-6"></div>
-                <h4 class="font-bold text-lg mb-2">👨‍🍳 详细做法：</h4>
-                <p id="modal-content" class="text-gray-600 leading-relaxed space-y-4"></p>
+                <p id="modal-content" class="text-gray-600 leading-relaxed"></p>
             </div>
         </div>
     </div>
 
     <script>
-        // 搜索功能
+        // 搜索逻辑
         function searchFood() {
             let input = document.getElementById('searchInput').value.toLowerCase();
             let items = document.querySelectorAll('.food-item');
@@ -160,7 +145,7 @@
             });
         }
 
-        // 筛选功能
+        // 分类逻辑
         function filterFood(category) {
             const items = document.querySelectorAll('.food-item');
             items.forEach(item => {
@@ -168,11 +153,11 @@
             });
         }
 
-        // 弹窗功能
+        // 弹窗逻辑
         function showDetail(title, imgSrc, steps) {
             document.getElementById('modal-title').innerText = title;
             document.getElementById('modal-img').src = imgSrc;
-            document.getElementById('modal-content').innerHTML = steps;
+            document.getElementById('modal-content').innerHTML = `<strong>👨‍🍳 烹饪秘籍：</strong><br>${steps}`;
             document.getElementById('modal-overlay').style.display = 'block';
             document.body.style.overflow = 'hidden';
         }
