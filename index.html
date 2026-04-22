@@ -6,181 +6,172 @@
     <title>YHC GOURMET | 私人美食收藏</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Quicksand:wght@700&display=swap');
+        /* 引入更接近截图质感的字体 */
+        @import url('https://fonts.googleapis.com/css2?family=Lexend:wght@600&family=ZCOOL+KuaiLe&display=swap');
 
-        body { scroll-behavior: smooth; }
+        body { scroll-behavior: smooth; background-color: #f9f9f9; }
+        
+        /* --- 核心还原：方案二 SVG Logo --- */
+        .logo-box { display: flex; align-items: center; gap: 6px; cursor: pointer; transition: 0.3s; }
+        .logo-box:hover { opacity: 0.8; }
+        .chili-y-svg { width: 32px; height: 32px; filter: drop-shadow(0 2px 3px rgba(241, 90, 36, 0.3)); }
+        .hc-brand-text { 
+            font-family: 'Lexend', sans-serif; 
+            font-size: 26px; 
+            color: #4a4a4a; 
+            letter-spacing: -0.5px;
+            font-weight: 600;
+        }
+
+        /* --- 核心还原：导航按钮样式 (image_635987) --- */
+        .nav-btn-normal { color: #5a6b7d; font-weight: 500; font-size: 16px; padding: 6px 12px; }
+        .nav-btn-fav { 
+            background-color: #fff1f2; 
+            color: #ef4444; 
+            border: 1px solid #fee2e2; 
+            padding: 6px 18px; 
+            border-radius: 999px; 
+            display: flex; 
+            align-items: center; 
+            gap: 6px;
+            font-weight: 500;
+        }
+
+        /* 封面与卡片 */
         .food-hero { 
             background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.7)), 
             url('https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=1600&q=80'); 
-            background-size: cover; background-position: center; background-attachment: fixed;
+            background-size: cover; background-position: center;
         }
+        .food-item { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); cursor: pointer; position: relative; }
+        .food-item:hover { transform: translateY(-10px); }
         
-        /* —————————— 像素级还原：手写火焰 Logo —————————— */
-        .yhc-chili-logo {
-            display: flex;
-            align-items: center;
-            cursor: pointer;
-            gap: 4px;
-        }
-        
-        /* 还原图中的红色手写 Y */
-        .chili-y-icon {
-            font-family: 'Permanent Marker', cursive; /* 使用更接近图中手写感的艺术字体 */
-            font-size: 42px;
-            background: linear-gradient(135deg, #ff4d4d 0%, #f97316 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            transform: rotate(-10deg) skewX(-5deg); /* 增加动感斜度 */
-            display: inline-block;
-            filter: drop-shadow(2px 2px 2px rgba(0,0,0,0.1));
-            line-height: 1;
-        }
-        
-        /* 还原图中的灰色 HC GOURMET */
-        .hc-text-style {
-            font-family: 'Quicksand', sans-serif;
-            font-size: 28px;
-            color: #4a4a4a; /* 还原图中的深灰色 */
-            font-weight: 700;
-            letter-spacing: -0.5px;
-            margin-top: 5px;
-        }
-        /* ————————————————————————————————————————————————— */
+        .fav-btn { position: absolute; top: 1rem; right: 1rem; z-index: 10; background: white/90; width: 38px; height: 38px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .fav-btn.active { color: #ef4444; }
 
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        .food-item { animation: fadeInUp 0.5s ease backwards; transition: all 0.3s ease; cursor: pointer; position: relative; }
-        .food-item:hover { transform: translateY(-8px); box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1); }
-        
-        .food-item:nth-child(n) { animation-delay: calc(0.1s * var(--i)); }
-
-        .fav-btn { position: absolute; top: 1rem; right: 1rem; z-index: 10; background: white/90; width: 38px; height: 38px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 6px rgba(0,0,0,0.1); transition: all 0.2s; border: none; }
-        .fav-btn.active { color: #ef4444; transform: scale(1.15); }
-
-        #modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 100; backdrop-filter: blur(8px); }
-        .lucky-btn { background: linear-gradient(45deg, #ef4444, #f59e0b); box-shadow: 0 10px 15px -3px rgba(239, 68, 68, 0.3); }
+        #modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 100; backdrop-filter: blur(10px); }
     </style>
 </head>
-<body class="bg-stone-50 text-gray-800 font-sans">
+<body class="text-gray-800">
 
     <nav class="fixed w-full bg-white/95 backdrop-blur-md shadow-sm z-50">
-        <div class="max-w-6xl mx-auto px-4 py-2 flex justify-between items-center">
+        <div class="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
             
-            <div class="yhc-chili-logo" onclick="window.location.reload()">
-                <span class="chili-y-icon">Y</span>
-                <span class="hc-text-style">HC GOURMET</span>
+            <div class="logo-box" onclick="window.location.reload()">
+                <svg class="chili-y-svg" viewBox="0 0 100 100">
+                    <defs>
+                        <linearGradient id="chiliGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#ff4d4d;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#f97316;stop-opacity:1" />
+                        </linearGradient>
+                    </defs>
+                    <path d="M30,20 Q45,20 50,45 Q55,70 75,75 Q55,80 45,55 Q35,30 20,35 Z" fill="url(#chiliGrad)" />
+                    <path d="M50,45 L70,20" stroke="url(#chiliGrad)" stroke-width="8" stroke-linecap="round" fill="none" />
+                </svg>
+                <span class="hc-brand-text">HC GOURMET</span>
             </div>
             
-            <div class="flex space-x-4 md:space-x-8 text-gray-600 font-bold text-sm items-center">
-                <button onclick="filterFood('all')" class="hover:text-orange-500 transition">全部</button>
-                <button onclick="filterFood('cn')" class="hover:text-orange-500 transition hidden md:block">中餐</button>
-                <button onclick="filterFood('kr')" class="hover:text-orange-500 transition hidden md:block">韩餐</button>
-                <button onclick="filterFood('west')" class="hover:text-orange-500 transition hidden md:block">西餐</button>
-                <button onclick="showFavorites()" class="text-white bg-red-500 px-4 py-1.5 rounded-full shadow-md hover:bg-red-600 transition flex items-center gap-1">❤️ 收藏</button>
+            <div class="flex items-center space-x-2 md:space-x-4">
+                <button onclick="filterFood('all')" class="nav-btn-normal">全部</button>
+                <button onclick="showFavorites()" class="nav-btn-fav">
+                    <span style="font-size: 18px;">❤️</span> 收藏
+                </button>
             </div>
         </div>
     </nav>
 
-    <section class="food-hero h-[45vh] flex items-center justify-center text-white mt-14">
+    <section class="food-hero h-[40vh] flex items-center justify-center text-white mt-14">
         <div class="text-center px-4">
-            <h1 class="text-5xl md:text-7xl font-black mb-4 drop-shadow-2xl">人间烟火气</h1>
-            <p class="text-xl opacity-90 font-medium mb-8">点击菜品查看详细做法</p>
-            <button onclick="pickRandomFood()" class="lucky-btn px-10 py-4 rounded-full font-bold text-lg hover:scale-105 transition-all active:scale-95">🎲 帮我选一个</button>
+            <h1 class="text-4xl md:text-6xl font-bold mb-4">人间烟火气</h1>
+            <button onclick="pickRandomFood()" class="mt-4 bg-orange-500 hover:bg-orange-600 px-8 py-3 rounded-full font-bold transition-all shadow-lg">🎲 随机选菜</button>
         </div>
     </section>
 
-    <section class="pt-10 pb-6 px-4 max-w-6xl mx-auto">
-        <input type="text" id="searchInput" onkeyup="searchFood()" placeholder="🔍 搜搜你想吃的..." 
-            class="w-full p-5 rounded-2xl border-2 border-stone-200 focus:border-orange-500 focus:outline-none shadow-inner text-lg transition-all">
-    </section>
+    <div class="max-w-4xl mx-auto px-4 -mt-8">
+        <input type="text" id="searchInput" onkeyup="searchFood()" placeholder="🔍 搜索美食名称..." 
+            class="w-full p-4 rounded-2xl shadow-xl border-none focus:ring-2 focus:ring-orange-500 outline-none text-lg">
+    </div>
 
-    <section class="pb-20 max-w-6xl mx-auto px-4">
-        <div id="food-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
+    <section class="py-16 max-w-6xl mx-auto px-4">
+        <div id="food-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
             
-            <div class="food-item cn bg-white rounded-3xl overflow-hidden shadow-lg" style="--i:1" data-id="1">
+            <div class="food-item cn bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-xl" data-id="1">
                 <button class="fav-btn" onclick="toggleFav(event, '1')">❤</button>
-                <div onclick="showDetail('麻婆豆腐', 'https://assets.tmecosys.com/image/upload/t_web_rdp_recipe_584x480_1_5x/img/recipe/ras/Assets/0B16D5E2-C19B-4BEE-AD1B-75C63D23BE3C/Derivates/B8A0692E-CA25-439F-8F24-F1C5E74B42E1.jpg', '1. 豆腐切方块，牛肉切末。<br>2. 炒香豆瓣酱、姜蒜末。<br>3. 下豆腐焖煮，勾三次薄芡。<br>4. 撒花椒粉和青蒜苗。', '💡 秘诀：牛肉末要炒酥，勾芡要分三次。')">
-                    <img src="https://assets.tmecosys.com/image/upload/t_web_rdp_recipe_584x480_1_5x/img/recipe/ras/Assets/0B16D5E2-C19B-4BEE-AD1B-75C63D23BE3C/Derivates/B8A0692E-CA25-439F-8F24-F1C5E74B42E1.jpg" class="w-full h-64 object-cover">
-                    <div class="p-6"><span class="text-red-500 text-sm font-bold">中餐</span><h3 class="food-name text-2xl font-black mt-1">麻婆豆腐</h3><p class="text-gray-400 text-sm mt-2 italic">查看详细做法...</p></div>
+                <div onclick="showDetail('麻婆豆腐', 'https://assets.tmecosys.com/image/upload/t_web_rdp_recipe_584x480_1_5x/img/recipe/ras/Assets/0B16D5E2-C19B-4BEE-AD1B-75C63D23BE3C/Derivates/B8A0692E-CA25-439F-8F24-F1C5E74B42E1.jpg', '1. 豆腐切方块。<br>2. 炒香肉末豆瓣酱。<br>3. 下豆腐焖煮勾芡。', '💡 秘诀：花椒粉最后撒！')">
+                    <img src="https://assets.tmecosys.com/image/upload/t_web_rdp_recipe_584x480_1_5x/img/recipe/ras/Assets/0B16D5E2-C19B-4BEE-AD1B-75C63D23BE3C/Derivates/B8A0692E-CA25-439F-8F24-F1C5E74B42E1.jpg" class="w-full h-56 object-cover">
+                    <div class="p-5"><h3 class="food-name text-xl font-bold">麻婆豆腐</h3><p class="text-gray-400 text-sm mt-1">经典川菜 · 麻辣鲜香</p></div>
                 </div>
             </div>
 
-            <div class="food-item kr bg-white rounded-3xl overflow-hidden shadow-lg" style="--i:2" data-id="2">
+            <div class="food-item cn bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-xl" data-id="2">
                 <button class="fav-btn" onclick="toggleFav(event, '2')">❤</button>
-                <div onclick="showDetail('韩式泡菜锅', 'https://life.anyongfresh.com/wp-content/uploads/2020/10/%E9%8D%8B%E5%BA%95%E7%B3%BB%E5%88%97-%E9%9F%93%E5%BC%8F%E6%B3%A1%E8%8F%9C%E9%8D%8B-600.jpg', '1. 炒五花肉和酸泡菜。<br>2. 加入淘米水煮沸。<br>3. 放入豆腐、午餐肉和辣酱调味。', '💡 秘诀：一定要用酸掉的老泡菜！')">
-                    <img src="https://life.anyongfresh.com/wp-content/uploads/2020/10/%E9%8D%8B%E5%BA%95%E7%B3%BB%E5%88%97-%E9%9F%93%E5%BC%8F%E6%B3%A1%E8%8F%9C%E9%8D%8B-600.jpg" class="w-full h-64 object-cover">
-                    <div class="p-6"><span class="text-blue-500 text-sm font-bold">韩餐</span><h3 class="food-name text-2xl font-black mt-1">韩式泡菜锅</h3><p class="text-gray-400 text-sm mt-2 italic">查看详细做法...</p></div>
+                <div onclick="showDetail('北京烤鸭', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT6d8NcqTQaDr-jUCPvx4dIjrOqWsl17BZywg&s', '1. 烫皮晾干。<br>2. 180度烤制1小时。', '💡 秘诀：皮一定要晾干。')">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT6d8NcqTQaDr-jUCPvx4dIjrOqWsl17BZywg&s" class="w-full h-56 object-cover">
+                    <div class="p-5"><h3 class="food-name text-xl font-bold">北京烤鸭</h3><p class="text-gray-400 text-sm mt-1">宫廷美味 · 皮脆肉嫩</p></div>
                 </div>
             </div>
 
-            <div class="food-item west bg-white rounded-3xl overflow-hidden shadow-lg" style="--i:3" data-id="3">
+            <div class="food-item kr bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-xl" data-id="3">
                 <button class="fav-btn" onclick="toggleFav(event, '3')">❤</button>
-                <div onclick="showDetail('战斧牛排', 'https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=500&q=80', '1. 厚切牛排提前回温。<br>2. 大火煎封表面。<br>3. 烤箱烤至所需熟度。<br>4. 黄油迷迭香淋洗。', '💡 秘诀：煎完一定要静置5-10分钟。')">
-                    <img src="https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=500&q=80" class="w-full h-64 object-cover">
-                    <div class="p-6"><span class="text-orange-500 text-sm font-bold">西餐</span><h3 class="food-name text-2xl font-black mt-1">战斧牛排</h3><p class="text-gray-400 text-sm mt-2 italic">查看详细做法...</p></div>
+                <div onclick="showDetail('韩式炸鸡', 'https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?auto=format&fit=crop&w=800&q=80', '1. 炸两次。<br>2. 裹上甜辣酱。', '💡 秘诀：复炸是关键！')">
+                    <img src="https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?auto=format&fit=crop&w=800&q=80" class="w-full h-56 object-cover">
+                    <div class="p-5"><h3 class="food-name text-xl font-bold">韩式炸鸡</h3><p class="text-gray-400 text-sm mt-1">追剧必备 · 酥脆多汁</p></div>
                 </div>
             </div>
 
-            <div class="food-item cn bg-white rounded-3xl overflow-hidden shadow-lg" style="--i:4" data-id="4">
+            <div class="food-item kr bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-xl" data-id="4">
                 <button class="fav-btn" onclick="toggleFav(event, '4')">❤</button>
-                <div onclick="showDetail('北京烤鸭', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT6d8NcqTQaDr-jUCPvx4dIjrOqWsl17BZywg&s', '1. 烫皮、抹脆皮水、晾干。<br>2. 挂炉烤制1小时。<br>3. 切片配饼、葱丝、甜面酱。', '💡 秘诀：晾干的过程不能省，皮才脆。')">
-                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT6d8NcqTQaDr-jUCPvx4dIjrOqWsl17BZywg&s" class="w-full h-64 object-cover">
-                    <div class="p-6"><span class="text-red-500 text-sm font-bold">中餐</span><h3 class="food-name text-2xl font-black mt-1">北京烤鸭</h3></div>
+                <div onclick="showDetail('石锅拌饭', 'https://images.unsplash.com/photo-1590301157890-4810ed352733?auto=format&fit=crop&w=800&q=80', '1. 配菜切丝。<br>2. 石锅涂油放饭。', '💡 锅巴是灵魂。')">
+                    <img src="https://images.unsplash.com/photo-1590301157890-4810ed352733?auto=format&fit=crop&w=800&q=80" class="w-full h-56 object-cover">
+                    <div class="p-5"><h3 class="food-name text-xl font-bold">石锅拌饭</h3></div>
                 </div>
             </div>
 
-            <div class="food-item kr bg-white rounded-3xl overflow-hidden shadow-lg" style="--i:5" data-id="5">
+            <div class="food-item kr bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-xl" data-id="5">
                 <button class="fav-btn" onclick="toggleFav(event, '5')">❤</button>
-                <div onclick="showDetail('韩式炸鸡', 'https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?auto=format&fit=crop&w=800&q=80', '1. 鸡肉腌制入味。<br>2. 复炸两次达到酥脆。<br>3. 裹上韩式甜辣酱汁。', '💡 秘诀：淀粉和面粉比例1:1最酥。')">
-                    <img src="https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?auto=format&fit=crop&w=800&q=80" class="w-full h-64 object-cover">
-                    <div class="p-6"><span class="text-blue-500 text-sm font-bold">韩餐</span><h3 class="food-name text-2xl font-black mt-1">韩式炸鸡</h3></div>
+                <div onclick="showDetail('韩式泡菜锅', 'https://life.anyongfresh.com/wp-content/uploads/2020/10/%E9%8D%8B%E5%BA%95%E7%B3%BB%E5%88%97-%E9%9F%93%E5%BC%8F%E6%B3%A1%E8%8F%9C%E9%8D%8B-600.jpg', '1. 五花肉泡菜同煮。', '💡 越久越入味。')">
+                    <img src="https://life.anyongfresh.com/wp-content/uploads/2020/10/%E9%8D%8B%E5%BA%95%E7%B3%BB%E5%88%97-%E9%9F%93%E5%BC%8F%E6%B3%A1%E8%8F%9C%E9%8D%8B-600.jpg" class="w-full h-56 object-cover">
+                    <div class="p-5"><h3 class="food-name text-xl font-bold">韩式泡菜锅</h3></div>
                 </div>
             </div>
 
-            <div class="food-item kr bg-white rounded-3xl overflow-hidden shadow-lg" style="--i:6" data-id="6">
+            <div class="food-item west bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-xl" data-id="6">
                 <button class="fav-btn" onclick="toggleFav(event, '6')">❤</button>
-                <div onclick="showDetail('石锅拌饭', 'https://images.unsplash.com/photo-1590301157890-4810ed352733?auto=format&fit=crop&w=800&q=80', '1. 各种配菜切丝炒熟。<br>2. 石锅底部涂油放饭。<br>3. 听到滋滋声放菜和蛋。', '💡 秘诀：加入一点雪碧在辣酱里更地道。')">
-                    <img src="https://images.unsplash.com/photo-1590301157890-4810ed352733?auto=format&fit=crop&w=800&q=80" class="w-full h-64 object-cover">
-                    <div class="p-6"><span class="text-blue-500 text-sm font-bold">韩餐</span><h3 class="food-name text-2xl font-black mt-1">石锅拌饭</h3></div>
+                <div onclick="showDetail('战斧牛排', 'https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=500&q=80', '1. 煎至五分熟。', '💡 记得静置。')">
+                    <img src="https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=500&q=80" class="w-full h-56 object-cover">
+                    <div class="p-5"><h3 class="food-name text-xl font-bold">战斧牛排</h3></div>
                 </div>
             </div>
 
-            <div class="food-item west bg-white rounded-3xl overflow-hidden shadow-lg" style="--i:7" data-id="7">
+            <div class="food-item west bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-xl" data-id="7">
                 <button class="fav-btn" onclick="toggleFav(event, '7')">❤</button>
-                <div onclick="showDetail('提拉米苏', 'https://images.unsplash.com/photo-1571877227200-a0d98ea607e9?auto=format&fit=crop&w=800&q=80', '1. 蛋黄加糖打发加马斯卡彭。<br>2. 饼干浸泡浓缩咖啡液。<br>3. 叠层冷藏一夜，撒可可粉。', '💡 秘诀：咖啡里加一点朗姆酒。')">
-                    <img src="https://images.unsplash.com/photo-1571877227200-a0d98ea607e9?auto=format&fit=crop&w=800&q=80" class="w-full h-64 object-cover">
-                    <div class="p-6"><span class="text-orange-500 text-sm font-bold">西餐</span><h3 class="food-name text-2xl font-black mt-1">提拉米苏</h3></div>
+                <div onclick="showDetail('提拉米苏', 'https://images.unsplash.com/photo-1571877227200-a0d98ea607e9?auto=format&fit=crop&w=800&q=80', '1. 手指饼干泡咖啡。', '💡 不要泡太久。')">
+                    <img src="https://images.unsplash.com/photo-1571877227200-a0d98ea607e9?auto=format&fit=crop&w=800&q=80" class="w-full h-56 object-cover">
+                    <div class="p-5"><h3 class="food-name text-xl font-bold">提拉米苏</h3></div>
                 </div>
             </div>
 
         </div>
     </section>
 
-    <footer class="bg-stone-900 text-stone-500 py-16 text-center text-sm border-t border-stone-800">
-        <div class="inline-flex gap-2 items-center mb-4">
-            <span class="chili-y-icon">Y</span>
-            <span class="hc-text-style !text-white">HC GOURMET</span>
-        </div>
-        <p>© 2026 YHC 私人美食收藏馆 · 热烈而自由</p>
+    <footer class="bg-white py-12 text-center border-t">
+        <p class="text-gray-400 text-sm">© 2026 YHC GOURMET · 用心感受每一餐</p>
     </footer>
 
     <div id="modal-overlay" onclick="closeModal()">
-        <div class="max-w-2xl mx-auto mt-20 bg-white rounded-[2.5rem] overflow-hidden shadow-2xl relative animate-in zoom-in duration-300" onclick="event.stopPropagation()">
-            <button class="absolute top-5 right-5 bg-black/10 hover:bg-black/30 text-white w-10 h-10 rounded-full flex items-center justify-center transition-all" onclick="closeModal()">✕</button>
-            <img id="modal-img" class="w-full h-80 object-cover">
-            <div class="p-10">
-                <h2 id="modal-title" class="text-4xl font-black text-stone-900 mb-2"></h2>
-                <div class="h-1.5 w-16 bg-orange-500 rounded-full mb-8"></div>
-                <div id="modal-content" class="text-gray-600 leading-relaxed mb-8 text-lg"></div>
-                <div id="modal-tip" class="p-5 bg-orange-50 border-l-8 border-orange-500 text-orange-900 rounded-xl font-medium"></div>
+        <div class="max-w-2xl mx-auto mt-20 bg-white rounded-[2rem] overflow-hidden shadow-2xl relative" onclick="event.stopPropagation()">
+            <button class="absolute top-4 right-4 text-gray-400 text-2xl" onclick="closeModal()">✕</button>
+            <img id="modal-img" class="w-full h-72 object-cover">
+            <div class="p-8">
+                <h2 id="modal-title" class="text-3xl font-bold text-orange-600 mb-4"></h2>
+                <div id="modal-content" class="text-gray-600 mb-6"></div>
+                <div id="modal-tip" class="p-4 bg-orange-50 text-orange-700 rounded-xl"></div>
             </div>
         </div>
     </div>
 
     <script>
-        let favorites = JSON.parse(localStorage.getItem('yhcFinalFavs')) || [];
+        let favorites = JSON.parse(localStorage.getItem('yhcFavs')) || [];
 
         function updateFavUI() {
             document.querySelectorAll('.food-item').forEach(item => {
@@ -199,7 +190,7 @@
         function toggleFav(event, id) {
             event.stopPropagation();
             favorites = favorites.includes(id) ? favorites.filter(f => f !== id) : [...favorites, id];
-            localStorage.setItem('yhcFinalFavs', JSON.stringify(favorites));
+            localStorage.setItem('yhcFavs', JSON.stringify(favorites));
             updateFavUI();
         }
 
@@ -227,15 +218,13 @@
         function showDetail(title, imgSrc, steps, tip) {
             document.getElementById('modal-title').innerText = title;
             document.getElementById('modal-img').src = imgSrc;
-            document.getElementById('modal-content').innerHTML = `<strong>👨‍🍳 烹饪秘籍：</strong><br><br>${steps}`;
+            document.getElementById('modal-content').innerHTML = `<strong>👨‍🍳 做法：</strong><br>${steps}`;
             document.getElementById('modal-tip').innerText = tip;
             document.getElementById('modal-overlay').style.display = 'block';
-            document.body.style.overflow = 'hidden';
         }
 
         function closeModal() {
             document.getElementById('modal-overlay').style.display = 'none';
-            document.body.style.overflow = 'auto';
         }
 
         function pickRandomFood() {
