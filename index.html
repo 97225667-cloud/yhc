@@ -7,31 +7,46 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         body { scroll-behavior: smooth; }
+        /* 新增：封面样式 */
         .food-hero { 
-            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), 
-            url('https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=1200&q=80'); 
-            background-size: cover; background-position: center; 
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.7)), 
+            url('https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=1600&q=80'); 
+            background-size: cover; 
+            background-position: center; 
+            background-attachment: fixed; /* 视差滚动效果 */
         }
+        .hero-title { text-shadow: 0 4px 10px rgba(0,0,0,0.5); }
+        
         .food-item { transition: all 0.3s ease; cursor: pointer; }
         #modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 100; backdrop-filter: blur(8px); }
         .star-rating { color: #fbbf24; }
     </style>
 </head>
-<body class="bg-stone-50 text-gray-800">
+<body class="bg-stone-50 text-gray-800 font-sans">
 
     <nav class="fixed w-full bg-white/90 backdrop-blur-md shadow-sm z-50">
         <div class="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
-            <span class="text-2xl font-bold text-orange-600">🍴 美食大赏</span>
-            <div class="flex space-x-4 text-gray-600 font-medium">
-                <button onclick="filterFood('all')" class="hover:text-orange-500">全部</button>
-                <button onclick="filterFood('cn')" class="hover:text-orange-500">中餐</button>
-                <button onclick="filterFood('kr')" class="hover:text-orange-500">韩餐</button>
-                <button onclick="filterFood('west')" class="hover:text-orange-500">西餐</button>
+            <span class="text-2xl font-bold text-orange-600 flex items-center gap-2">
+                🍴 <span class="hidden sm:inline">美食大赏</span>
+            </span>
+            <div class="flex space-x-3 md:space-x-8 text-gray-600 font-medium text-sm md:text-base">
+                <button onclick="filterFood('all')" class="hover:text-orange-500 transition border-b-2 border-transparent hover:border-orange-500 pb-1">全部</button>
+                <button onclick="filterFood('cn')" class="hover:text-orange-500 transition border-b-2 border-transparent hover:border-orange-500 pb-1">中餐</button>
+                <button onclick="filterFood('kr')" class="hover:text-orange-500 transition border-b-2 border-transparent hover:border-orange-500 pb-1">韩餐</button>
+                <button onclick="filterFood('west')" class="hover:text-orange-500 transition border-b-2 border-transparent hover:border-orange-500 pb-1">西餐</button>
             </div>
         </div>
     </nav>
 
-    <section class="pt-24 pb-6 px-4 max-w-6xl mx-auto">
+    <section class="food-hero h-[60vh] flex items-center justify-center text-white mt-14">
+        <div class="text-center px-4">
+            <h1 class="hero-title text-4xl md:text-6xl font-black mb-6 tracking-tight">人间烟火气，最抚凡人心</h1>
+            <p class="text-lg md:text-xl opacity-90 font-light max-w-2xl mx-auto">这里记录了我私藏的所有美味瞬间，点击菜品即可查看详细做法。</p>
+            <a href="#search-area" class="inline-block mt-10 px-8 py-3 bg-orange-500 text-white font-bold rounded-full shadow-lg hover:bg-orange-600 transition-all transform hover:scale-105">开始探索</a>
+        </div>
+    </section>
+
+    <section id="search-area" class="pt-16 pb-6 px-4 max-w-6xl mx-auto">
         <div class="relative">
             <input type="text" id="searchInput" onkeyup="searchFood()" placeholder="🔍 搜索你想吃的菜（如：豆腐、烤鸭、牛排...）" 
                 class="w-full p-4 rounded-2xl border-2 border-orange-100 focus:border-orange-500 focus:outline-none shadow-md text-lg transition-all">
@@ -107,15 +122,15 @@
             </div>
 
             <div class="food-item west bg-white rounded-3xl overflow-hidden shadow-md hover:scale-105" 
-                 onclick="showDetail('提拉米苏', 'https://images.unsplash.com/photo-1571877227200-a0d98ea607e9?auto=format&fit=crop&w=800&q=80', '1. 马斯卡彭芝士糊制作。<br>2. 浸泡饼干冷藏。')">
+                 onclick="showDetail('提拉米苏', 'https://images.unsplash.com/photo-1571877227200-a0d98ea607e9?auto=format&fit=crop&w=800&q=80', '1. 马斯卡彭芝士糊制作。<br>2. 饼干浸入咖啡液，冷藏4小时以上。')">
                 <img src="https://images.unsplash.com/photo-1571877227200-a0d98ea607e9?auto=format&fit=crop&w=800&q=80" class="w-full h-56 object-cover">
                 <div class="p-5">
                     <div class="flex justify-between items-center mb-2">
-                        <span class="text-amber-600 text-xs font-bold px-2 py-1 bg-amber-50 rounded">西餐</span>
-                        <div class="star-rating">⭐⭐⭐⭐⭐</div>
+                        <span class="text-amber-600 text-xs font-bold uppercase px-2 py-1 bg-amber-50 rounded">西餐</span>
+                        <div class="star-rating text-sm">⭐⭐⭐⭐⭐</div>
                     </div>
                     <h3 class="food-name text-xl font-bold">提拉米苏</h3>
-                    <p class="text-gray-400 text-xs mt-2">点击查看做法</p>
+                    <p class="text-gray-400 text-xs mt-2">点击查看详细做法</p>
                 </div>
             </div>
 
@@ -129,7 +144,8 @@
             <div class="p-8">
                 <h2 id="modal-title" class="text-3xl font-bold text-orange-600 mb-2"></h2>
                 <div class="h-1 w-20 bg-orange-500 rounded mb-6"></div>
-                <p id="modal-content" class="text-gray-600 leading-relaxed"></p>
+                <h4 class="font-bold text-lg mb-2">👨‍🍳 详细做法：</h4>
+                <p id="modal-content" class="text-gray-600 leading-relaxed space-y-4"></p>
             </div>
         </div>
     </div>
@@ -157,7 +173,7 @@
         function showDetail(title, imgSrc, steps) {
             document.getElementById('modal-title').innerText = title;
             document.getElementById('modal-img').src = imgSrc;
-            document.getElementById('modal-content').innerHTML = `<strong>👨‍🍳 烹饪秘籍：</strong><br>${steps}`;
+            document.getElementById('modal-content').innerHTML = steps;
             document.getElementById('modal-overlay').style.display = 'block';
             document.body.style.overflow = 'hidden';
         }
