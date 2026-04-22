@@ -10,115 +10,109 @@
         .food-hero { 
             background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), 
             url('https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=1200&q=80'); 
-            background-size: cover; 
-            background-position: center; 
+            background-size: cover; background-position: center; 
         }
-        /* 增加切换动画效果 */
-        .food-item { transition: all 0.4s ease; }
+        .food-item { transition: all 0.3s ease; cursor: pointer; }
+        /* 弹窗背景遮罩 */
+        #modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 100; backdrop-blur: 5px; }
     </style>
 </head>
-<body class="bg-stone-50 text-gray-800 font-sans">
+<body class="bg-stone-50 text-gray-800">
 
     <nav class="fixed w-full bg-white/90 backdrop-blur-md shadow-sm z-50">
         <div class="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
-            <span class="text-2xl font-bold text-orange-600 flex items-center gap-2">
-                🍴 <span class="hidden sm:inline">美食大赏</span>
-            </span>
-            <div class="flex space-x-3 md:space-x-8 text-gray-600 font-medium text-sm md:text-base">
-                <button onclick="filterFood('all')" class="hover:text-orange-500 transition border-b-2 border-transparent hover:border-orange-500 pb-1">全部</button>
-                <button onclick="filterFood('cn')" class="hover:text-orange-500 transition border-b-2 border-transparent hover:border-orange-500 pb-1">中餐</button>
-                <button onclick="filterFood('kr')" class="hover:text-orange-500 transition border-b-2 border-transparent hover:border-orange-500 pb-1">韩餐</button>
-                <button onclick="filterFood('west')" class="hover:text-orange-500 transition border-b-2 border-transparent hover:border-orange-500 pb-1">西餐</button>
+            <span class="text-2xl font-bold text-orange-600">🍴 美食大赏</span>
+            <div class="flex space-x-4 text-gray-600 font-medium">
+                <button onclick="filterFood('all')" class="hover:text-orange-500">全部</button>
+                <button onclick="filterFood('cn')" class="hover:text-orange-500">中餐</button>
+                <button onclick="filterFood('kr')" class="hover:text-orange-500">韩餐</button>
+                <button onclick="filterFood('west')" class="hover:text-orange-500">西餐</button>
             </div>
         </div>
     </nav>
 
-    <section class="food-hero h-[40vh] flex items-center justify-center text-white">
+    <section class="food-hero h-[30vh] flex items-center justify-center text-white pt-16">
         <div class="text-center px-4">
-            <h1 class="text-3xl md:text-5xl font-black mb-4 tracking-tight text-white shadow-sm">人间烟火气，最抚凡人心</h1>
-            <p class="text-base md:text-lg opacity-90 font-light">这里记录了我私藏的所有美味瞬间</p>
+            <h1 class="text-3xl md:text-5xl font-black mb-2">人间烟火气</h1>
+            <p class="opacity-90">点击菜品查看详细做法</p>
         </div>
     </section>
 
-    <section id="collection" class="py-12 max-w-6xl mx-auto px-4">
+    <section class="py-12 max-w-6xl mx-auto px-4">
         <div id="food-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
             
-            <div class="food-item cn bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl border border-stone-100">
-                <img src="https://assets.tmecosys.com/image/upload/t_web_rdp_recipe_584x480_1_5x/img/recipe/ras/Assets/0B16D5E2-C19B-4BEE-AD1B-75C63D23BE3C/Derivates/B8A0692E-CA25-439F-8F24-F1C5E74B42E1.jpg" alt="中餐" class="w-full h-56 object-cover">
+            <div class="food-item cn bg-white rounded-2xl overflow-hidden shadow-md hover:scale-105" 
+                 onclick="showDetail('麻婆豆腐', 'https://assets.tmecosys.com/image/upload/t_web_rdp_recipe_584x480_1_5x/img/recipe/ras/Assets/0B16D5E2-C19B-4BEE-AD1B-75C63D23BE3C/Derivates/B8A0692E-CA25-439F-8F24-F1C5E74B42E1.jpg', '1. 豆腐切方块，牛肉切末。<br>2. 锅中下油，炒香豆瓣酱、姜蒜末、豆豉。<br>3. 加入高汤和豆腐烧开，小火焖煮。<br>4. 勾三次薄芡，最后撒上大量的花椒粉和青蒜末。')">
+                <img src="https://assets.tmecosys.com/image/upload/t_web_rdp_recipe_584x480_1_5x/img/recipe/ras/Assets/0B16D5E2-C19B-4BEE-AD1B-75C63D23BE3C/Derivates/B8A0692E-CA25-439F-8F24-F1C5E74B42E1.jpg" class="w-full h-56 object-cover">
                 <div class="p-5">
-                    <span class="px-2 py-1 bg-red-100 text-red-600 text-[10px] font-bold rounded-md uppercase tracking-wider">中餐专区</span>
-                    <h3 class="text-xl font-bold mt-2 mb-2">麻婆豆腐</h3>
-                    <p class="text-gray-500 text-sm italic">川菜 (红亮开胃)。</p>
+                    <span class="text-red-600 text-xs font-bold uppercase">中餐</span>
+                    <h3 class="text-xl font-bold mt-1">麻婆豆腐</h3>
+                    <p class="text-gray-500 text-sm mt-2 italic">查看详细做法...</p>
                 </div>
             </div>
 
-            <div class="food-item kr bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl border border-stone-100">
-                <img src="https://life.anyongfresh.com/wp-content/uploads/2020/10/%E9%8D%8B%E5%BA%95%E7%B3%BB%E5%88%97-%E9%9F%93%E5%BC%8F%E6%B3%A1%E8%8F%9C%E9%8D%8B-600.jpg" alt="韩餐" class="w-full h-56 object-cover">
+            <div class="food-item kr bg-white rounded-2xl overflow-hidden shadow-md hover:scale-105" 
+                 onclick="showDetail('韩式泡菜锅', 'https://life.anyongfresh.com/wp-content/uploads/2020/10/%E9%8D%8B%E5%BA%95%E7%B3%BB%E5%88%97-%E9%9F%93%E5%BC%8F%E6%B3%A1%E8%8F%9C%E9%8D%8B-600.jpg', '1. 五花肉煸炒出油，放入洋葱、蒜片炒香。<br>2. 放入老泡菜、辣酱翻炒。<br>3. 加入淘米水、豆腐、午餐肉和金针菇。<br>4. 中火熬煮15分钟，出锅前撒葱段。')">
+                <img src="https://life.anyongfresh.com/wp-content/uploads/2020/10/%E9%8D%8B%E5%BA%95%E7%B3%BB%E5%88%97-%E9%9F%93%E5%BC%8F%E6%B3%A1%E8%8F%9C%E9%8D%8B-600.jpg" class="w-full h-56 object-cover">
                 <div class="p-5">
-                    <span class="px-2 py-1 bg-blue-100 text-blue-600 text-[10px] font-bold rounded-md uppercase tracking-wider">韩餐专区</span>
-                    <h3 class="text-xl font-bold mt-2 mb-2">韩式泡菜锅</h3>
-                    <p class="text-gray-500 text-sm italic">酸辣开胃，冬天里的一碗泡菜汤能瞬间驱散寒意。</p>
+                    <span class="text-blue-600 text-xs font-bold uppercase">韩餐</span>
+                    <h3 class="text-xl font-bold mt-1">韩式泡菜锅</h3>
+                    <p class="text-gray-500 text-sm mt-2 italic">查看详细做法...</p>
                 </div>
             </div>
 
-            <div class="food-item west bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl border border-stone-100">
-                <img src="https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=500&q=80" alt="西餐" class="w-full h-56 object-cover">
+            <div class="food-item west bg-white rounded-2xl overflow-hidden shadow-md hover:scale-105" 
+                 onclick="showDetail('战斧牛排', 'https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=500&q=80', '1. 牛排提前解冻，用吸水纸擦干水分。<br>2. 两面撒厚厚的黑胡椒和海盐。<br>3. 锅烧到冒烟，放入黄油、迷迭香和大蒜。<br>4. 每面煎3分钟左右，取出静置5分钟锁住肉汁。')">
+                <img src="https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=500&q=80" class="w-full h-56 object-cover">
                 <div class="p-5">
-                    <span class="px-2 py-1 bg-amber-100 text-amber-600 text-[10px] font-bold rounded-md uppercase tracking-wider">西餐专区</span>
-                    <h3 class="text-xl font-bold mt-2 mb-2">战斧牛排</h3>
-                    <p class="text-gray-500 text-sm italic">高温炙烤锁住肉汁，原汁原味是对肉类最高的尊重。</p>
+                    <span class="text-amber-600 text-xs font-bold uppercase">西餐</span>
+                    <h3 class="text-xl font-bold mt-1">战斧牛排</h3>
+                    <p class="text-gray-500 text-sm mt-2 italic">查看详细做法...</p>
                 </div>
             </div>
 
-            </div>
+        </div>
     </section>
 
-    <footer class="bg-white border-t border-stone-200 py-10 text-center">
-        <p class="text-gray-400 text-xs tracking-widest uppercase mb-2">My Food Collection</p>
-        <p class="text-gray-600 font-serif">记录味蕾的每一次旅行</p>
-    </footer>
+    <div id="modal-overlay" onclick="closeModal()">
+        <div class="max-w-2xl mx-auto mt-20 bg-white rounded-3xl overflow-hidden shadow-2xl relative" onclick="event.stopPropagation()">
+            <button class="absolute top-4 right-4 bg-black/20 hover:bg-black/50 text-white w-8 h-8 rounded-full" onclick="closeModal()">✕</button>
+            <img id="modal-img" class="w-full h-64 object-cover" src="">
+            <div class="p-8">
+                <h2 id="modal-title" class="text-3xl font-bold text-orange-600 mb-4"></h2>
+                <div class="h-px bg-orange-100 mb-6"></div>
+                <h4 class="font-bold text-lg mb-2">📖 详细做法：</h4>
+                <p id="modal-content" class="text-gray-600 leading-relaxed space-y-4"></p>
+            </div>
+        </div>
+    </div>
 
     <script>
+        // 筛选功能
         function filterFood(category) {
             const items = document.querySelectorAll('.food-item');
-            
             items.forEach(item => {
-                // 先给一个淡出效果
-                item.style.opacity = '0';
-                item.style.transform = 'scale(0.9)';
-                
-                setTimeout(() => {
-                    if (category === 'all' || item.classList.contains(category)) {
-                        item.style.display = 'block';
-                        // 延迟一点显示，做个动画
-                        setTimeout(() => {
-                            item.style.opacity = '1';
-                            item.style.transform = 'scale(1)';
-                        }, 50);
-                    } else {
-                        item.style.display = 'none';
-                    }
-                }, 300);
+                if (category === 'all' || item.classList.contains(category)) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
             });
         }
-    </script>
 
+        // 弹窗功能
+        function showDetail(title, imgSrc, steps) {
+            document.getElementById('modal-title').innerText = title;
+            document.getElementById('modal-img').src = imgSrc;
+            document.getElementById('modal-content').innerHTML = steps;
+            document.getElementById('modal-overlay').style.display = 'block';
+            document.body.style.overflow = 'hidden'; // 禁止背景滚动
+        }
+
+        function closeModal() {
+            document.getElementById('modal-overlay').style.display = 'none';
+            document.body.style.overflow = 'auto'; // 恢复滚动
+        }
+    </script>
 </body>
 </html>
-<div class="food-item cn bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl border border-stone-100">
-    <img src="https://assets.tmecosys.com/image/upload/t_web_rdp_recipe_584x480_1_5x/img/recipe/ras/Assets/0B16D5E2-C19B-4BEE-AD1B-75C63D23BE3C/Derivates/B8A0692E-CA25-439F-8F24-F1C5E74B42E1.jpg" class="w-full h-56 object-cover">
-    <div class="p-5">
-        <span class="px-2 py-1 bg-red-100 text-red-600 text-[10px] font-bold rounded-md uppercase tracking-wider">中餐专区</span>
-        <h3 class="text-xl font-bold mt-2 mb-2">麻婆豆腐</h3>
-        <p class="text-gray-500 text-sm italic">麻、辣、烫、香、酥、嫩、鲜，一口下去满是川味的灵魂。</p>
-    </div>
-</div>
-
-<div class="food-item cn bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl border border-stone-100">
-    <img src="https://images.unsplash.com/photo-1563245372-f21724e3856d?auto=format&fit=crop&w=800&q=80" class="w-full h-56 object-cover">
-    <div class="p-5">
-        <span class="px-2 py-1 bg-red-100 text-red-600 text-[10px] font-bold rounded-md uppercase tracking-wider">中餐专区</span>
-        <h3 class="text-xl font-bold mt-2 mb-2">南翔小笼包</h3>
-        <p class="text-gray-500 text-sm italic">皮薄如纸，汤汁醇厚。轻轻提，慢慢移，先开窗，后喝汤。</p>
-    </div>
-</div>
