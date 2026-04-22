@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>YHC GOURMET | 私人美食收藏</title>
+    <title>YHC GOURMET | 20道私人美食收藏</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Quicksand:wght@700&display=swap');
@@ -15,38 +15,29 @@
             background-size: cover; background-position: center; background-attachment: fixed;
         }
         
-        /* —————————— 像素级还原：手写火焰 Logo —————————— */
-        .yhc-chili-logo {
-            display: flex;
-            align-items: center;
-            cursor: pointer;
-            gap: 4px;
-        }
-        
-        /* 还原图中的红色手写 Y */
+        /* —————————— 方案二：手写火焰 Logo —————————— */
+        .yhc-chili-logo { display: flex; align-items: center; cursor: pointer; gap: 4px; }
         .chili-y-icon {
-            font-family: 'Permanent Marker', cursive; /* 使用更接近图中手写感的艺术字体 */
+            font-family: 'Permanent Marker', cursive;
             font-size: 42px;
             background: linear-gradient(135deg, #ff4d4d 0%, #f97316 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            transform: rotate(-10deg) skewX(-5deg); /* 增加动感斜度 */
+            transform: rotate(-10deg) skewX(-5deg);
             display: inline-block;
             filter: drop-shadow(2px 2px 2px rgba(0,0,0,0.1));
             line-height: 1;
         }
-        
-        /* 还原图中的灰色 HC GOURMET */
         .hc-text-style {
             font-family: 'Quicksand', sans-serif;
             font-size: 28px;
-            color: #4a4a4a; /* 还原图中的深灰色 */
+            color: #4a4a4a;
             font-weight: 700;
             letter-spacing: -0.5px;
             margin-top: 5px;
         }
-        /* ————————————————————————————————————————————————— */
 
+        /* 动画 */
         @keyframes fadeInUp {
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
@@ -54,7 +45,18 @@
         .food-item { animation: fadeInUp 0.5s ease backwards; transition: all 0.3s ease; cursor: pointer; position: relative; }
         .food-item:hover { transform: translateY(-8px); box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1); }
         
-        .food-item:nth-child(n) { animation-delay: calc(0.1s * var(--i)); }
+        /* 收藏按钮样式还原 (image_635987) */
+        .nav-btn-fav { 
+            background-color: #fff1f2; 
+            color: #ef4444; 
+            border: 1px solid #fee2e2; 
+            padding: 6px 18px; 
+            border-radius: 999px; 
+            display: flex; 
+            align-items: center; 
+            gap: 6px;
+            font-weight: 700;
+        }
 
         .fav-btn { position: absolute; top: 1rem; right: 1rem; z-index: 10; background: white/90; width: 38px; height: 38px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 6px rgba(0,0,0,0.1); transition: all 0.2s; border: none; }
         .fav-btn.active { color: #ef4444; transform: scale(1.15); }
@@ -67,18 +69,16 @@
 
     <nav class="fixed w-full bg-white/95 backdrop-blur-md shadow-sm z-50">
         <div class="max-w-6xl mx-auto px-4 py-2 flex justify-between items-center">
-            
             <div class="yhc-chili-logo" onclick="window.location.reload()">
                 <span class="chili-y-icon">Y</span>
                 <span class="hc-text-style">HC GOURMET</span>
             </div>
-            
             <div class="flex space-x-4 md:space-x-8 text-gray-600 font-bold text-sm items-center">
                 <button onclick="filterFood('all')" class="hover:text-orange-500 transition">全部</button>
                 <button onclick="filterFood('cn')" class="hover:text-orange-500 transition hidden md:block">中餐</button>
                 <button onclick="filterFood('kr')" class="hover:text-orange-500 transition hidden md:block">韩餐</button>
                 <button onclick="filterFood('west')" class="hover:text-orange-500 transition hidden md:block">西餐</button>
-                <button onclick="showFavorites()" class="text-white bg-red-500 px-4 py-1.5 rounded-full shadow-md hover:bg-red-600 transition flex items-center gap-1">❤️ 收藏</button>
+                <button onclick="showFavorites()" class="nav-btn-fav transition-all hover:scale-105">❤️ 收藏</button>
             </div>
         </div>
     </nav>
@@ -86,72 +86,175 @@
     <section class="food-hero h-[45vh] flex items-center justify-center text-white mt-14">
         <div class="text-center px-4">
             <h1 class="text-5xl md:text-7xl font-black mb-4 drop-shadow-2xl">人间烟火气</h1>
-            <p class="text-xl opacity-90 font-medium mb-8">点击菜品查看详细做法</p>
+            <p class="text-xl opacity-90 font-medium mb-8">20道精选料理，记录生活的温度</p>
             <button onclick="pickRandomFood()" class="lucky-btn px-10 py-4 rounded-full font-bold text-lg hover:scale-105 transition-all active:scale-95">🎲 帮我选一个</button>
         </div>
     </section>
 
     <section class="pt-10 pb-6 px-4 max-w-6xl mx-auto">
-        <input type="text" id="searchInput" onkeyup="searchFood()" placeholder="🔍 搜搜你想吃的..." 
+        <input type="text" id="searchInput" onkeyup="searchFood()" placeholder="🔍 搜索菜名或关键词（如：麻辣、酥脆）..." 
             class="w-full p-5 rounded-2xl border-2 border-stone-200 focus:border-orange-500 focus:outline-none shadow-inner text-lg transition-all">
     </section>
 
     <section class="pb-20 max-w-6xl mx-auto px-4">
         <div id="food-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
-            
             <div class="food-item cn bg-white rounded-3xl overflow-hidden shadow-lg" style="--i:1" data-id="1">
                 <button class="fav-btn" onclick="toggleFav(event, '1')">❤</button>
-                <div onclick="showDetail('麻婆豆腐', 'https://assets.tmecosys.com/image/upload/t_web_rdp_recipe_584x480_1_5x/img/recipe/ras/Assets/0B16D5E2-C19B-4BEE-AD1B-75C63D23BE3C/Derivates/B8A0692E-CA25-439F-8F24-F1C5E74B42E1.jpg', '1. 豆腐切方块，牛肉切末。<br>2. 炒香豆瓣酱、姜蒜末。<br>3. 下豆腐焖煮，勾三次薄芡。<br>4. 撒花椒粉和青蒜苗。', '💡 秘诀：牛肉末要炒酥，勾芡要分三次。')">
-                    <img src="https://assets.tmecosys.com/image/upload/t_web_rdp_recipe_584x480_1_5x/img/recipe/ras/Assets/0B16D5E2-C19B-4BEE-AD1B-75C63D23BE3C/Derivates/B8A0692E-CA25-439F-8F24-F1C5E74B42E1.jpg" class="w-full h-64 object-cover">
-                    <div class="p-6"><span class="text-red-500 text-sm font-bold">中餐</span><h3 class="food-name text-2xl font-black mt-1">麻婆豆腐</h3><p class="text-gray-400 text-sm mt-2 italic">查看详细做法...</p></div>
+                <div onclick="showDetail('麻婆豆腐', 'https://images.unsplash.com/photo-1541696432-82c6da8ce7bf?auto=format&fit=crop&w=800', '1. 豆腐切块烫水。<br>2. 炒香肉末豆瓣酱。<br>3. 下豆腐焖煮，勾三次薄芡。', '💡 秘诀：花椒粉一定要最后撒！')">
+                    <img src="https://images.unsplash.com/photo-1541696432-82c6da8ce7bf?auto=format&fit=crop&w=800" class="w-full h-64 object-cover">
+                    <div class="p-6"><span class="text-red-500 text-sm font-bold">中餐</span><h3 class="food-name text-2xl font-black mt-1">麻婆豆腐</h3></div>
                 </div>
             </div>
 
             <div class="food-item kr bg-white rounded-3xl overflow-hidden shadow-lg" style="--i:2" data-id="2">
                 <button class="fav-btn" onclick="toggleFav(event, '2')">❤</button>
-                <div onclick="showDetail('韩式泡菜锅', 'https://life.anyongfresh.com/wp-content/uploads/2020/10/%E9%8D%8B%E5%BA%95%E7%B3%BB%E5%88%97-%E9%9F%93%E5%BC%8F%E6%B3%A1%E8%8F%9C%E9%8D%8B-600.jpg', '1. 炒五花肉和酸泡菜。<br>2. 加入淘米水煮沸。<br>3. 放入豆腐、午餐肉和辣酱调味。', '💡 秘诀：一定要用酸掉的老泡菜！')">
+                <div onclick="showDetail('韩式泡菜锅', 'https://life.anyongfresh.com/wp-content/uploads/2020/10/%E9%8D%8B%E5%BA%95%E7%B3%BB%E5%88%97-%E9%9F%93%E5%BC%8F%E6%B3%A1%E8%8F%9C%E9%8D%8B-600.jpg', '1. 炒五花肉和泡菜。<br>2. 加淘米水、豆腐、午餐肉。<br>3. 大火煮沸小火焖。', '💡 秘诀：越酸的泡菜锅底越好喝！')">
                     <img src="https://life.anyongfresh.com/wp-content/uploads/2020/10/%E9%8D%8B%E5%BA%95%E7%B3%BB%E5%88%97-%E9%9F%93%E5%BC%8F%E6%B3%A1%E8%8F%9C%E9%8D%8B-600.jpg" class="w-full h-64 object-cover">
-                    <div class="p-6"><span class="text-blue-500 text-sm font-bold">韩餐</span><h3 class="food-name text-2xl font-black mt-1">韩式泡菜锅</h3><p class="text-gray-400 text-sm mt-2 italic">查看详细做法...</p></div>
+                    <div class="p-6"><span class="text-blue-500 text-sm font-bold">韩餐</span><h3 class="food-name text-2xl font-black mt-1">韩式泡菜锅</h3></div>
                 </div>
             </div>
 
             <div class="food-item west bg-white rounded-3xl overflow-hidden shadow-lg" style="--i:3" data-id="3">
                 <button class="fav-btn" onclick="toggleFav(event, '3')">❤</button>
-                <div onclick="showDetail('战斧牛排', 'https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=500&q=80', '1. 厚切牛排提前回温。<br>2. 大火煎封表面。<br>3. 烤箱烤至所需熟度。<br>4. 黄油迷迭香淋洗。', '💡 秘诀：煎完一定要静置5-10分钟。')">
-                    <img src="https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=500&q=80" class="w-full h-64 object-cover">
-                    <div class="p-6"><span class="text-orange-500 text-sm font-bold">西餐</span><h3 class="food-name text-2xl font-black mt-1">战斧牛排</h3><p class="text-gray-400 text-sm mt-2 italic">查看详细做法...</p></div>
+                <div onclick="showDetail('战斧牛排', 'https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=800', '1. 撒海盐黑胡椒。<br>2. 高温煎封锁汁。<br>3. 加入黄油迷迭香。', '💡 秘诀：煎完必须静置5分钟！')">
+                    <img src="https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=800" class="w-full h-64 object-cover">
+                    <div class="p-6"><span class="text-orange-500 text-sm font-bold">西餐</span><h3 class="food-name text-2xl font-black mt-1">战斧牛排</h3></div>
                 </div>
             </div>
 
             <div class="food-item cn bg-white rounded-3xl overflow-hidden shadow-lg" style="--i:4" data-id="4">
                 <button class="fav-btn" onclick="toggleFav(event, '4')">❤</button>
-                <div onclick="showDetail('北京烤鸭', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT6d8NcqTQaDr-jUCPvx4dIjrOqWsl17BZywg&s', '1. 烫皮、抹脆皮水、晾干。<br>2. 挂炉烤制1小时。<br>3. 切片配饼、葱丝、甜面酱。', '💡 秘诀：晾干的过程不能省，皮才脆。')">
-                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT6d8NcqTQaDr-jUCPvx4dIjrOqWsl17BZywg&s" class="w-full h-64 object-cover">
-                    <div class="p-6"><span class="text-red-500 text-sm font-bold">中餐</span><h3 class="food-name text-2xl font-black mt-1">北京烤鸭</h3></div>
+                <div onclick="showDetail('宫保鸡丁', 'https://images.unsplash.com/photo-1525755662778-989d0524087e?auto=format&fit=crop&w=800', '1. 鸡肉切丁腌制。<br>2. 调宫保汁（糖醋比例2:1）。<br>3. 爆香干辣椒后快火翻炒。', '💡 秘诀：花生米一定要最后关火前放。')">
+                    <img src="https://images.unsplash.com/photo-1525755662778-989d0524087e?auto=format&fit=crop&w=800" class="w-full h-64 object-cover">
+                    <div class="p-6"><span class="text-red-500 text-sm font-bold">中餐</span><h3 class="food-name text-2xl font-black mt-1">宫保鸡丁</h3></div>
                 </div>
             </div>
 
             <div class="food-item kr bg-white rounded-3xl overflow-hidden shadow-lg" style="--i:5" data-id="5">
                 <button class="fav-btn" onclick="toggleFav(event, '5')">❤</button>
-                <div onclick="showDetail('韩式炸鸡', 'https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?auto=format&fit=crop&w=800&q=80', '1. 鸡肉腌制入味。<br>2. 复炸两次达到酥脆。<br>3. 裹上韩式甜辣酱汁。', '💡 秘诀：淀粉和面粉比例1:1最酥。')">
-                    <img src="https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?auto=format&fit=crop&w=800&q=80" class="w-full h-64 object-cover">
+                <div onclick="showDetail('韩式炸鸡', 'https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?auto=format&fit=crop&w=800', '1. 鸡肉腌制过面糊。<br>2. 复炸两次。<br>3. 裹上甜辣酱汁。', '💡 秘诀：复炸1分钟是酥脆的核心。')">
+                    <img src="https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?auto=format&fit=crop&w=800" class="w-full h-64 object-cover">
                     <div class="p-6"><span class="text-blue-500 text-sm font-bold">韩餐</span><h3 class="food-name text-2xl font-black mt-1">韩式炸鸡</h3></div>
                 </div>
             </div>
 
-            <div class="food-item kr bg-white rounded-3xl overflow-hidden shadow-lg" style="--i:6" data-id="6">
+            <div class="food-item west bg-white rounded-3xl overflow-hidden shadow-lg" style="--i:6" data-id="6">
                 <button class="fav-btn" onclick="toggleFav(event, '6')">❤</button>
-                <div onclick="showDetail('石锅拌饭', 'https://images.unsplash.com/photo-1590301157890-4810ed352733?auto=format&fit=crop&w=800&q=80', '1. 各种配菜切丝炒熟。<br>2. 石锅底部涂油放饭。<br>3. 听到滋滋声放菜和蛋。', '💡 秘诀：加入一点雪碧在辣酱里更地道。')">
-                    <img src="https://images.unsplash.com/photo-1590301157890-4810ed352733?auto=format&fit=crop&w=800&q=80" class="w-full h-64 object-cover">
+                <div onclick="showDetail('提拉米苏', 'https://images.unsplash.com/photo-1571877227200-a0d98ea607e9?auto=format&fit=crop&w=800', '1. 混合马斯卡彭。 <br>2. 浸泡咖啡液手指饼。 <br>3. 冷藏4小时后撒粉。', '💡 秘诀：咖啡液里加点咖啡利口酒。')">
+                    <img src="https://images.unsplash.com/photo-1571877227200-a0d98ea607e9?auto=format&fit=crop&w=800" class="w-full h-64 object-cover">
+                    <div class="p-6"><span class="text-orange-500 text-sm font-bold">甜点</span><h3 class="food-name text-2xl font-black mt-1">提拉米苏</h3></div>
+                </div>
+            </div>
+
+            <div class="food-item cn bg-white rounded-3xl overflow-hidden shadow-lg" style="--i:7" data-id="7">
+                <button class="fav-btn" onclick="toggleFav(event, '7')">❤</button>
+                <div onclick="showDetail('水煮鱼', 'https://images.unsplash.com/photo-1625944230945-17440469228c?auto=format&fit=crop&w=800', '1. 鱼片腌制上浆。<br>2. 炒香火锅底料下鱼肉。<br>3. 淋上滋滋的热油。', '💡 秘诀：热油要够烫，激发干辣椒香味。')">
+                    <img src="https://images.unsplash.com/photo-1625944230945-17440469228c?auto=format&fit=crop&w=800" class="w-full h-64 object-cover">
+                    <div class="p-6"><span class="text-red-500 text-sm font-bold">中餐</span><h3 class="food-name text-2xl font-black mt-1">水煮鱼</h3></div>
+                </div>
+            </div>
+
+            <div class="food-item kr bg-white rounded-3xl overflow-hidden shadow-lg" style="--i:8" data-id="8">
+                <button class="fav-btn" onclick="toggleFav(event, '8')">❤</button>
+                <div onclick="showDetail('石锅拌饭', 'https://images.unsplash.com/photo-1590301157890-4810ed352733?auto=format&fit=crop&w=800', '1. 菜丝炒熟铺在米饭上。<br>2. 石锅底刷香油烤出锅巴。<br>3. 加太阳蛋。', '💡 秘诀：一定要加韩国辣椒酱+雪碧。')">
+                    <img src="https://images.unsplash.com/photo-1590301157890-4810ed352733?auto=format&fit=crop&w=800" class="w-full h-64 object-cover">
                     <div class="p-6"><span class="text-blue-500 text-sm font-bold">韩餐</span><h3 class="food-name text-2xl font-black mt-1">石锅拌饭</h3></div>
                 </div>
             </div>
 
-            <div class="food-item west bg-white rounded-3xl overflow-hidden shadow-lg" style="--i:7" data-id="7">
-                <button class="fav-btn" onclick="toggleFav(event, '7')">❤</button>
-                <div onclick="showDetail('提拉米苏', 'https://images.unsplash.com/photo-1571877227200-a0d98ea607e9?auto=format&fit=crop&w=800&q=80', '1. 蛋黄加糖打发加马斯卡彭。<br>2. 饼干浸泡浓缩咖啡液。<br>3. 叠层冷藏一夜，撒可可粉。', '💡 秘诀：咖啡里加一点朗姆酒。')">
-                    <img src="https://images.unsplash.com/photo-1571877227200-a0d98ea607e9?auto=format&fit=crop&w=800&q=80" class="w-full h-64 object-cover">
-                    <div class="p-6"><span class="text-orange-500 text-sm font-bold">西餐</span><h3 class="food-name text-2xl font-black mt-1">提拉米苏</h3></div>
+            <div class="food-item west bg-white rounded-3xl overflow-hidden shadow-lg" style="--i:9" data-id="9">
+                <button class="fav-btn" onclick="toggleFav(event, '9')">❤</button>
+                <div onclick="showDetail('肉酱意面', 'https://images.unsplash.com/photo-1551183053-bf91a1d81141?auto=format&fit=crop&w=800', '1. 煸炒肉碎与番茄膏。<br>2. 小火炖煮2小时。<br>3. 撒上大量帕玛森芝士。', '💡 秘诀：煮面水要咸，像海水一样。')">
+                    <img src="https://images.unsplash.com/photo-1551183053-bf91a1d81141?auto=format&fit=crop&w=800" class="w-full h-64 object-cover">
+                    <div class="p-6"><span class="text-orange-500 text-sm font-bold">西餐</span><h3 class="food-name text-2xl font-black mt-1">肉酱意面</h3></div>
+                </div>
+            </div>
+
+            <div class="food-item cn bg-white rounded-3xl overflow-hidden shadow-lg" style="--i:10" data-id="10">
+                <button class="fav-btn" onclick="toggleFav(event, '10')">❤</button>
+                <div onclick="showDetail('红烧肉', 'https://images.unsplash.com/photo-1626202378303-344400e99879?auto=format&fit=crop&w=800', '1. 五花肉煸炒出油。<br>2. 炒糖色加黄酒。<br>3. 小火慢炖1小时收汁。', '💡 秘诀：全程不加水，只用花雕酒。')">
+                    <img src="https://images.unsplash.com/photo-1626202378303-344400e99879?auto=format&fit=crop&w=800" class="w-full h-64 object-cover">
+                    <div class="p-6"><span class="text-red-500 text-sm font-bold">中餐</span><h3 class="food-name text-2xl font-black mt-1">红烧肉</h3></div>
+                </div>
+            </div>
+
+            <div class="food-item west bg-white rounded-3xl overflow-hidden shadow-lg" style="--i:11" data-id="11">
+                <button class="fav-btn" onclick="toggleFav(event, '11')">❤</button>
+                <div onclick="showDetail('舒芙蕾松饼', 'https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?auto=format&fit=crop&w=800', '1. 蛋白低温打发。<br>2. 小火焖煎3分钟翻面。<br>3. 搭配云朵奶油。', '💡 秘诀：翻面动作要轻快，不然会塌。')">
+                    <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?auto=format&fit=crop&w=800" class="w-full h-64 object-cover">
+                    <div class="p-6"><span class="text-orange-500 text-sm font-bold">甜点</span><h3 class="food-name text-2xl font-black mt-1">舒芙蕾松饼</h3></div>
+                </div>
+            </div>
+
+            <div class="food-item cn bg-white rounded-3xl overflow-hidden shadow-lg" style="--i:12" data-id="12">
+                <button class="fav-btn" onclick="toggleFav(event, '12')">❤</button>
+                <div onclick="showDetail('广式肠粉', 'https://images.unsplash.com/photo-1582878826629-29b7ad1cdc43?auto=format&fit=crop&w=800', '1. 调米浆刷盘。<br>2. 放入虾仁大火蒸1分钟。<br>3. 卷起淋葱油豉油。', '💡 秘诀：酱油要加冰糖煮过。')">
+                    <img src="https://images.unsplash.com/photo-1582878826629-29b7ad1cdc43?auto=format&fit=crop&w=800" class="w-full h-64 object-cover">
+                    <div class="p-6"><span class="text-red-500 text-sm font-bold">中餐</span><h3 class="food-name text-2xl font-black mt-1">广式肠粉</h3></div>
+                </div>
+            </div>
+
+            <div class="food-item kr bg-white rounded-3xl overflow-hidden shadow-lg" style="--i:13" data-id="13">
+                <button class="fav-btn" onclick="toggleFav(event, '13')">❤</button>
+                <div onclick="showDetail('韩式海带汤', 'https://images.unsplash.com/photo-1547592166-23ac45744acd?auto=format&fit=crop&w=800', '1. 牛肉和泡发海带炒干水分。<br>2. 加鱼露和水清炖。', '💡 秘诀：海带一定要先炒过才会香。')">
+                    <img src="https://images.unsplash.com/photo-1547592166-23ac45744acd?auto=format&fit=crop&w=800" class="w-full h-64 object-cover">
+                    <div class="p-6"><span class="text-blue-500 text-sm font-bold">韩餐</span><h3 class="food-name text-2xl font-black mt-1">海带汤</h3></div>
+                </div>
+            </div>
+
+            <div class="food-item cn bg-white rounded-3xl overflow-hidden shadow-lg" style="--i:14" data-id="14">
+                <button class="fav-btn" onclick="toggleFav(event, '14')">❤</button>
+                <div onclick="showDetail('蒜蓉蒸虾', 'https://images.unsplash.com/photo-1559740038-1914a891b9c1?auto=format&fit=crop&w=800', '1. 鲜虾开背铺粉丝。<br>2. 铺满金银蒜。<br>3. 蒸5分钟。', '💡 秘诀：大蒜一半炸黄一半生用。')">
+                    <img src="https://images.unsplash.com/photo-1559740038-1914a891b9c1?auto=format&fit=crop&w=800" class="w-full h-64 object-cover">
+                    <div class="p-6"><span class="text-red-500 text-sm font-bold">中餐</span><h3 class="food-name text-2xl font-black mt-1">蒜蓉蒸虾</h3></div>
+                </div>
+            </div>
+
+            <div class="food-item west bg-white rounded-3xl overflow-hidden shadow-lg" style="--i:15" data-id="15">
+                <button class="fav-btn" onclick="toggleFav(event, '15')">❤</button>
+                <div onclick="showDetail('惠灵顿牛排', 'https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=800', '1. 煎烤菲力牛排。<br>2. 抹黑松露蘑菇酱包裹酥皮。<br>3. 烤箱200度至金黄。', '💡 秘诀：酥皮下垫火腿能防潮。')">
+                    <img src="https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=800" class="w-full h-64 object-cover">
+                    <div class="p-6"><span class="text-orange-500 text-sm font-bold">西餐</span><h3 class="food-name text-2xl font-black mt-1">惠灵顿牛排</h3></div>
+                </div>
+            </div>
+
+            <div class="food-item west bg-white rounded-3xl overflow-hidden shadow-lg" style="--i:16" data-id="16">
+                <button class="fav-btn" onclick="toggleFav(event, '16')">❤</button>
+                <div onclick="showDetail('冬阴功汤', 'https://images.unsplash.com/photo-1548943487-a2e4d43b4853?auto=format&fit=crop&w=800', '1. 炒香香茅南姜柠檬叶。<br>2. 加入虾头油和高汤。', '💡 秘诀：最后关火再淋柠檬汁。')">
+                    <img src="https://images.unsplash.com/photo-1548943487-a2e4d43b4853?auto=format&fit=crop&w=800" class="w-full h-64 object-cover">
+                    <div class="p-6"><span class="text-orange-500 text-sm font-bold">东南亚</span><h3 class="food-name text-2xl font-black mt-1">冬阴功汤</h3></div>
+                </div>
+            </div>
+
+            <div class="food-item kr bg-white rounded-3xl overflow-hidden shadow-lg" style="--i:17" data-id="17">
+                <button class="fav-btn" onclick="toggleFav(event, '17')">❤</button>
+                <div onclick="showDetail('辣白菜五花肉', 'https://images.unsplash.com/photo-1512058560366-cd2427ff0a5a?auto=format&fit=crop&w=800', '1. 薄五花肉卷入辣白菜。<br>2. 平底锅两面煎熟。', '💡 秘诀：出锅撒点白芝麻最地道。')">
+                    <img src="https://images.unsplash.com/photo-1512058560366-cd2427ff0a5a?auto=format&fit=crop&w=800" class="w-full h-64 object-cover">
+                    <div class="p-6"><span class="text-blue-500 text-sm font-bold">韩餐</span><h3 class="food-name text-2xl font-black mt-1">泡菜五花肉</h3></div>
+                </div>
+            </div>
+
+            <div class="food-item west bg-white rounded-3xl overflow-hidden shadow-lg" style="--i:18" data-id="18">
+                <button class="fav-btn" onclick="toggleFav(event, '18')">❤</button>
+                <div onclick="showDetail('三文鱼刺身', 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=800', '1. 厚切。<br>2. 搭配研磨山葵和熟酱油。', '💡 秘诀：冰镇后口感最佳。')">
+                    <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=800" class="w-full h-64 object-cover">
+                    <div class="p-6"><span class="text-orange-500 text-sm font-bold">日式</span><h3 class="food-name text-2xl font-black mt-1">三文鱼刺身</h3></div>
+                </div>
+            </div>
+
+            <div class="food-item cn bg-white rounded-3xl overflow-hidden shadow-lg" style="--i:19" data-id="19">
+                <button class="fav-btn" onclick="toggleFav(event, '19')">❤</button>
+                <div onclick="showDetail('烤羊排', 'https://images.unsplash.com/photo-1603048588665-791ca8aea617?auto=format&fit=crop&w=800', '1. 羊排抹孜然辣椒粉。<br>2. 烤箱220度烤30分钟。', '💡 秘诀：洋葱腌制能去膻。')">
+                    <img src="https://images.unsplash.com/photo-1603048588665-791ca8aea617?auto=format&fit=crop&w=800" class="w-full h-64 object-cover">
+                    <div class="p-6"><span class="text-red-500 text-sm font-bold">中餐</span><h3 class="food-name text-2xl font-black mt-1">孜然烤羊排</h3></div>
+                </div>
+            </div>
+
+            <div class="food-item west bg-white rounded-3xl overflow-hidden shadow-lg" style="--i:20" data-id="20">
+                <button class="fav-btn" onclick="toggleFav(event, '20')">❤</button>
+                <div onclick="showDetail('柠檬磅蛋糕', 'https://images.unsplash.com/photo-1519869325930-281384150729?auto=format&fit=crop&w=800', '1. 黄油打发加入柠檬皮屑。<br>2. 烤制后淋上糖霜。', '💡 秘诀：蛋糕趁热刷柠檬糖水最润。')">
+                    <img src="https://images.unsplash.com/photo-1519869325930-281384150729?auto=format&fit=crop&w=800" class="w-full h-64 object-cover">
+                    <div class="p-6"><span class="text-orange-500 text-sm font-bold">甜点</span><h3 class="food-name text-2xl font-black mt-1">柠檬磅蛋糕</h3></div>
                 </div>
             </div>
 
@@ -163,7 +266,7 @@
             <span class="chili-y-icon">Y</span>
             <span class="hc-text-style !text-white">HC GOURMET</span>
         </div>
-        <p>© 2026 YHC 私人美食收藏馆 · 热烈而自由</p>
+        <p>© 2026 YHC 私人美食收藏馆 · 全面扩充版</p>
     </footer>
 
     <div id="modal-overlay" onclick="closeModal()">
@@ -208,6 +311,7 @@
                 const id = item.getAttribute('data-id');
                 item.style.display = favorites.includes(id) ? 'block' : 'none';
             });
+            window.scrollTo({ top: document.getElementById('food-grid').offsetTop - 100, behavior: 'smooth' });
         }
 
         function filterFood(cat) {
@@ -239,7 +343,7 @@
         }
 
         function pickRandomFood() {
-            const items = document.querySelectorAll('.food-item');
+            const items = Array.from(document.querySelectorAll('.food-item'));
             const randomItem = items[Math.floor(Math.random() * items.length)];
             randomItem.querySelector('div[onclick]').click();
         }
