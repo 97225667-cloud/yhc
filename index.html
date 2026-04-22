@@ -1,64 +1,3 @@
-
-<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>我的个人主页</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        body { scroll-behavior: smooth; }
-        .hero-gradient { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
-    </style>
-</head>
-<body class="bg-gray-50 text-gray-800">
-
-    <nav class="fixed w-full bg-white/80 backdrop-blur-md shadow-sm z-50">
-        <div class="max-w-5xl mx-auto px-4 py-3 flex justify-between items-center">
-            <span class="text-xl font-bold text-indigo-600">MySpace</span>
-            <div class="space-x-6">
-                <a href="#home" class="hover:text-indigo-600 transition">首页</a>
-                <a href="#about" class="hover:text-indigo-600 transition">关于</a>
-                <a href="#contact" class="hover:text-indigo-600 transition">联系</a>
-            </div>
-        </div>
-    </nav>
-
-    <section id="home" class="hero-gradient h-screen flex items-center justify-center text-white">
-        <div class="text-center px-4">
-            <h1 class="text-5xl md:text-7xl font-extrabold mb-4">你好，我是[YE HAOCHUAN]</h1>
-            <p class="text-xl md:text-2xl opacity-90"></p>
-            <a href="#about" class="mt-8 inline-block bg-white text-indigo-600 px-8 py-3 rounded-full font-bold shadow-lg hover:scale-105 transition-transform">了解更多</a>
-        </div>
-    </section>
-
-    <section id="about" class="py-20 max-w-5xl mx-auto px-4">
-        <h2 class="text-3xl font-bold text-center mb-12">关于我</h2>
-        <div class="grid md:grid-cols-2 gap-12 items-center">
-            <div class="bg-indigo-100 h-64 rounded-2xl flex items-center justify-center">
-                <span class="text-indigo-400">在此放置你的照片或图标</span>
-            </div>
-            <div>
-                <p class="text-lg leading-relaxed text-gray-600">
-                    我是一个热爱探索新事物的人。我非常喜欢美食，希望可以分享自己喜欢的美食，这个网站完全托管在 GitHub 上，不需要支付任何服务器费用。
-                    我可以利用这里分享我的想法、项目或者生活点滴。
-                </p>
-                <div class="mt-6 space-y-2">
-                    <div class="flex items-center"><span class="w-4 h-4 bg-indigo-500 rounded-full mr-3"></span> 终身学习者</div>
-                    <div class="flex items-center"><span class="w-4 h-4 bg-indigo-500 rounded-full mr-3"></span> 极简主义者</div>
-                    <div class="flex items-center"><span class="w-4 h-4 bg-indigo-500 rounded-full mr-3"></span> 技术爱好者</div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <footer id="contact" class="bg-gray-900 text-white py-12 text-center">
-        <p class="mb-4">联系我：18279903087@163，com</p>
-        <p class="text-gray-500 text-sm">© 2026 Crafted with ❤️ using Gemini & GitHub</p>
-    </footer>
-
-</body>
-</html>
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -68,75 +7,101 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         body { scroll-behavior: smooth; }
-        .food-hero { background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=1000&q=80'); background-size: cover; background-position: center; }
+        .food-hero { 
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), 
+            url('https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=1200&q=80'); 
+            background-size: cover; 
+            background-position: center; 
+        }
+        /* 增加切换动画效果 */
+        .food-item { transition: all 0.4s ease; }
     </style>
 </head>
-<body class="bg-orange-50 text-gray-800">
+<body class="bg-stone-50 text-gray-800 font-sans">
 
     <nav class="fixed w-full bg-white/90 backdrop-blur-md shadow-sm z-50">
         <div class="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
-            <span class="text-2xl font-bold text-orange-600">🍴 美食大赏</span>
-            <div class="space-x-6 text-gray-600 font-medium">
-                <a href="#collection" class="hover:text-orange-500 transition">我的收藏</a>
-                <a href="#about" class="hover:text-orange-500 transition">关于</a>
+            <span class="text-2xl font-bold text-orange-600 flex items-center gap-2">
+                🍴 <span class="hidden sm:inline">美食大赏</span>
+            </span>
+            <div class="flex space-x-3 md:space-x-8 text-gray-600 font-medium text-sm md:text-base">
+                <button onclick="filterFood('all')" class="hover:text-orange-500 transition border-b-2 border-transparent hover:border-orange-500 pb-1">全部</button>
+                <button onclick="filterFood('cn')" class="hover:text-orange-500 transition border-b-2 border-transparent hover:border-orange-500 pb-1">中餐</button>
+                <button onclick="filterFood('kr')" class="hover:text-orange-500 transition border-b-2 border-transparent hover:border-orange-500 pb-1">韩餐</button>
+                <button onclick="filterFood('west')" class="hover:text-orange-500 transition border-b-2 border-transparent hover:border-orange-500 pb-1">西餐</button>
             </div>
         </div>
     </nav>
 
-    <section class="food-hero h-[50vh] flex items-center justify-center text-white">
-        <div class="text-center">
-            <h1 class="text-4xl md:text-6xl font-black mb-4 tracking-tight">人间烟火气，最抚凡人心</h1>
-            <p class="text-lg md:text-xl opacity-90 font-light">记录我遇见的每一份美味</p>
+    <section class="food-hero h-[40vh] flex items-center justify-center text-white">
+        <div class="text-center px-4">
+            <h1 class="text-3xl md:text-5xl font-black mb-4 tracking-tight text-white shadow-sm">人间烟火气，最抚凡人心</h1>
+            <p class="text-base md:text-lg opacity-90 font-light">这里记录了我私藏的所有美味瞬间</p>
         </div>
     </section>
 
-    <section id="collection" class="py-16 max-w-6xl mx-auto px-4">
-        <h2 class="text-3xl font-bold text-center mb-12 flex items-center justify-center gap-2">
-            <span class="bg-orange-500 w-8 h-1"></span>
-            今日推荐
-            <span class="bg-orange-500 w-8 h-1"></span>
-        </h2>
-        
-        <div class="grid md:grid-cols-3 gap-8">
-            <div class="bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-shadow border border-orange-100">
-                <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?auto=format&fit=crop&w=500&q=80" alt="Pizza" class="w-full h-48 object-cover">
+    <section id="collection" class="py-12 max-w-6xl mx-auto px-4">
+        <div id="food-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+            
+            <div class="food-item cn bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl border border-stone-100">
+                <img src="https://images.unsplash.com/photo-1512058560550-42749359a767?auto=format&fit=crop&w=500&q=80" alt="中餐" class="w-full h-56 object-cover">
                 <div class="p-5">
-                    <span class="text-xs font-bold text-orange-500 uppercase tracking-wider">西餐系列</span>
-                    <h3 class="text-xl font-bold mt-1 mb-2">经典玛格丽特披萨</h3>
-                    <p class="text-gray-500 text-sm">浓郁的芝士配合新鲜的罗勒叶，是意大利最纯正的味道。</p>
+                    <span class="px-2 py-1 bg-red-100 text-red-600 text-[10px] font-bold rounded-md uppercase tracking-wider">中餐专区</span>
+                    <h3 class="text-xl font-bold mt-2 mb-2">广式虾饺</h3>
+                    <p class="text-gray-500 text-sm italic">晶莹剔透的外皮，包裹着饱满鲜甜的虾仁，早茶必点。</p>
                 </div>
             </div>
 
-            <div class="bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-shadow border border-orange-100">
-                <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=500&q=80" alt="Salad" class="w-full h-48 object-cover">
+            <div class="food-item kr bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl border border-stone-100">
+                <img src="https://images.unsplash.com/photo-1498654077810-12c21d4d6dc3?auto=format&fit=crop&w=500&q=80" alt="韩餐" class="w-full h-56 object-cover">
                 <div class="p-5">
-                    <span class="text-xs font-bold text-green-500 uppercase tracking-wider">健康轻食</span>
-                    <h3 class="text-xl font-bold mt-1 mb-2">牛油果烟熏三文鱼沙拉</h3>
-                    <p class="text-gray-500 text-sm">低脂又饱腹，是运动健身后的最佳搭档。</p>
+                    <span class="px-2 py-1 bg-blue-100 text-blue-600 text-[10px] font-bold rounded-md uppercase tracking-wider">韩餐专区</span>
+                    <h3 class="text-xl font-bold mt-2 mb-2">韩式泡菜锅</h3>
+                    <p class="text-gray-500 text-sm italic">酸辣开胃，冬天里的一碗泡菜汤能瞬间驱散寒意。</p>
                 </div>
             </div>
 
-            <div class="bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-shadow border border-orange-100">
-                <img src="https://images.unsplash.com/photo-1551024601-bec78aea704b?auto=format&fit=crop&w=500&q=80" alt="Dessert" class="w-full h-48 object-cover">
+            <div class="food-item west bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl border border-stone-100">
+                <img src="https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=500&q=80" alt="西餐" class="w-full h-56 object-cover">
                 <div class="p-5">
-                    <span class="text-xs font-bold text-pink-500 uppercase tracking-wider">甜品时光</span>
-                    <h3 class="text-xl font-bold mt-1 mb-2">爆浆巧克力甜甜圈</h3>
-                    <p class="text-gray-500 text-sm">心情不好时的终极治愈神器，一口下去全是幸福感。</p>
+                    <span class="px-2 py-1 bg-amber-100 text-amber-600 text-[10px] font-bold rounded-md uppercase tracking-wider">西餐专区</span>
+                    <h3 class="text-xl font-bold mt-2 mb-2">战斧牛排</h3>
+                    <p class="text-gray-500 text-sm italic">高温炙烤锁住肉汁，原汁原味是对肉类最高的尊重。</p>
                 </div>
             </div>
-        </div>
+
+            </div>
     </section>
 
-    <footer id="about" class="bg-white border-t border-orange-100 py-12 text-center mt-10">
-        <p class="text-gray-400 text-sm">此网站用于收集我喜爱的美食</p>
-        <p class="text-gray-500 font-medium mt-2">© 2026 美食家仓库</p>
+    <footer class="bg-white border-t border-stone-200 py-10 text-center">
+        <p class="text-gray-400 text-xs tracking-widest uppercase mb-2">My Food Collection</p>
+        <p class="text-gray-600 font-serif">记录味蕾的每一次旅行</p>
     </footer>
+
+    <script>
+        function filterFood(category) {
+            const items = document.querySelectorAll('.food-item');
+            
+            items.forEach(item => {
+                // 先给一个淡出效果
+                item.style.opacity = '0';
+                item.style.transform = 'scale(0.9)';
+                
+                setTimeout(() => {
+                    if (category === 'all' || item.classList.contains(category)) {
+                        item.style.display = 'block';
+                        // 延迟一点显示，做个动画
+                        setTimeout(() => {
+                            item.style.opacity = '1';
+                            item.style.transform = 'scale(1)';
+                        }, 50);
+                    } else {
+                        item.style.display = 'none';
+                    }
+                }, 300);
+            });
+        }
+    </script>
 
 </body>
 </html>
-<div class="space-x-4 md:space-x-6 text-gray-600 font-medium text-sm md:text-base">
-    <a href="#" onclick="filterFood('all')" class="hover:text-orange-500 transition cursor-pointer">全部</a>
-    <a href="#" onclick="filterFood('cn')" class="hover:text-orange-500 transition cursor-pointer">中餐</a>
-    <a href="#" onclick="filterFood('kr')" class="hover:text-orange-500 transition cursor-pointer">韩餐</a>
-    <a href="#" onclick="filterFood('west')" class="hover:text-orange-500 transition cursor-pointer">西餐</a>
-</div>
