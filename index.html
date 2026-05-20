@@ -3,11 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>YHC GOURMET | 私人美食收藏馆</title>
+    <title>YHC GOURMET | 江西赣味全量收藏馆</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
     <style>
         @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
         .food-card { animation: fadeInUp 0.6s ease forwards; opacity: 0; border-radius: 2.5rem !important; }
+        .shanshui-font { font-family: 'Ma Shan Zheng', cursive; }
         #modal-overlay { position: fixed; inset: 0; background: rgba(0, 0, 0, 0.85); backdrop-filter: blur(12px); display: none; z-index: 100; }
         .no-scrollbar::-webkit-scrollbar { display: none; }
         html { scroll-behavior: smooth; }
@@ -27,53 +29,60 @@
             </div>
             <div class="flex-grow max-w-md hidden md:block">
                 <div class="flex items-center bg-stone-100 rounded-full px-5 py-2 border border-stone-200">
-                    <input type="text" id="searchInput" onkeyup="searchFood()" placeholder="搜寻食谱..." class="bg-transparent border-none outline-none w-full text-sm text-stone-600">
+                    <input type="text" id="searchInput" onkeyup="searchFood()" placeholder="搜寻 20 道江西地道美食..." class="bg-transparent border-none outline-none w-full text-sm text-stone-600">
                 </div>
             </div>
-            <button onclick="pickRandomFood()" class="px-5 py-2 bg-orange-200/60 text-orange-700 rounded-full text-sm font-bold shadow-sm hover:scale-105 transition flex items-center gap-1">🎲 帮我决定</button>
+            <button onclick="pickRandomFood()" class="px-5 py-2 bg-orange-600 text-white rounded-full text-sm font-bold shadow-lg hover:scale-105 transition">🎲 随机选菜</button>
         </div>
     </nav>
 
-    <section class="relative h-[45vh] w-full flex items-center justify-center text-center overflow-hidden">
+    <section class="relative h-[65vh] w-full flex items-center justify-center text-center overflow-hidden">
         <img src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?q=80&w=2000" class="absolute inset-0 w-full h-full object-cover">
         <div class="absolute inset-0 hero-gradient"></div>
-        <div class="relative z-10 px-6 pt-16">
-            <h2 class="text-5xl md:text-6xl font-black text-white mb-2 tracking-tight">今日 <span class="text-orange-500 italic">清单</span></h2>
-            <p class="text-white/80 text-sm tracking-widest font-light">精心收录的私人视听美食馆</p>
+        <div class="relative z-10 px-6">
+            <h2 class="shanshui-font text-6xl md:text-8xl text-white mb-6 drop-shadow-2xl">江西烟火气，赣菜最辣心</h2>
+            <p class="text-white/90 text-xl md:text-2xl tracking-widest font-light italic">收录 20 道江西灵魂食谱 · 纯净体验版</p>
         </div>
     </section>
 
-    <main id="menu-start" class="max-w-7xl mx-auto px-6 pt-12 pb-20 flex-grow w-full">
-        <header class="mb-12 flex justify-center md:justify-start">
-            <div class="flex flex-wrap gap-3" id="filterGroup">
-                <button onclick="filterFood('all')" class="px-6 py-2 bg-stone-900 text-white rounded-full text-sm font-bold shadow-md">全部</button>
-                <button onclick="filterFood('川味')" class="px-6 py-2 bg-white border border-stone-200 rounded-full text-sm font-bold hover:bg-stone-50 transition">川味</button>
-                <button onclick="filterFood('粤式')" class="px-6 py-2 bg-white border border-stone-200 rounded-full text-sm font-bold hover:bg-stone-50 transition">粤式</button>
-                <button onclick="filterFood('家常')" class="px-6 py-2 bg-white border border-stone-200 rounded-full text-sm font-bold hover:bg-stone-50 transition">家常</button>
-                <button onclick="filterFood('异国')" class="px-6 py-2 bg-white border border-stone-200 rounded-full text-sm font-bold hover:bg-stone-50 transition">异国</button>
+    <main id="menu-start" class="max-w-7xl mx-auto px-6 pt-20 pb-20 flex-grow">
+        <header class="mb-12 text-center md:text-left">
+            <h3 class="text-4xl font-black italic mb-6 uppercase tracking-tighter">Today's <span class="text-orange-600">List</span></h3>
+            <div class="flex flex-wrap gap-3 justify-center md:justify-start" id="filterGroup">
+                <button onclick="filterFood('all')" class="px-8 py-2.5 bg-stone-900 text-white rounded-full text-sm font-bold shadow-lg">全部</button>
+                <button onclick="filterFood('Nanchang')" class="px-8 py-2.5 bg-white border border-stone-200 rounded-full text-sm font-bold hover:bg-stone-50 transition">南昌</button>
+                <button onclick="filterFood('Ganzhou')" class="px-8 py-2.5 bg-white border border-stone-200 rounded-full text-sm font-bold hover:bg-stone-50 transition">赣州</button>
+                <button onclick="filterFood('Jiujiang')" class="px-8 py-2.5 bg-white border border-stone-200 rounded-full text-sm font-bold hover:bg-stone-50 transition">九江</button>
+                <button onclick="filterFood('Special')" class="px-8 py-2.5 bg-white border border-stone-200 rounded-full text-sm font-bold hover:bg-stone-50 transition">特色</button>
             </div>
         </header>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10" id="foodGrid"></div>
     </main>
 
+    <footer class="bg-[#141414] text-white py-16">
+        <div class="max-w-7xl mx-auto px-6 text-center">
+            <div class="flex items-center justify-center gap-2 mb-4">
+                <span class="text-orange-500 text-3xl font-bold italic">Y</span>
+                <span class="text-2xl font-bold tracking-[0.2em]">HC GOURMET</span>
+            </div>
+            <p class="text-stone-500 text-sm tracking-widest font-light">© 2026 YHC 私人美食收藏馆 · 热烈而自由</p>
+        </div>
+    </footer>
+
     <div id="modal-overlay" onclick="closeModal()" class="flex items-center justify-center p-4">
         <div id="modal-content" class="bg-white rounded-[3.5rem] max-w-5xl w-full max-h-[92vh] overflow-hidden flex flex-col md:flex-row shadow-2xl transition-all scale-95" onclick="event.stopPropagation()">
             <div class="md:w-3/5 overflow-y-auto no-scrollbar p-10 lg:p-14 border-r border-stone-100">
                 
-                <div class="relative h-72 rounded-[2.5rem] overflow-hidden mb-6 shadow-lg bg-stone-900 flex items-center justify-center">
+                <div class="relative h-72 rounded-[2.5rem] overflow-hidden mb-6 shadow-lg">
                     <img id="modal-img" src="" class="w-full h-full object-cover">
-                    
-                    <video id="modal-video" src="" controls playsinline preload="auto" class="absolute inset-0 w-full h-full hidden bg-black object-contain"></video>
-                    
-                    <div class="absolute bottom-4 right-4 flex gap-2 z-10">
-                        <button id="btn-show-img" onclick="switchMedia('img')" class="px-4 py-1.5 bg-white/90 backdrop-blur text-stone-800 text-xs font-bold rounded-full shadow hidden">🖼️ 看封面图</button>
-                        <button id="btn-show-video" onclick="switchMedia('video')" class="px-4 py-1.5 bg-orange-600 text-white text-xs font-bold rounded-full shadow hover:bg-orange-700 transition">▶️ 播放教学视频</button>
-                    </div>
                 </div>
 
                 <h2 id="modal-title" class="text-4xl font-black mb-4"></h2>
+                
                 <div id="modal-tags" class="flex flex-wrap gap-2 mb-8"></div>
+                
                 <div class="w-20 h-1.5 bg-orange-500 mb-10 rounded-full"></div>
+                
                 <p class="text-stone-400 text-xs font-bold mb-4 uppercase tracking-widest">Cooking Steps (点击步骤标记完成)</p>
                 <div id="modal-steps" class="space-y-6 mb-10"></div>
                 
@@ -91,45 +100,134 @@
                 <div id="comment-list" class="flex-grow overflow-y-auto p-8 space-y-6 no-scrollbar"></div>
                 <div class="p-8 bg-white border-t border-stone-200">
                     <textarea id="commentInput" placeholder="分享你的烹饪心得..." class="w-full bg-stone-100 border-none rounded-2xl p-4 text-sm focus:ring-2 focus:ring-orange-500 outline-none h-24 resize-none mb-4 transition-all"></textarea>
-                    <button onclick="addComment()" class="w-full py-4 bg-stone-900 text-white rounded-2xl font-bold hover:bg-orange-600 transition shadow-lg">提交评论</button>
+                    <button onclick="addComment()" class="w-full py-4 bg-stone-900 text-white rounded-2xl font-bold hover:bg-orange-600 transition shadow-lg active:scale-95">提交评论</button>
                 </div>
             </div>
         </div>
     </div>
 
     <script>
-        // 内置一个绝对不会加载失败的轻量级测试动态视频流数据
-        const safeBackupVideo = "https://www.w3schools.com/html/mov_bbb.mp4";
-
-        // 数据完全对齐您截图上的新分类和排版
+        // 20道正宗赣菜全量数据
         const recipes = [
             { 
-                name: "麻婆豆腐", cat: "川味", spicy: "🌶️🌶️🌶️🌶️ 4/5", diff: "初学级", time: "15min", 
-                video: "video/ma_po.mp4", // 本地视频路径
-                steps: ["【切块】豆腐切成2厘米方块，入加盐的沸水中焯水去除豆腥。","【煸肉】热锅凉油，下牛肉末煸炒至酥香焦黄。","【下酱】下郫县豆瓣酱、豆豉、辣椒面炒出红油。","【慢笃】加高汤和豆腐，小火慢笃入味，分三次勾芡收汁。","【撒椒】出锅后撒上满满一层汉源花椒面和青蒜苗。"],
-                tip: "豆腐焯水时加盐，能让豆腐质地更紧结，炒的时候不易碎。", img: "https://images.unsplash.com/photo-1541832676-9b763b0239ab?q=80&w=800",
-                comments: [{user: "成都好吃嘴", content: "麻味很正，太下饭了！", time: "3小时前"}]
+                name: "宁都三杯鸡", cat: "Ganzhou", spicy: "🌶️ 1/5", diff: "大师级", time: "45min",
+                steps: ["【备料】精选宁都黄鸡，斩成3厘米方块，冷水入锅加姜片、料酒焯去血沫。","【三杯】核心在于等量的：一杯农家米酒、一杯芝麻猪油、一杯头抽酱油。","【铺垫】取一砂锅，底部铺满厚姜片和葱段。放入鸡块，依次倒入三杯调料。严禁加水！","【煨制】扣盖大火烧开转极小火，文火慢煨30分钟。","【收香】待汤汁粘稠时，撒入紫苏叶，转大火翻动数秒出锅。"],
+                tip: "必须用砂锅！砂锅的‘土气’能与米酒发生奇妙的化学反应。", img: "https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?q=80&w=800",
+                comments: [{user: "赣南小表哥", content: "老家的味道，米酒香绝了！", time: "2小时前"}]
             },
             { 
-                name: "广式蒸鱼", cat: "粤式", spicy: "🌶️ 0/5", diff: "进阶级", time: "20min", 
-                video: safeBackupVideo, // 使用安全备份源测试
-                steps: ["【改刀】鲜鱼洗净，在鱼身两面各划几刀，垫上葱段和姜片。","【猛火】蒸锅水烧大开，放入鱼盘，大火猛攻7-8分钟。","【去水】倒掉盘子里的蒸鱼水（这一步是去腥关键！），拣去老葱姜。","【铺丝】铺上切好的极细葱丝、姜丝、红椒丝。","【泼油】烧热油激发出葱香，最后沿盘子边缘淋入蒸鱼豉油。"],
-                tip: "蒸鱼的水一定要倒掉，那是腥味的来源。豉油要热油之后倒，不要直接淋在鱼肉上。", img: "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?q=80&w=800",
-                comments: [{user: "老广阿明", content: "原汁原味，鱼肉非常滑嫩！", time: "5小时前"}]
+                name: "南昌拌粉", cat: "Nanchang", spicy: "🌶️🌶️🌶️ 3/5", diff: "初学级", time: "15min",
+                steps: ["【煮粉】米粉冷水下锅煮沸，煮至无硬芯捞出，立刻冲冷水激凉。","【料底】碗底铺：辣椒油、生抽、老抽、精盐、胡椒粉、姜蒜泡出的水。","【配料】加入核心配料：酸萝卜丁、油炸花生米、葱花。","【拌制】将沥干的米粉倒入料碗，快速旋转拌匀。","【点睛】滴入几滴小磨香油，配上一碗瓦罐汤。"],
+                tip: "姜蒜水比姜蒜末更重要！它能让味道分布极度均匀。", img: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?q=80&w=800",
+                comments: [{user: "滕王阁下", content: "拌粉配上瓦罐汤，神仙也不换。", time: "1天前"}]
             },
             { 
-                name: "法式牛排", cat: "异国", spicy: "🌶️ 0/5", diff: "进阶级", time: "15min", 
-                video: "video/steak.mp4",
-                steps: ["【回温】牛排提前从冰箱取出，恢复至室温，用厨房纸吸干表面水分。","【调味】双面撒上现磨黑胡椒和海盐，涂抹少许橄榄油。","【煎制】铸铁锅烧到冒烟，下牛排，每面大火煎炸1-2分钟锁住肉汁。","【黄油】调小火，放入黄油、大蒜、迷迭香，用勺子不停将融化的黄油浇在牛排上。","【静置】出锅后在温热的地方静置5分钟再切开。"],
-                tip: "煎完一定要静置（Resting）！这样能让肉汁回流，切的时候不会流失满盘子。", img: "https://images.unsplash.com/photo-1544025162-d76694265947?q=80&w=800",
+                name: "萍乡炒血鸭", cat: "Special", spicy: "🌶️🌶️🌶️🌶️🌶️ 5/5", diff: "挑战级", time: "40min",
+                steps: ["【取血】杀鸭时将鲜血接入盛有米酒的碗中搅拌防止凝固。","【爆炒】鸭肉切成1厘米极小块，热锅爆炒至皮出油、肉变焦香。","【猛火】下大量姜丝、大蒜、海量鲜红辣椒。加米酒和少许高汤焖煮8分钟。","【合血】转微火，将鸭血均匀淋在鸭肉上。","【出锅】快速翻炒至鸭血凝固挂霜，汤汁粘稠起锅。"],
+                tip: "鸭块切得够小，鸭血和辣椒才能瞬间穿透肉质。", img: "https://images.unsplash.com/photo-1526318896980-cf78c088247c?q=80&w=800",
+                comments: [{user: "辣不怕", content: "作为一个萍乡人，这道菜我可以吃三碗饭！", time: "30分钟前"}]
+            },
+            { 
+                name: "余干辣椒炒肉", cat: "Special", spicy: "🌶️🌶️🌶️🌶️ 4/5", diff: "进阶级", time: "20min",
+                steps: ["【拍椒】余干枫树辣洗净。核心动作：用刀背拍扁辣椒再斜切。","【片肉】五花肉切成薄片，用少许老抽抓匀。","【煸肉】先下肉片煸炒至变色卷曲，盛出留底油。","【激香】下干豆豉爆香，倒入辣椒大火按压炒出虎皮。","【合炒】肉片回锅，加入食盐和一点糖，大火翻炒15秒。"],
+                tip: "辣椒拍扁是为了破坏纤维，让辣汁直接和肉片融合。", img: "https://images.unsplash.com/photo-1565299507177-b0ac0f2ec411?q=80&w=800",
+                comments: [{user: "米饭终结者", content: "辣椒真的太辣了，但是根本停不下来。", time: "10分钟前"}]
+            },
+            { 
+                name: "藜蒿炒腊肉", cat: "Special", spicy: "🌶️ 1/5", diff: "初学级", time: "15min",
+                steps: ["【择蒿】只取黎蒿最嫩的茎部，掐成段。","【备肉】农家腊肉切成透明薄片。","【煸油】冷锅下腊肉，小火煸出猪油。","【快炒】转最猛火，下黎蒿急炒不超过2分钟。","【调味】只需加少许盐，保持黎蒿翠绿脆爽。"],
+                tip: "炒黎蒿千万不能盖锅盖，否则会变黄变软。", img: "https://images.unsplash.com/photo-1547928576-a4a33237ce35?q=80&w=800",
                 comments: []
             },
             { 
-                name: "红烧肉", cat: "家常", spicy: "🌶️ 1/5", diff: "耐心级", time: "60min", 
-                video: "video/hong_shao.mp4",
-                steps: ["【改刀】五花肉切成3厘米见方的块，冷水下锅焯水捞出沥干。","【炒糖】锅中放少许油和冰糖，小火熬出红褐色的糖色。","【上色】倒入肉块快速翻炒上色，炒出多余的猪油。","【慢炖】加黄酒、生抽、老抽、八角、香叶和没过肉的开水，小火慢炖45分钟。","【收汁】最后转大火，将汤汁收至浓稠挂上红亮外衣。"],
-                tip: "炖肉必须加开水！加冷水会让热肉纤维骤然紧缩，导致肉质变柴。", img: "https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?q=80&w=800",
-                comments: [{user: "外婆的味道", content: "肥而不腻，这个糖色熬得很漂亮。", time: "1天前"}]
+                name: "南昌瓦罐汤", cat: "Nanchang", spicy: "🌶️ 0/5", diff: "耐心级", time: "7hr",
+                steps: ["【装罐】猪肉剁成肉饼放入小瓦罐，加矿泉水和红枣。","【封口】用锡纸将瓦罐口严密封好。","【入缸】码入两米高的大陶缸内，利用碳火恒温。","【煨制】保持恒温煨制7小时以上。","【出品】只撒少许盐，原汁原味。"],
+                tip: "肉饼里加一点点淀粉，口感会更滑嫩。", img: "https://images.unsplash.com/photo-1547592166-23ac45744a05?q=80&w=800",
+                comments: []
+            },
+            { 
+                name: "井冈烟笋", cat: "Special", spicy: "🌶️🌶️ 2/5", diff: "进阶级", time: "30min",
+                steps: ["【泡发】烟笋干泡发24小时，切成细丝。","【辅助】入沸水煮15分钟去除酸味。","【爆炒】腊肉丝煸香，下干红椒段和姜丝。","【焖制】入笋丝，加高汤焖煮10分钟吸收油香。","【收干】大火收汁，撒蒜苗段。"],
+                tip: "烟笋非常吃油，油量要比平时多一倍。", img: "https://images.unsplash.com/photo-1585109649139-366815a0d713?q=80&w=800",
+                comments: []
+            },
+            { 
+                name: "九江鱼块", cat: "Jiujiang", spicy: "🌶️🌶️ 2/5", diff: "进阶级", time: "30min",
+                steps: ["【腌制】草鱼块用米酒、盐、姜片腌制2小时。","【炸制】鱼块拍薄粉，下锅炸至两面金黄酥脆。","【调汁】爆香蒜末辣椒，调生抽、陈醋、少许糖。","【回锅】倒入鱼块快速翻匀挂汁。","【装盘】撒大把蒜苗增香。"],
+                tip: "鱼块一定要炸透，外皮酥了才好挂汁。", img: "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?q=80&w=800",
+                comments: []
+            },
+            { 
+                name: "赣州小炒鱼", cat: "Ganzhou", spicy: "🌶️🌶️ 2/5", diff: "进阶级", time: "25min",
+                steps: ["【切块】鲜鱼切成块，腌制入味。","【油炸】入锅炸至六成熟。","【炒制】加入姜丝、蒜片、鲜辣椒翻炒。","【勾芡】用陈醋、酱油调成芡汁淋入。","【出锅】快火翻炒，色泽红亮。"],
+                tip: "醋的量要稍微重一点，突出酸辣感。", img: "https://images.unsplash.com/photo-1544148103-0773bf10d330?q=80&w=800",
+                comments: []
+            },
+            { 
+                name: "兴国米粉鱼", cat: "Ganzhou", spicy: "🌶️ 1/5", diff: "挑战级", time: "50min",
+                steps: ["【腌制】鱼块抹盐、姜末、米酒腌制。","【裹粉】均匀拌上炒香的米粉。","【码放】蒸笼底部铺上荷叶，摆放鱼块。","【蒸制】大火蒸20分钟至粉糯肉熟。","【淋油】出锅淋上红油辣椒。"],
+                tip: "米粉里加点干辣椒粉一起炒更香。", img: "https://images.unsplash.com/photo-1512058564366-18510be2db19?q=80&w=800",
+                comments: []
+            },
+            { 
+                name: "临川牛杂", cat: "Special", spicy: "🌶️🌶️🌶️🌶️ 4/5", diff: "进阶级", time: "40min",
+                steps: ["【清洗】牛杂彻底洗净，下锅煮烂切段。","【爆香】海量朝天椒、姜蒜爆香。","【快炒】下牛杂大火猛炒，加入高汤稍微焖。","【调味】入秘制辣酱，炒至汁浓色重。","【出锅】加香菜段快速翻匀。"],
+                tip: "牛杂要炖得软烂但有弹性。", img: "https://images.unsplash.com/photo-1541518763669-27fef04b14ea?q=80&w=800",
+                comments: []
+            },
+            { 
+                name: "景德镇碱水粑", cat: "Special", spicy: "🌶️ 1/5", diff: "初学级", time: "15min",
+                steps: ["【切片】碱水粑切成薄片。","【备料】腊肉、鸡蛋、青菜准备好。","【炒肉】腊肉煸出油，下粑片翻炒。","【入味】加辣椒粉、酱油调色.","【完成】炒至粑片变软挂汁。"],
+                tip: "碱水粑切得越薄越入味。", img: "https://images.unsplash.com/photo-1563245339-dfc201aa6829?q=80&w=800",
+                comments: []
+            },
+            { 
+                name: "瑞金牛肉汤", cat: "Ganzhou", spicy: "🌶️ 1/5", diff: "进阶级", time: "20min",
+                steps: ["【切肉】鲜牛肉切薄片，拌入红薯粉。","【烧汤】锅中水开，下姜末煮出味。","【烫肉】肉片逐片下锅，划散烫熟。","【调味】加盐、胡椒粉、葱花。","【装碗】汤清肉滑，姜味四溢。"],
+                tip: "红薯粉要揉进肉里，口感才滑。", img: "https://images.unsplash.com/photo-1548943487-a2e4143eb544?q=80&w=800",
+                comments: []
+            },
+            { 
+                name: "鄱阳湖狮子头", cat: "Jiujiang", spicy: "🌶️ 0/5", diff: "挑战级", time: "60min",
+                steps: ["【剁肉】五花肉剁成粒，加荸荠丁、米粉。","【捏球】揉成拳头大小的肉球。","【油炸】入油锅炸至表皮金黄定型。","【慢炖】入高汤加酱油慢火炖1小时。","【收汁】汤汁浓稠后浇在肉球上。"],
+                tip: "加点荸荠碎能解腻提爽。", img: "https://images.unsplash.com/photo-1529006557810-274b9b2fc783?q=80&w=800",
+                comments: []
+            },
+            { 
+                name: "莲花血鸭", cat: "Special", spicy: "🌶️🌶️🌶️🌶️🌶️ 5/5", diff: "大师级", time: "45min",
+                steps: ["【备肉】鸭肉砍成豆子大小。","【爆香】干辣椒、鲜辣椒、姜蒜入锅。","【合炒】鸭肉炒至干香淋入米酒。","【勾血】下新鲜鸭血快速翻动。","【成品】色泽黑亮，极度下饭。"],
+                tip: "鸭块一定要砍得极碎。", img: "https://images.unsplash.com/photo-1526318896980-cf78c088247c?q=80&w=800",
+                comments: []
+            },
+            { 
+                name: "庐山石鸡", cat: "Jiujiang", spicy: "🌶️ 1/5", diff: "进阶级", time: "25min",
+                steps: ["【处理】石鸡去皮洗净块。","【煸炒】加姜丝、蒜瓣、红椒片爆炒。","【红焖】淋米酒、酱油焖煮5分钟。","【收汁】加入少许糖提鲜收汁。","【完成】肉质细腻。"],
+                tip: "石鸡其实就是山里的蛙类，一定要烧熟。", img: "https://images.unsplash.com/photo-1615361413105-8825f7712a61?q=80&w=800",
+                comments: []
+            },
+            { 
+                name: "弋阳年糕", cat: "Special", spicy: "🌶️ 0/5", diff: "初学级", time: "15min",
+                steps: ["【切片】大米年糕切成厚片。","【煮制】入沸水煮软捞出。","【炒制】配腊肉大火翻炒。","【入色】加少许老抽上色。","【装盘】口感极具韧性。"],
+                tip: "年糕煮软后要沥干再炒。", img: "https://images.unsplash.com/photo-1590301157890-4810ed352733?q=80&w=800",
+                comments: []
+            },
+            { 
+                name: "万安鱼焙", cat: "Special", spicy: "🌶️🌶️ 2/5", diff: "进阶级", time: "30min",
+                steps: ["【备料】熏制的小鱼干洗净。","【煸炒】五花肉煸香，下小鱼干。","【加料】放干辣椒、姜片、蒜末。","【焖制】加少许水焖出香味。","【成品】干香辣脆。"],
+                tip: "小鱼干带烟熏味，是送粥神器。", img: "https://images.unsplash.com/photo-1585109649139-366815a0d713?q=80&w=800",
+                comments: []
+            },
+            { 
+                name: "文山鸡丁", cat: "Special", spicy: "🌶️ 1/5", diff: "初学级", time: "15min",
+                steps: ["【切丁】鸡脯肉切丁上浆。","【过油】温油滑散鸡丁捞出.","【炒菜】爆葱姜下青红椒丁。","【混合】入鸡丁勾薄芡。","【完成】滑嫩爽口。"],
+                tip: "滑油的温度不要太高。", img: "https://images.unsplash.com/photo-1525755662778-989d0524087e?q=80&w=800",
+                comments: []
+            },
+            { 
+                name: "泰和乌鸡汤", cat: "Special", spicy: "🌶️ 0/5", diff: "进阶级", time: "2hr",
+                steps: ["【备肉】乌骨鸡切大块焯水。","【入罐】瓦罐加姜片、党参。","【煨制】文火慢炖2小时。","【调味}加盐即可。","【出品】滋补圣品。"],
+                tip: "乌鸡汤重在原汁原味。", img: "https://images.unsplash.com/photo-1547592166-23ac45744a05?q=80&w=800",
+                comments: []
             }
         ];
 
@@ -147,11 +245,11 @@
                     </div>
                     <div class="p-10">
                         <div class="flex items-center gap-2 mb-3">
-                            <span class="text-xs font-bold text-red-600 bg-red-50 px-2 py-0.5 rounded">${r.spicy}</span>
+                            <span class="text-xs font-bold text-red-600 bg-red-50 px-2 py-0.5 rounded">🌶️ ${r.spicy}</span>
                         </div>
                         <h3 class="font-black text-2xl mb-2">${r.name}</h3>
                         <p class="text-stone-400 text-sm mb-6 line-clamp-1 italic">💬 ${r.comments.length} 评价 · ${r.diff}</p>
-                        <button onclick="toggleFav(event)" class="w-full py-4 bg-stone-50 rounded-2xl text-stone-500 text-xs font-bold hover:text-red-500 transition-all">❤ 收藏此味</button>
+                        <button onclick="toggleFav(event)" class="w-full py-4 bg-stone-50 rounded-2xl text-stone-500 text-xs font-bold hover:text-red-500 transition-all">❤ 收藏赣味</button>
                     </div>
                 </div>
             `).join('');
@@ -162,14 +260,11 @@
             const r = recipes[index];
             document.getElementById('modal-title').innerText = r.name;
             document.getElementById('modal-img').src = r.img;
-            
-            switchMedia('img');
-            document.getElementById('modal-video').src = r.video;
 
             document.getElementById('modal-tags').innerHTML = `
-                <span class="bg-red-50 text-red-600 px-4 py-1.5 rounded-xl text-xs font-bold">偏好：${r.spicy}</span>
+                <span class="bg-red-50 text-red-600 px-4 py-1.5 rounded-xl text-xs font-bold">辣度：${r.spicy}</span>
                 <span class="bg-blue-50 text-blue-600 px-4 py-1.5 rounded-xl text-xs font-bold">难度：${r.diff}</span>
-                <span class="bg-stone-100 text-stone-600 px-4 py-1.5 rounded-xl text-xs font-bold">时间：${r.time}</span>
+                <span class="bg-stone-100 text-stone-600 px-4 py-1.5 rounded-xl text-xs font-bold">预计耗时：${r.time}</span>
             `;
 
             document.getElementById('modal-tip').innerText = r.tip;
@@ -186,31 +281,6 @@
             setTimeout(() => document.getElementById('modal-content').classList.replace('scale-95', 'scale-100'), 10);
         }
 
-        function switchMedia(type) {
-            const img = document.getElementById('modal-img');
-            const video = document.getElementById('modal-video');
-            const btnImg = document.getElementById('btn-show-img');
-            const btnVideo = document.getElementById('btn-show-video');
-
-            if(type === 'video') {
-                img.classList.add('hidden');
-                video.classList.remove('hidden');
-                btnVideo.classList.add('hidden');
-                btnImg.classList.remove('hidden');
-                
-                // 引导触发播放
-                video.play().catch(err => {
-                    console.log("由于浏览器安全限制，请手动点击左下角的播放键进行观看。");
-                });
-            } else {
-                video.pause();
-                video.classList.add('hidden');
-                img.classList.remove('hidden');
-                btnImg.classList.add('hidden');
-                btnVideo.classList.remove('hidden');
-            }
-        }
-
         function updateComments() {
             const r = recipes[currentIndex];
             document.getElementById('comment-count').innerText = r.comments.length;
@@ -218,6 +288,9 @@
                 <div class="bg-white p-6 rounded-3xl shadow-sm border border-stone-100">
                     <div class="flex justify-between mb-2"><span class="text-xs font-black text-stone-800">${c.user}</span><span class="text-[10px] text-stone-400">${c.time}</span></div>
                     <p class="text-sm text-stone-600 leading-relaxed mb-4">${c.content}</p>
+                    <div class="flex justify-end border-t pt-4">
+                        <button class="text-stone-300 hover:text-red-500 text-xs flex items-center gap-1 transition" onclick="this.innerHTML='❤️ ' + (Math.floor(Math.random()*20)+1)">👍 赞</button>
+                    </div>
                 </div>
             `).join('');
         }
@@ -225,14 +298,13 @@
         function addComment() {
             const input = document.getElementById('commentInput');
             if(!input.value.trim()) return;
-            recipes[currentIndex].comments.unshift({user: "美食鉴赏家", content: input.value, time: "刚刚"});
+            recipes[currentIndex].comments.unshift({user: "我 (美食鉴赏家)", content: input.value, time: "刚刚"});
             input.value = '';
             updateComments();
             render(recipes);
         }
 
         function closeModal() {
-            document.getElementById('modal-video').pause();
             document.getElementById('modal-content').classList.replace('scale-100', 'scale-95');
             setTimeout(() => document.getElementById('modal-overlay').style.display = 'none', 200);
         }
