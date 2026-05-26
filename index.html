@@ -198,147 +198,146 @@
 
     <script>
         // 20道核心赣菜底座数据
-        // 20道核心赣菜底座数据（已全量转换为本地 images 文件夹路径）
         const recipes = [
             { 
                 name: "宁都三杯鸡", cat: "Ganzhou", spicy: "🌶️ 1/5", diff: "大师级", time: "45min", spicyNum: 1, timeNum: 45,
                 ingredients: ["宁都三黄鸡1只", "农家米酒1杯", "芝麻猪油1杯", "头抽酱油1杯", "生姜片", "紫苏叶"],
                 steps: ["【备料】精选宁都黄鸡，斩成3厘米方块，冷水入锅加姜片、料酒焯去血沫。","【三杯】核心在于等量的：一杯农家米酒、一杯芝麻猪油、一杯头抽酱油。","【铺垫】取一砂锅，底部铺满厚姜片和葱段。放入鸡块，依次倒入三杯调料。严禁加水！","【煨制】扣盖大火烧开转极小火，文火慢煨30分钟。","【收香】待汤汁粘稠时，撒入紫苏叶，转大火翻动数秒出锅。"],
-                tip: "必须用砂锅！砂锅的‘土气’能与米酒发生奇妙的化学反应。", 
-                img: "./images/sanbeiji.jpg" 
+                tip: "必须用砂锅！砂锅的‘土气’能与米酒发生奇妙的化学反应。", img: "https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?q=80&w=800",
+                comments: [{user: "赣南小表哥", content: "老家的味道，米酒香绝了！", time: "2小时前"}]
             },
             { 
-                name: "南昌拌粉", cat: "Nanchang", spicy: "🌶️ 3/5", diff: "入门级", time: "10min", spicyNum: 3, timeNum: 10,
-                ingredients: ["江西早籼米粉", "剁椒", "萝卜丁", "花生米", "酱油", "香油", "葱花"],
-                steps: ["【煮粉】干米粉投入沸水大火煮10分钟，捞出过凉水至完全冷却，沥干备用。","【打底】碗底铺上生抽、老抽、精盐、味精、香油和大蒜水。","【码料】放入米粉，抓上一把香脆花生米、酸萝卜丁、香葱末。","【灵魂】根据嗜辣程度加入一勺地道江西鲜剁辣椒。","【拌匀】疯狂搅拌，确保每根米粉都裹满酱头和油脂香。"],
-                tip: "过凉水是让米粉保持Q弹滑爽不粘连的铁律。", 
-                img: "./images/banfen.jpg" 
+                name: "南昌拌粉", cat: "Nanchang", spicy: "🌶️🌶️🌶️ 3/5", diff: "初学级", time: "15min", spicyNum: 3, timeNum: 15,
+                ingredients: ["江西早籼米粉", "自制红油辣椒", "酸萝卜丁", "油炸花生米", "小磨香油", "生姜大蒜水"],
+                steps: ["【煮粉】米粉冷水下锅煮沸，煮至无硬芯捞出，立刻冲冷水激凉。","【料底】碗底铺：辣椒油、生抽、老抽、精盐、胡椒粉、姜蒜泡出的水。","【配料】加入核心配料：酸萝卜丁、油炸花生米、葱花。","【拌制】将沥干的米粉倒入料碗，快速旋转拌匀。","【点睛】滴入几滴小磨香油，配上一碗瓦罐汤。"],
+                tip: "姜蒜水比姜蒜末更重要！它能让味道分布极度均匀。", img: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?q=80&w=800",
+                comments: [{user: "滕王阁下", content: "拌粉配上瓦罐汤，神仙也不换。", time: "1天前"}]
             },
             { 
-                name: "萍乡炒血鸭", cat: "all", spicy: "🌶️ 5/5", diff: "进阶级", time: "30min", spicyNum: 5, timeNum: 30,
-                ingredients: ["本地水鸭1只", "新鲜鸭血", "大蒜子", "新鲜小米辣", "生姜", "米酒"],
-                steps: ["【接血】杀鸭时用米酒和少许盐接住鸭血，顺时针搅拌防止凝固。","【爆炒】鸭肉切小块，控干水分。热锅下重油，下鸭肉大火疯狂爆炒至表面微焦。","【猛料】投入海量的大蒜子、生姜片和切碎的小米辣，炒出强烈的辛辣香气。","【焖烧】加少许水和酱油，盖锅盖焖煮10分钟让辣味彻底吃进鸭肉里。","【泼血】关键一步！转小火，将鸭血均匀淋在鸭肉上，快速翻炒至鸭血凝固包裹鸭块，出锅！"],
-                tip: "辣度极高！鸭血一定要最后下，快速翻匀才能保持浓稠滑嫩。肢解鸭肉时越小块越入味。", 
-                img: "./images/xueya.jpg" 
+                name: "萍乡炒血鸭", cat: "Special", spicy: "🌶️🌶️🌶️🌶️🌶️ 5/5", diff: "挑战级", time: "40min", spicyNum: 5, timeNum: 40,
+                ingredients: ["新鲜活水鸭", "新鲜纯鸭血", "萍乡糯米酒", "本地鲜红尖椒", "大蒜籽", "生姜丝"],
+                steps: ["【取血】杀鸭时将鲜血接入盛有米酒的碗中搅拌防止凝固。","【爆炒】鸭肉切成1厘米极小块，热锅爆炒至皮出油、肉变焦香。","【猛火】下大量姜丝、大蒜、海量鲜红辣椒。加米酒和少许高汤焖煮8分钟。","【合血】转微火，将鸭血均匀淋在鸭肉上。","【出锅】快速翻炒至鸭血凝固挂霜，汤汁粘稠起锅。"],
+                tip: "鸭块切得够小，鸭血和辣椒才能瞬间穿透肉质。", img: "https://images.unsplash.com/photo-1526318896980-cf78c088247c?q=80&w=800",
+                comments: [{user: "辣不怕", content: "作为一个萍乡人，这道菜我可以吃三碗饭！", time: "30分钟前"}]
             },
             { 
-                name: "余干辣椒炒肉", cat: "all", spicy: "🌶️ 4/5", diff: "入门级", time: "15min", spicyNum: 4, timeNum: 15,
-                ingredients: ["余干枫树辣", "土猪五花肉", "大蒜", "豆豉", "生抽"],
-                steps: ["【切片】五花肉切薄片，余干辣椒用刀背拍扁后斜切段。","【煸肉】热锅不放油，先下五花肉煸炒出猪油，待肉片微微卷曲呈灯盏窝状。","【下料】下入大蒜瓣和几粒豆豉爆香，倒入生抽给肉片上色。","【大火】倒入余干辣椒段，转极致大火疯狂翻炒。","【出锅】待辣椒表面微微起皮（断生），加盐调味瞬间出锅，保持爽脆。"],
-                tip: "余干辣椒皮薄肉厚，一定要大火快炒，炒久了皮肉分离就失去了灵魂。", 
-                img: "./images/chaorou.jpg" 
+                name: "余干辣椒炒肉", cat: "Special", spicy: "🌶️🌶️🌶️🌶️ 4/5", diff: "进阶级", time: "20min", spicyNum: 4, timeNum: 20,
+                ingredients: ["余干枫树辣", "带皮五花肉", "农家干豆豉", "老抽", "大蒜瓣"],
+                steps: ["【拍椒】余干枫树辣洗净。核心动作：用刀背拍扁辣椒再斜切。","【片肉】五花肉切成薄片，用少许老抽抓匀。","【煸肉】先下肉片煸炒至变色卷曲，盛出留底油。","【激香】下干豆豉爆香，倒入辣椒大火按压炒出虎皮。","【合炒】肉片回锅，加入食盐和一点糖，大火翻炒15秒。"],
+                tip: "辣椒拍扁是为了破坏纤维，让辣汁直接和肉片融合。", img: "https://images.unsplash.com/photo-1565299507177-b0ac0f2ec411?q=80&w=800",
+                comments: [{user: "米饭终结者", content: "辣椒真的太辣了，但是根本停不下来。", time: "10分钟前"}]
             },
             { 
-                name: "藜蒿炒腊肉", cat: "Nanchang", spicy: "🌶️ 2/5", diff: "入门级", time: "15min", spicyNum: 2, timeNum: 15,
-                ingredients: ["鄱阳湖野生藜蒿", "农家风干腊肉", "韭菜", "红椒丝", "大蒜"],
-                steps: ["【择菜】藜蒿去叶掐成小段，只要最嫩的茎。腊肉切极薄的片。","【蒸肉】腊肉片先上锅蒸5分钟去掉多余咸味并使其变软。","【煸炒】锅内热油，下腊肉片煸炒至肥肉部分呈现半透明状，捞出肉片留底油。","【快炒】大火下蒜瓣、红椒丝和藜蒿段，快速翻炒30秒。","【合体】倒入腊肉和韭菜段，加少许水分蒸发带出香气，勾薄盐翻匀即成。"],
-                tip: "‘鄱阳湖畔少顷草，江西人桌上宝’，藜蒿炒制时间千万别超1分钟，要的就是那股泥土清香。", 
-                img: "./images/larou.jpg" 
+                name: "藜蒿炒腊肉", cat: "Special", spicy: "🌶️ 1/5", diff: "初学级", time: "15min", spicyNum: 1, timeNum: 15,
+                ingredients: ["鄱阳湖新鲜野生藜蒿", "修水熏腊肉", "红椒丝", "大蒜"],
+                steps: ["【择蒿】只取黎蒿最嫩的茎部，掐成段.","【备肉】农家腊肉切成透明薄片。","【煸油】冷锅下腊肉，小火煸出猪油。","【快炒】转最猛火，下黎蒿急炒不超过2分钟。","【调味】只需加少许盐，保持黎蒿翠绿脆爽。"],
+                tip: "炒黎蒿千万不能盖锅盖，否则会变黄变软。", img: "https://images.unsplash.com/photo-1547928576-a4a33237ce35?q=80&w=800",
+                comments: []
             },
             { 
-                name: "南昌瓦罐汤", cat: "Nanchang", spicy: "🌶️ 0/5", diff: "进阶级", time: "420min", spicyNum: 0, timeNum: 420,
-                ingredients: ["土猪肉饼", "野生大鲜香菇", "生姜", "纯净水"],
-                steps: ["【剁肉】精选三分肥七分瘦的猪肉，纯手工剁成细腻的肉饼，平铺在小瓦罐底部。","【配料】放入洗净的鲜香菇和一片生姜去腥。","【注水】倒入纯净水至瓦罐八分满，用锡纸严密封住罐口。","【大缸】将小瓦罐依次码入一人多高的大陶缸内。","【煨制】以硬质木炭为燃料，保持恒温静静煨制7小时以上。"],
-                tip: "不加入任何多余调料，全靠木炭恒温和时间，逼出肉饼最纯粹的鲜甜。", 
-                img: "./images/waguantang.jpg" 
+                name: "南昌瓦罐汤", cat: "Nanchang", spicy: "🌶️ 0/5", diff: "耐心级", time: "120min", spicyNum: 0, timeNum: 120,
+                ingredients: ["土猪前腿肉", "优质红枣", "宁夏枸杞", "纯净天然水"],
+                steps: ["【装罐】猪肉剁成肉饼放入小瓦罐，加矿泉水和红枣。","【封口】用锡纸将瓦罐口严密封好。","【入缸】码入两米高的大陶缸内，利用碳火恒温。","【煨制】保持恒温煨制数小时。","【出品】只撒少许盐，原汁原味。"],
+                tip: "肉饼里加一点点淀粉，口感会更滑嫩。", img: data:image/jpeg;base64,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
+                comments: []
             },
             { 
-                name: "井冈烟笋", cat: "all", spicy: "🌶️ 3/5", diff: "进阶级", time: "40min", spicyNum: 3, timeNum: 40,
-                ingredients: ["井冈山乌烟笋干", "猪肉丝", "红椒丝", "大蒜", "干辣椒"],
-                steps: ["【发笋】乌烟笋干提前用温水浸泡24小时，反复清洗去掉过重的烟熏味，切成细丝。","【炒肉】锅热下油，将猪肉丝炒至变色捞出。","【煸笋】利用锅内余油，下干辣椒、蒜片爆香，倒入烟笋丝中火苦炒，将其中的水分完全煸干。","【入味】加入高汤或清水，没过笋丝，小火焖煮15分钟，让烟笋充分吸收汤汁。","【收汁】投入红椒丝和炒好的肉丝，大火收干汤汁，淋入香油出锅。"],
-                tip: "笋极其‘吃油’，炒这道菜猪油要放得比平时多一倍，笋丝才会油润不干柴。", 
-                img: "./images/yansun.jpg" 
+                name: "井冈烟笋", cat: "Special", spicy: "🌶️🌶️ 2/5", diff: "进阶级", time: "30min", spicyNum: 2, timeNum: 30,
+                ingredients: ["井冈山乌烟笋", "腊肉丝", "干红辣椒", "蒜苗段", "高汤"],
+                steps: ["【泡发】烟笋干泡发24小时，切成细丝。","【辅助】入沸水煮15分钟去除酸味。","【爆炒】腊肉丝煸香，下干红椒段和姜丝。","【焖制】入笋丝，加高汤焖煮10分钟吸收油香。","【收干】大火收汁，撒蒜苗段。"],
+                tip: "烟笋非常吃油，油量要比平时多一倍。", img: "https://images.unsplash.com/photo-1585109649139-366815a0d713?q=80&w=800",
+                comments: []
             },
             { 
-                name: "九江鱼块", cat: "Jiujiang", spicy: "🌶️ 3/5", diff: "进阶级", time: "25min", spicyNum: 3, timeNum: 25,
-                ingredients: ["鄱阳湖草鱼1条", "大葱", "生姜", "干红辣椒", "老抽", "啤酒"],
-                steps: ["【改刀】草鱼清理干净，剁成麻将牌大小的厚块，加盐、料酒、姜汁腌制15分钟。","【煎制】热锅下重油，将鱼块表面拍一层薄薄的淀粉，下锅煎至两面金黄硬挺，捞出。","【爆香】锅内留底油，下入大量的干辣椒、姜丝、大葱段和豆豉炒香。","【焖炖】倒回鱼块，泼入半瓶啤酒和适量老抽，盖上锅盖中火焖炖10分钟。","【大火】待汤汁浓稠，转大火收汁，撒上大把葱花即可。"],
-                tip: "煎鱼的时候动的幅度不要太大，等一面完全结壳再翻面，否则鱼肉容易碎。", 
-                img: "./images/yukuai.jpg" 
+                name: "九江鱼块", cat: "Jiujiang", spicy: "🌶️🌶️ 2/5", diff: "进阶级", time: "30min", spicyNum: 2, timeNum: 30,
+                ingredients: ["鄱阳湖草鱼中段", "红薯淀粉", "本地米酒", "蒜苗", "朝天椒"],
+                steps: ["【腌制】草鱼块用米酒、盐、姜片腌制2小时。","【炸制】鱼块拍薄粉，下锅炸至两面金黄酥脆。","【调汁】爆香蒜末辣椒，调生抽、陈醋、少许糖。","【回锅】倒入鱼块快速翻匀挂汁。","【装盘】撒大把蒜苗增香。"],
+                tip: "鱼块一定要炸透，外皮酥了才好挂汁。", img: "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?q=80&w=800",
+                comments: []
             },
             { 
-                name: "赣州小炒鱼", cat: "Ganzhou", spicy: "🌶️ 2/5", diff: "大师级", time: "20min", spicyNum: 2, timeNum: 20,
-                ingredients: ["鲜活草鱼肉", "江西本地陈醋", "生姜末", "大蒜末", "水淀粉丝", "小葱"],
-                steps: ["【切块】草鱼去骨取纯肉，切成小方块，用少许盐和料酒抓匀。","【炸制】八成热油温，将鱼块下锅快速炸至外表金黄酥脆，迅速捞出控油。","【勾汁】锅底留少许油，下入姜末、蒜末、红椒末爆香，加入高汤、生抽调味。","【烹醋】加入灵魂陈醋，调出特有的酸辣味，紧接着淋入水淀粉勾成浓稠的芡汁。","【翻裹】将炸好的鱼块倒入锅中，快速颠锅，让芡汁完美包裹每一块鱼肉，撒葱花出锅。"],
-                tip: "这是一道王阳明都赞不绝口的非遗名菜，核心在于‘醋要起锅前烹’，外酥里嫩，酸辣鲜爽。", 
-                img: "./images/xiaochaoyu.jpg" 
+                name: "赣州小炒鱼", cat: "Ganzhou", spicy: "🌶️🌶️ 2/5", diff: "进阶级", time: "25min", spicyNum: 2, timeNum: 25,
+                ingredients: ["草鱼鲜肉", "赣州陈醋", "生姜丝", "大蒜片", "红椒"],
+                steps: ["【切块】鲜鱼切成块，腌制入味。","【油炸】入锅炸至六成熟。","【炒制】加入姜丝、蒜片、鲜辣椒翻炒。","【勾芡】用陈醋、酱油调成芡汁淋入。","【出锅】快火翻炒，色泽红亮。"],
+                tip: "醋的量要稍微重一点，突出酸辣感。", img: "https://images.unsplash.com/photo-1544148103-0773bf10d330?q=80&w=800",
+                comments: []
             },
             { 
-                name: "兴国米粉鱼", cat: "Ganzhou", spicy: "🌶️ 2/5", diff: "进阶级", time: "35min", spicyNum: 2, timeNum: 35,
-                ingredients: ["草鱼肉", "自制炒米粉", "辣酱", "葱花", "底衬茄子/芋头"],
-                steps: ["【切片】草鱼肉切成厚片，加入江西特有的辣酱、生抽、食用油和姜汁拌匀。","【裹粉】将腌制好的鱼片均匀地裹上一层带有香料的炒米粉。","【垫底】蒸笼底部铺上一层切块的茄子或芋头。","【码放】将裹好米粉的鱼片整齐地码在蔬菜上方。","【蒸制】上大火蒸笼，强火猛蒸20-25分钟，至米粉软糯、鱼肉熟透，撒上葱花。"],
-                tip: "底衬的芋头或茄子吸饱了鱼肉流下来的汤汁和油脂，往往比鱼肉还要抢手！", 
-                img: "./images/mifenyu.jpg" 
+                name: "兴国米粉鱼", cat: "Ganzhou", spicy: "🌶️ 1/5", diff: "挑战级", time: "50min", spicyNum: 1, timeNum: 50,
+                ingredients: ["草鱼块", "自家炒制自磨米粉", "新鲜荷叶", "农家红油"],
+                steps: ["【腌制】鱼块抹盐、姜末、米酒腌制.","【裹粉】均匀拌上炒香的米粉。","【码放】蒸笼底部铺上荷叶，摆放鱼块。","【蒸制】大火蒸20分钟至粉糯肉熟。","【淋油】出锅淋上红油辣椒。"],
+                tip: "米粉里加点干辣椒粉一起炒更香。", img: "https://images.unsplash.com/photo-1512058564366-18510be2db19?q=80&w=800",
+                comments: []
             },
             { 
-                name: "临川牛杂", cat: "all", spicy: "🌶️ 5/5", diff: "大师级", time: "60min", spicyNum: 5, timeNum: 60,
-                ingredients: ["牛肚/牛肠/牛百叶", "临川干金桔辣椒", "大蒜", "八角", "桂皮"],
-                steps: ["【洗净】牛杂用粗盐和白醋反复揉搓清洗干净，冷水下锅加香料焯熟，捞出切丝。","【卤制】将牛杂放入高汤卤汁中，加入八角、桂皮、老抽，小火慢炖40分钟至软烂入味。","【猛火】热锅下重油，投入海量的临川特产干辣椒和蒜瓣，炒出让人咳嗽的剧烈辣味。","【爆炒】捞出卤好的牛杂倒入锅中，跟随激烈的火舌快速翻炒。","【收尾】注入少许老卤汤，大火猛烈收干，让辣意和卤香完全锁死在牛杂纤维里。"],
-                tip: "辣到怀疑人生！不能吃辣的请减少干辣椒用量。牛杂一定要卤到位，否则嚼不动。", 
-                img: "./images/niuza.jpg" 
+                name: "临川牛杂", cat: "Special", spicy: "🌶️🌶️🌶️🌶️ 4/5", diff: "进阶级", time: "40min", spicyNum: 4, timeNum: 40,
+                ingredients: ["牛肚牛肠牛百叶", "朝天椒干", "鲜生姜", "秘制辣酱", "新鲜香菜"],
+                steps: ["【清洗】牛杂彻底洗净，下锅煮烂切段。","【爆香】海量朝天椒、姜蒜爆香。","【快炒】下牛杂大火猛炒，加入高汤稍微焖。","【调味】入秘制辣酱，炒至汁浓色重。","【出锅】加香菜段快速翻匀。"],
+                tip: "牛杂要炖得软烂但有弹性。", img: "https://images.unsplash.com/photo-1541518763669-27fef04b14ea?q=80&w=800",
+                comments: []
             },
             { 
-                name: "景德镇碱水粑", cat: "all", spicy: "🌶️ 2/5", diff: "入门级", time: "15min", spicyNum: 2, timeNum: 15,
-                ingredients: ["本地传统碱水粑", "土鸡蛋", "大蒜子", "小白菜", "江西老抽"],
-                steps: ["【切片】将硬实如白玉的碱水粑用利刀切成薄如蝉翼的片状。","【炒蛋】鸡蛋打散，下热锅迅速划散成蛋花，盛出备用。","【煸香】锅内续油，下入大蒜瓣和切好的红椒丝爆出香味。","【翻炒】下入碱水粑片和小白菜，转大火不停翻炒。切记动作要快，防止粘锅。","【上色】倒入老抽调色、加薄盐，放入鸡蛋花，翻炒至碱水粑变软且每片都均匀上色即可。"],
-                tip: "碱水粑是用天然植物碱制成的瓷都特产，炒的时候很容易粘锅，必须多放油且大火快炒。", 
-                img: "./images/jianshuiba.jpg" 
+                name: "景德镇碱水粑", cat: "Special", spicy: "🌶️ 1/5", diff: "初学级", time: "15min", spicyNum: 1, timeNum: 15,
+                ingredients: ["景德镇特产碱水粑", "土鸡蛋", "农家腌腊肉", "大青菜"],
+                steps: ["【切片】碱水粑切成薄片。","【备料】腊肉、鸡蛋、青菜准备好。","【炒肉】腊肉煸出油，下粑片翻炒。","【入味】加辣椒粉、酱油调色。","【完成】炒至粑片变软挂汁。"],
+                tip: "碱水粑切得越薄越入味。", img: "https://images.unsplash.com/photo-1563245339-dfc201aa6829?q=80&w=800",
+                comments: []
             },
             { 
                 name: "瑞金牛肉汤", cat: "Ganzhou", spicy: "🌶️ 1/5", diff: "进阶级", time: "20min", spicyNum: 1, timeNum: 20,
-                ingredients: ["纯牛里脊肉", "红薯淀粉", "生姜末", "江西本地米醋", "小葱末"],
-                steps: ["【切丝】纯牛里脊肉顺着纹理切成细腻的薄片或细丝。","【抓粉】这是关键！加入海量的优质红薯淀粉，用手不断揉搓抓捏，直到淀粉完全吃进牛肉纤维里。","【沸水】大锅烧开纯净水，保持大火沸腾。","【下肉】将抓好粉的牛肉顺着锅边一片片滑入沸水中，看到肉片瞬间变白浮起。","【调味】碗底提前铺好姜末、葱花、酱油、胡椒粉和米醋，直接将沸腾的牛肉连汤冲入碗中。"],
-                tip: "瑞金牛肉汤的精髓在于‘滑嫩’，红薯粉一定要抓透，煮的时间绝对不能长，几十秒即可。", 
-                img: "./images/niuroutang.jpg" 
+                ingredients: ["黄牛里脊肉", "正宗红薯粉", "老生姜末", "小葱花"],
+                steps: ["【切肉】鲜牛肉切薄片，拌入红薯粉。","【烧汤】锅中水开，下姜末煮出味。","【烫肉】肉片逐片下锅，划散烫熟。","【调味】加盐、胡椒粉、葱花。","【装碗】汤清肉滑，姜味四溢。"],
+                tip: "红薯粉要揉进肉里，口感才滑。", img: "https://images.unsplash.com/photo-1548943487-a2e4143eb544?q=80&w=800",
+                comments: []
             },
             { 
-                name: "鄱阳湖狮子头", cat: "Jiujiang", spicy: "🌶️ 0/5", diff: "大师级", time: "90min", spicyNum: 0, timeNum: 90,
-                ingredients: ["肥四瘦六土猪肉", "鄱阳湖大青虾仁", "荸荠", "鸡蛋", "高汤"],
-                steps: ["【切肉】拒绝肉糜！猪肉必须纯手工切成米粒大小的细丁（细切粗斩）。","【配料】加入剁碎的荸荠丁、青虾仁碎，打入鸡蛋，加入盐和生姜汁。","【搅拌】顺着一个方向疯狂搅拌至肉馅上劲，能黏住手手掌。","【定型】双手沾水，将肉馅在两手掌间来回摔打，揉成硕大圆润的狮子头。","【慢炖】平底锅烧热，将肉丸表面微煎定型。随后移入砂锅，注入清澈的高汤，微火慢炖1.5小时。"],
-                tip: "汤清肉嫩，入口即化。切记不能用绞肉机，否则肉质死板毫无弹性。", 
-                img: "./images/shizitou.jpg" 
+                name: "鄱阳湖狮子头", cat: "Jiujiang", spicy: "🌶️ 0/5", diff: "挑战级", time: "60min", spicyNum: 0, timeNum: 60,
+                ingredients: ["七分瘦三分肥五花肉", "生荸荠", "优质籼米粉", "香菇"],
+                steps: ["【剁肉】五花肉剁成粒，加荸荠丁、米粉。","【捏球】揉成拳头大小的肉球。","【油炸】入油锅炸至表皮金黄定型。","【慢炖】入高汤加酱油慢火炖1小时。","【收汁】汤汁浓稠后浇在肉球上。"],
+                tip: "加点荸荠碎能解腻提爽。", img: "https://images.unsplash.com/photo-1529006557810-274b9b2fc783?q=80&w=800",
+                comments: []
             },
             { 
-                name: "莲花血鸭", cat: "all", spicy: "🌶️ 5/5", diff: "大师级", time: "30min", spicyNum: 5, timeNum: 30,
-                ingredients: ["本地小水鸭", "鲜鸭血", "萍乡本地小米辣", "蒜瓣碎", "米醋"],
-                steps: ["【碎骨】将小水鸭连肉带骨纯手工斩成如黄豆、碎米般大小的碎块（考验刀工）。","【爆干】大热锅下重油，倒入碎鸭肉，以极高的火力迅速爆炒，逼干水分，炒至骨酥肉香。","【投料】倒入铺天盖地的小米辣碎和蒜末，将辣汁彻底压进细小的鸭肉碎中。","【烹调】加少许水和老抽焖煮2分钟。","【泼血】用米醋稀释的鲜鸭血，在出锅前顺锅圈淋入，快速翻炒令其变成紫褐色，完美包裹鸭肉，关火。"],
-                tip: "江西省非物质文化遗产。鸭肉切得越碎越好。出锅前那一勺米醋稀释的鸭血是点睛之笔。", 
-                img: "./images/lianhuaxueya.jpg" 
+                name: "莲花血鸭", cat: "Special", spicy: "🌶️🌶️🌶️🌶️🌶️ 5/5", diff: "大师级", time: "45min", spicyNum: 5, timeNum: 45,
+                ingredients: ["莲花本地土麻鸭", "新鲜鸭血", "干红椒", "茶油", "老糯米酒"],
+                steps: ["【备肉】鸭肉砍成豆子大小。","【爆香】干辣椒、鲜辣椒、姜蒜入锅.","【合炒】鸭肉炒至干香淋入米酒。","【勾血】下新鲜鸭血快速翻动。","【成品】色泽黑亮，极度下饭。"],
+                tip: "鸭块一定要砍得极碎。", img: "https://images.unsplash.com/photo-1526318896980-cf78c088247c?q=80&w=800",
+                comments: []
             },
             { 
-                name: "庐山石鸡", cat: "Jiujiang", spicy: "🌶️ 2/5", diff: "进阶级", time: "25min", spicyNum: 2, timeNum: 25,
-                ingredients: ["庐山野生石鸡（大田螺/石蛙替代）", "生姜", "大蒜子", "红椒片", "黄酒"],
-                steps: ["【处理】将石鸡剥皮、去内脏，清洗干净后斩成大块。","【焯水】沸水锅中加入黄酒和生姜，将石鸡肉快速焯水捞出。","【煸炒】锅中下入猪油和植物油混合，下大量的生姜片、整颗大蒜子爆出浓郁香气。","【焖烧】下入石鸡肉块大火翻炒，加入老抽、黄酒和少许清水，盖上锅盖中火焖煮8分钟。","【收尾】下入鲜红椒片调色，大火将汤汁收至粘稠，淋少许香油。"],
-                tip: "庐山三石之一。石鸡肉质极其细嫩滑爽，千万不能老，焖煮时间要严格控制。", 
-                img: "./images/shiji.jpg" 
+                name: "庐山石鸡", cat: "Jiujiang", spicy: "🌶️ 1/5", diff: "进阶级", time: "25min", spicyNum: 1, timeNum: 25,
+                ingredients: ["庐山鲜活石鸡", "大蒜瓣", "红椒片", "高粱米酒"],
+                steps: ["【处理】石鸡去皮洗净块。","【煸炒】加姜丝、蒜瓣、红椒片爆炒。","【红焖】淋米酒、酱油焖煮5分钟。","【收汁】加入少许糖提鲜收汁。","【完成】肉质细腻。"],
+                tip: "石鸡其实就是山里的蛙类，一定要烧熟。", img: "https://images.unsplash.com/photo-1615361413105-8825f7712a61?q=80&w=800",
+                comments: []
             },
             { 
-                name: "弋阳年糕", cat: "all", spicy: "🌶️ 1/5", diff: "入门级", time: "15min", spicyNum: 1, timeNum: 15,
-                ingredients: ["弋阳大禾米年糕", "红糖/或冬笋肉丝（可甜可咸）", "小葱"],
-                steps: ["【改刀】将弋阳特产大禾米年糕切成均匀的厚片或条状。","【浸泡】切好的年糕片放入清水中浸泡片刻防止粘连。","【炒制】以咸炒为例：锅中下油炒香肉丝和冬笋丝。","【合炒】下入沥干水分的年糕片，大火不断翻炒，加入少许高汤防止干锅。","【出锅】待年糕完全变软变柔韧，加生抽调味，撒上葱花即可。"],
-                tip: "弋阳年糕采用大禾米‘三蒸二百锤’制成，久炒不粘不碎，口感韧性十足，冠绝全国。", 
-                img: "./images/niangao.jpg" 
+                name: "弋阳年糕", cat: "Special", spicy: "🌶️ 0/5", diff: "初学级", time: "15min", spicyNum: 0, timeNum: 15,
+                ingredients: ["弋阳大米大年糕", "熟咸腊肉", "老抽", "大蒜叶"],
+                steps: ["【切片】大米年糕切成厚片。","【煮制】入沸水煮软捞出。","【炒制】配腊肉大火翻炒。","【入色】加少许老抽上色。","【装盘】口感极具韧性。"],
+                tip: "年糕煮软后要沥干再炒。", img: "https://images.unsplash.com/photo-1590301157890-4810ed352733?q=80&w=800",
+                comments: []
             },
             { 
-                name: "万安鱼焙", cat: "all", spicy: "🌶️ 3/5", diff: "进阶级", time: "30min", spicyNum: 3, timeNum: 30,
-                ingredients: ["万安焙干小鱼", "红椒圈", "大蒜茎", "江西豆豉", "生抽"],
-                steps: ["【洗涤】将焙干的万安小鱼用温水轻轻漂洗，捞出沥干水分（保留独特的柴火焙香）。","【煸干】热锅下少许油，先将小鱼干下锅用小火慢慢焙干表面，使其恢复酥脆，盛出。","【爆香】锅中续重油，下入大蒜子、生姜、江西豆豉和红椒圈爆香。","【合炒】倒入小鱼干，转大火快速翻炒，加入生抽、少许白糖提鲜。","【焖润】喷入少许热水，盖锅盖焖30秒让鱼干稍微吸收汤汁变软，加入大蒜茎翻匀出锅。"],
-                tip: "这是一道极佳的下酒菜，鱼干不要泡太久，要保留其中骨酥肉韧、带烟熏味的特色。", 
-                img: "./images/yupei.jpg" 
+                name: "万安鱼焙", cat: "Special", spicy: "🌶️🌶️ 2/5", diff: "进阶级", time: "30min", spicyNum: 2, timeNum: 30,
+                ingredients: ["万安野生淡水小鱼干", "肥瘦五花肉", "朝天椒干", "生姜片"],
+                steps: ["【备料】熏制的小鱼干洗净。","【煸炒】五花肉煸香，下小鱼干。","【加料】放干辣椒、姜片、蒜末。","【焖制】加少许水焖出香味。","【成品】干香辣脆。"],
+                tip: "小鱼干带烟熏味，是送粥神器。", img: "https://images.unsplash.com/photo-1585109649139-366815a0d713?q=80&w=800",
+                comments: []
             },
             { 
-                name: "文山鸡丁", cat: "all", spicy: "🌶️ 2/5", diff: "进阶级", time: "20min", spicyNum: 2, timeNum: 20,
-                ingredients: ["嫩鸡胸肉/鸡腿肉", "冬笋丁", "红椒丁", "江西本地甜面酱", "水淀粉"],
-                steps: ["【改刀】鸡肉切成1.5厘米见方的小丁，加盐、蛋清、水淀粉抓匀上浆。冬笋切同样大小的丁。","【滑油】四成油温，将鸡丁下锅快速滑散至变白，立刻捞出控油。冬笋丁也下锅焯水。","【酱炒】锅留底油，下入生姜末，倒入江西本地甜面酱和小许高汤炒香吐油。","【大火】倒入滑好的鸡丁和冬笋丁、红椒丁，转大火快速颠锅。","【包裹】让甜酱汁完美包裹住每一个鸡丁，勾薄芡瞬间出锅。"],
-                tip: "向民族英雄文天祥致敬的吉安传统名菜。鸡丁要滑得嫩，笋丁要保持爽脆，酱香浓郁。", 
-                img: "./images/jiding.jpg" 
+                name: "文山鸡丁", cat: "Special", spicy: "🌶️ 1/5", diff: "初学级", time: "15min", spicyNum: 1, timeNum: 15,
+                ingredients: ["土鸡胸肉", "青红椒丁", "生粉", "大葱白段"],
+                steps: ["【切丁】鸡脯肉切丁上浆。","【过油】温油滑散鸡丁捞出行业。","【炒菜】爆葱姜下青红椒丁。","【混合】入鸡丁勾薄芡。","【完成】滑嫩爽口。"],
+                tip: "滑油的温度不要太高。", img: "https://images.unsplash.com/photo-1525755662778-989d0524087e?q=80&w=800",
+                comments: []
             },
             { 
-                name: "泰和乌鸡汤", cat: "all", spicy: "🌶️ 0/5", diff: "入门级", time: "120min", spicyNum: 0, timeNum: 120,
-                ingredients: ["泰和正宗武山乌鸡1只", "原产地枸杞", "党参", "红枣", "生姜片"],
-                steps: ["【整鸡】正宗泰和乌鸡清理干净（丛冠、绿耳、白绒毛、五爪），斩大块或整鸡入锅。","【焯水】冷水下锅，加姜片、料酒，烧开后撇去浮沫，捞出洗净。","【入砂锅】将乌鸡肉放入大砂锅中，一次性加足纯净水，放入厚生姜片、党参和红枣。","【文火】大火烧开后，转极小火（微沸状态）静静慢炖1.5到2小时，至鸡肉酥烂。","【起锅】出锅前15分钟投入枸杞，最后仅加少许盐调味，其余任何香料都不加。"],
-                tip: "必须认准泰和武山原产乌鸡。真正的顶级食材不需要任何花哨的调料，汤清味美，极其大补。", 
-                img: "./images/wujitang.jpg" 
+                name: "泰和乌鸡汤", cat: "Special", spicy: "🌶️ 0/5", diff: "进阶级", time: "120min", spicyNum: 0, timeNum: 120,
+                ingredients: ["正宗泰和白凤乌鸡1只", "老生姜片", "野生党参", "精盐"],
+                steps: ["【备肉】乌骨鸡切大块焯水。","【入罐】瓦罐加姜片、党参。","【煨制】文火慢炖2小时。","【调味】加盐即可。","【出品】滋补圣品。"],
+                tip: "乌鸡汤重在原汁原味。", img: "https://images.unsplash.com/photo-1547592166-23ac45744a05?q=80&w=800",
+                comments: []
             }
         ];
 
